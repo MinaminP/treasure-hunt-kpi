@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/StarterAssets/ThirdPersonController/Scenes/chooseTeam.unity
+    guid: 246ccb1127516ed438b072e60a126995
+  - enabled: 1
+    path: Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity
+    guid: e9017d5f96b9f09489b4b37e1d6eb914
+  - enabled: 1
+    path: Assets/Mirror2/Examples/MultipleMatches/Scenes/Playground2.unity
+    guid: 409ee5bbe69c9694fb1e2bd01d41e86e
+  - enabled: 1
+    path: Assets/Mirror2/Examples/MultipleMatches/Scenes/New Scene.unity
+    guid: b3ed4841fc255f04d8431074c3100355
+  m_configObjects: {}
