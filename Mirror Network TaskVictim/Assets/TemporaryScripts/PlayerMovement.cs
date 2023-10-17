@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using Cinemachine;
+using GameCreator.Characters;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -99,6 +100,7 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _animIDSwim;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -109,6 +111,12 @@ namespace StarterAssets
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
+
+        //private PlayerCharacter pc;
+
+        public GameObject swimBehaviour;
+
+        public bool isSwimming = false;
 
         private bool _hasAnimator;
 
@@ -146,6 +154,15 @@ namespace StarterAssets
             PlayerInput playerInput = GetComponent<PlayerInput>();
             playerInput.enabled = true;
 
+            swimBehaviour.SetActive(true);
+           /* pc = GetComponent<PlayerCharacter>();
+
+            if(pc != null )
+            {
+                pc.characterLocomotion.isControllable = true;
+                pc.characterLocomotion.canRun = true;
+                pc.characterLocomotion.canJump = true;
+            }*/
             //scoreAdder skor = GetComponent<scoreAdder>();
             //scoreAdder.enabled = true;
         }
@@ -193,6 +210,7 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDSwim = Animator.StringToHash("IsSwimming");
         }
 
         private void GroundedCheck()
@@ -207,6 +225,7 @@ namespace StarterAssets
             if (_hasAnimator)
             {
                 _animator.SetBool(_animIDGrounded, Grounded);
+                _animator.SetBool(_animIDSwim, isSwimming);
             }
         }
 
@@ -361,10 +380,19 @@ namespace StarterAssets
                 _input.jump = false;
             }
 
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (_verticalVelocity < _terminalVelocity)
+            if (!isSwimming)
             {
-                _verticalVelocity += Gravity * Time.deltaTime;
+                // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+                if (_verticalVelocity < _terminalVelocity)
+                {
+                    _verticalVelocity += Gravity * Time.deltaTime;
+                }
+            } else
+            {
+                if (_verticalVelocity < _terminalVelocity)
+                {
+                    _verticalVelocity = Gravity * Time.deltaTime;
+                }
             }
         }
 

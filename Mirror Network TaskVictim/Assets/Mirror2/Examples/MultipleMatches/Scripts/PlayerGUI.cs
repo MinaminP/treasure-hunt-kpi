@@ -10,7 +10,7 @@ namespace Mirror.Examples.MultipleMatch
         //public loginController loginController;
 
         //[SyncVar(hook = nameof(SetPlayerName))]public string PlayerUserName;
-        
+
         private void Start()
         {
             //localName = PlayerUserName;
@@ -18,18 +18,18 @@ namespace Mirror.Examples.MultipleMatch
             //CmdSetPlayerName(localName);
             //Debug.Log("Name Should Be : " + localName);
         }
-        
+
         [ClientCallback]
-        public void SetPlayerInfo(PlayerInfo info, string name)
+        public void SetPlayerInfo(PlayerInfo info)
         {
             //playerName.text = $"Player {info.playerIndex}";
-            playerName.text = $"{name} {info.playerIndex}";
+            playerName.text = $"{info.playerName} {info.playerIndex}";
             //CmdSetPlayerName(info.playerName);
             //loginController = GameObject.Find("Canvas (2)").GetComponent<loginController>();
             //playerName.text = loginController.PlayerUserName;
             playerName.color = info.ready ? Color.green : Color.red;
         }
-        
+
         /*[Command(requiresAuthority = false)]
         public void CmdSetPlayerName(string name)
         {

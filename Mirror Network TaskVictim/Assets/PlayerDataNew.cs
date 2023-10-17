@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using Mirror.Examples.MultipleMatch;
 
 public class PlayerDataNew : NetworkBehaviour
 {
@@ -15,7 +16,7 @@ public class PlayerDataNew : NetworkBehaviour
 
     public ScoreboardController scoreboardController;
     public countdownNew timerCounter;
-
+    public CanvasController canvasController;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,10 @@ public class PlayerDataNew : NetworkBehaviour
             //scoreboardController.addPlayer(PlayerName, PlayerTeamName);
             //CmdSendTeamName("Red");
             //CmdSendInitializeScore();
+        }
+        else
+        {
+            enabled = false;
         }
         
     }

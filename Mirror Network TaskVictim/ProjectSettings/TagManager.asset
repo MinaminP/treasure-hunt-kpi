@@ -11,6 +11,7 @@ TagManager:
   - PlayerListItem
   - canvas
   - cControll
+  - water
   layers:
   - Default
   - TransparentFX

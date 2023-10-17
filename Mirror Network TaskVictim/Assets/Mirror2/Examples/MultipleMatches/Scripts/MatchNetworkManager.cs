@@ -8,7 +8,6 @@ namespace Mirror.Examples.MultipleMatch
     {
         [Header("Match GUI")]
         public GameObject canvas;
-        //public GameObject canvas2;
         public CanvasController canvasController;
 
         public static new MatchNetworkManager singleton { get; private set; }
@@ -99,7 +98,6 @@ namespace Mirror.Examples.MultipleMatch
         public override void OnStartClient()
         {
             canvas.SetActive(true);
-            //canvas2.SetActive(true);
             canvasController.OnStartClient();
         }
 
@@ -110,7 +108,6 @@ namespace Mirror.Examples.MultipleMatch
         {
             canvasController.OnStopServer();
             canvas.SetActive(false);
-            //canvas2.SetActive(false);
         }
 
         /// <summary>

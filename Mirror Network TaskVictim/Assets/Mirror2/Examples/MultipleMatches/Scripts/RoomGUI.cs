@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 namespace Mirror.Examples.MultipleMatch
 {
-    public class RoomGUI : MonoBehaviour
+    public class RoomGUI : NetworkBehaviour
     {
         public GameObject playerList;
         public GameObject playerPrefab;
@@ -12,6 +13,19 @@ namespace Mirror.Examples.MultipleMatch
         public Button startButton;
         public bool owner;
 
+        [SyncVar(hook = "UpdateLocalName")] public string localName;
+
+        private void Start()
+        {
+            //localName = LocalPlayerData.playerUserName;
+            //changeName();
+        }
+
+        [Command]
+        public void changeName()
+        {
+            localName = LocalPlayerData.playerUserName;
+        }
 
         [ClientCallback]
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)
@@ -22,11 +36,13 @@ namespace Mirror.Examples.MultipleMatch
             startButton.interactable = false;
             bool everyoneReady = true;
 
+            
             foreach (PlayerInfo playerInfo in playerInfos)
             {
                 GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
                 newPlayer.transform.SetParent(playerList.transform, false);
-                newPlayer.GetComponent<PlayerGUI>().SetPlayerInfo(playerInfo, playerInfo.playerName);
+                newPlayer.GetComponent<PlayerGUI>().SetPlayerInfo(playerInfo);
+
                 if (!playerInfo.ready)
                     everyoneReady = false;
             }
@@ -40,6 +56,11 @@ namespace Mirror.Examples.MultipleMatch
             this.owner = owner;
             cancelButton.SetActive(owner);
             leaveButton.SetActive(!owner);
+        }
+
+        public void UpdateLocalName(string oldName, string newName)
+        {
+            Debug.Log("wii");
         }
     }
 }

@@ -206,7 +206,7 @@ namespace Mirror.Examples.MultipleMatch
             Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
 
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Ready, matchId = matchId });
-            
+
         }
 
         /// <summary>
