@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
-using Mirror.Examples.MultipleMatch;
 
 public class PlayerDataNew : NetworkBehaviour
 {
@@ -16,7 +15,7 @@ public class PlayerDataNew : NetworkBehaviour
 
     public ScoreboardController scoreboardController;
     public countdownNew timerCounter;
-    public CanvasController canvasController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,12 +27,12 @@ public class PlayerDataNew : NetworkBehaviour
         {
             //float randomNumber = Random.Range(0, 1000000);
             //string tempName = canvasController.temporaryLocalName;
-
-            CmdSendName(LocalPlayerData.playerUserName);
+            GameObject.Find("Canvas (2)").GetComponent<ChangeNameNew>().playerData = this;
+            //CmdSendName("Player " + randomNumber);
             //CmdSendName(tempName);
             //UpdatePlayerName(PlayerName, "Player " + randomNumber);
+            CmdSendName(LocalPlayerData.playerUserName);
 
-            GameObject.Find("Canvas").GetComponent<ChangeNameNew>().playerData = this;
             //scoreboardController.addPlayer(PlayerName, PlayerTeamName);
             //CmdSendTeamName("Red");
             //CmdSendInitializeScore();
@@ -45,7 +44,8 @@ public class PlayerDataNew : NetworkBehaviour
     public void CmdSendName(string playerName)
     {
         PlayerName = playerName;
-        //gameObject.name = PlayerName;
+        gameObject.name = PlayerName;
+
     }
 
     [Command]
@@ -86,6 +86,7 @@ public class PlayerDataNew : NetworkBehaviour
         //scoreboard.UpdateScore(PlayerName, PlayerScore);
 
         scoreboardController.UpdateTeamScore(PlayerTeamName, 0);
+
         //scoreboard.playerCountTotal += 1;
 
         //scoreboard.realUpdate();
@@ -110,7 +111,7 @@ public class PlayerDataNew : NetworkBehaviour
 
     public void UpdatePlayerScore(int oldScore, int newScore)
     {
-        Debug.Log("Player score updated from " + oldScore + " to " + newScore);
+        Debug.Log(PlayerName + " score updated from " + oldScore + " to " + newScore);
         //scoreboardController.UpdateScore(PlayerName, newScore);
     }
 

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
 
 namespace Mirror.Examples.MultipleMatch
 {
@@ -13,10 +12,6 @@ namespace Mirror.Examples.MultipleMatch
         public Button startButton;
         public bool owner;
 
-        private void Start()
-        {
-
-        }
 
         [ClientCallback]
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)
@@ -32,7 +27,6 @@ namespace Mirror.Examples.MultipleMatch
                 GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
                 newPlayer.transform.SetParent(playerList.transform, false);
                 newPlayer.GetComponent<PlayerGUI>().SetPlayerInfo(playerInfo, playerInfo.playerName);
-
                 if (!playerInfo.ready)
                     everyoneReady = false;
             }

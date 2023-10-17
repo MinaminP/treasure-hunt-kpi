@@ -7,11 +7,11 @@ using Unity.VisualScripting;
 public class interact : NetworkBehaviour
 {
     public bool isInArea;
-    public GameObject siCanvas;
+    //public GameObject siCanvas;
     public float score = 0f;
 
-    public ChangeName canvas;
-    public CountdownTimer timer;
+    public ChangeNameNew canvas;
+    //public CountdownTimer timer;
 
     //public GameObject Player;
 
@@ -20,6 +20,7 @@ public class interact : NetworkBehaviour
     public void Start()
     {
         //scoreAdd.dataUpdates();
+        canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         isInArea = false;
     }
 
@@ -45,16 +46,11 @@ public class interact : NetworkBehaviour
                 //siCanvas.GetComponent<playerList>().updateDataPlayer();
                 //scoreAdd.tambahSkor();
                 //scoreAdd.dataUpdates();
-                canvas.changeScoreButton();
+                //canvas.changeScoreButton();
                 hancurkan();
             }
 
 
-        }
-
-        if (timer.timer <= 0)
-        {
-            hancurkan();
         }
         
     }

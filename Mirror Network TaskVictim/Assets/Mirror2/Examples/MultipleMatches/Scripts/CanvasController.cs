@@ -69,11 +69,19 @@ namespace Mirror.Examples.MultipleMatch
         public ToggleGroup toggleGroup;
 
         public string temporaryLocalName;
+        //public GameObject canvas2;
+
+        /*string username;
+
+        public struct NameMessage : NetworkMessage
+        {
+            public string username;
+        }*/
 
         private void Start()
         {
-            temporaryLocalName = LocalPlayerData.playerUserName;
-            Debug.Log(temporaryLocalName);
+            //temporaryLocalName = LocalPlayerData.playerUserName;
+            //Debug.Log("tempLocalName : " + temporaryLocalName);
         }
 
         // RuntimeInitializeOnLoadMethod -> fast playmode without domain reload
@@ -112,6 +120,7 @@ namespace Mirror.Examples.MultipleMatch
             lobbyView.SetActive(false);
             roomView.SetActive(false);
             gameObject.SetActive(false);
+            //canvas2.SetActive(false);
         }
 
         #endregion
@@ -239,7 +248,9 @@ namespace Mirror.Examples.MultipleMatch
         internal void OnServerReady(NetworkConnectionToClient conn)
         {
             waitingConnections.Add(conn);
-            playerInfos.Add(conn, new PlayerInfo { playerIndex = this.playerIndex, ready = false });
+            //temporaryLocalName = LocalPlayerData.playerUserName;
+            temporaryLocalName = PlayerPrefs.GetString("theName");
+            playerInfos.Add(conn, new PlayerInfo { playerName = temporaryLocalName, playerIndex = this.playerIndex, ready = false });
             playerIndex++;
             SendMatchList();
         }
@@ -304,8 +315,21 @@ namespace Mirror.Examples.MultipleMatch
         [ClientCallback]
         internal void OnClientConnect()
         {
-            playerInfos.Add(NetworkClient.connection, new PlayerInfo { playerName = this.temporaryLocalName, playerIndex = this.playerIndex, ready = false });
+            //temporaryLocalName = LocalPlayerData.playerUserName;
+            //Debug.Log("tempLocalName : " + temporaryLocalName);
+            playerInfos.Add(NetworkClient.connection, new PlayerInfo { playerIndex = this.playerIndex, ready = false });
         }
+
+        /*private void OnNameInput(NameMessage message)
+        {
+            temporaryLocalName += $"{message.username}";
+        }
+
+        private void SendName()
+        {
+            NetworkServer.SendToAll(new NameMessage { username = temporaryLocalName });
+        }
+         */
 
         [ClientCallback]
         internal void OnStartClient()
