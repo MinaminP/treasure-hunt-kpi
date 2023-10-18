@@ -14,7 +14,6 @@ public class countdownNew : NetworkBehaviour
     public bool hasStarted = false;
 
     public TextMeshProUGUI timerText;
-    public RoomGUI roomGUI;
     // Start is called before the first frame update
     void Start()
     {

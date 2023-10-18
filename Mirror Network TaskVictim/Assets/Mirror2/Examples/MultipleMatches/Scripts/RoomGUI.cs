@@ -15,6 +15,15 @@ namespace Mirror.Examples.MultipleMatch
         public int playerRed;
         public int playerBlue;
 
+        public Button timerDefine5;
+        public Button timerDefine10;
+        public Button timerDefine15;
+
+        public void changetimer(float timer)
+        {
+            LocalPlayerData.gametimer = timer;
+        }
+
         [ClientCallback]
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)
         {
@@ -56,6 +65,10 @@ namespace Mirror.Examples.MultipleMatch
             }
 
             startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1);
+
+            timerDefine5.interactable = owner;
+            timerDefine10.interactable = owner;
+            timerDefine15.interactable = owner;
         }
 
         [ClientCallback]

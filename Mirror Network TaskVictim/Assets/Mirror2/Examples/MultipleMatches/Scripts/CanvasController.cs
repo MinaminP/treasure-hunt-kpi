@@ -269,8 +269,8 @@ namespace Mirror.Examples.MultipleMatch
         {
             waitingConnections.Add(conn);
             //temporaryLocalName = LocalPlayerData.playerUserName;
-            //temporaryLocalName = PlayerPrefs.GetString("theName");
-            playerInfos.Add(conn, new PlayerInfo {playerTeam = "", playerIndex = this.playerIndex, ready = false });
+            temporaryLocalName = PlayerPrefs.GetString("theName");
+            playerInfos.Add(conn, new PlayerInfo {playerName = temporaryLocalName, playerTeam = "", playerIndex = this.playerIndex, ready = false });
             playerIndex++;
             SendMatchList();
         }
