@@ -69,7 +69,7 @@ namespace Mirror.Examples.MultipleMatch
         public ToggleGroup toggleGroup;
 
         public string temporaryLocalName;
-        //public GameObject canvas2;
+        public GameObject canvas2;
 
         /*string username;
 
@@ -160,7 +160,6 @@ namespace Mirror.Examples.MultipleMatch
         public void RequestCreateMatch()
         {
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Create });
-            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName });
         }
 
         /// <summary>
@@ -172,7 +171,6 @@ namespace Mirror.Examples.MultipleMatch
             if (selectedMatch == Guid.Empty) return;
 
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Join, matchId = selectedMatch });
-            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName });
         }
 
         /// <summary>
@@ -272,7 +270,7 @@ namespace Mirror.Examples.MultipleMatch
             waitingConnections.Add(conn);
             //temporaryLocalName = LocalPlayerData.playerUserName;
             //temporaryLocalName = PlayerPrefs.GetString("theName");
-            playerInfos.Add(conn, new PlayerInfo { playerTeam = "", playerIndex = this.playerIndex, ready = false });
+            playerInfos.Add(conn, new PlayerInfo {playerTeam = "", playerIndex = this.playerIndex, ready = false });
             playerIndex++;
             SendMatchList();
         }

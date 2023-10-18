@@ -12,8 +12,8 @@ namespace Mirror.Examples.MultipleMatch
         public Button startButton;
         public bool owner;
 
-        int playerRed;
-        int playerBlue;
+        public int playerRed;
+        public int playerBlue;
 
         [ClientCallback]
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)
@@ -55,7 +55,7 @@ namespace Mirror.Examples.MultipleMatch
                 }
             }
 
-            startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1) && playerRed == playerInfos.Length / 2 && playerBlue == playerInfos.Length / 2;
+            startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1);
         }
 
         [ClientCallback]
