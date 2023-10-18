@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
 
 namespace Mirror.Examples.MultipleMatch
 {
-    public class RoomGUI : NetworkBehaviour
+    public class RoomGUI : MonoBehaviour
     {
         public GameObject playerList;
         public GameObject playerPrefab;
@@ -13,19 +12,8 @@ namespace Mirror.Examples.MultipleMatch
         public Button startButton;
         public bool owner;
 
-        [SyncVar(hook = "UpdateLocalName")] public string localName;
-
-        private void Start()
-        {
-            //localName = LocalPlayerData.playerUserName;
-            //changeName();
-        }
-
-        [Command]
-        public void changeName()
-        {
-            localName = LocalPlayerData.playerUserName;
-        }
+        int playerRed;
+        int playerBlue;
 
         [ClientCallback]
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)
@@ -43,11 +31,31 @@ namespace Mirror.Examples.MultipleMatch
                 newPlayer.transform.SetParent(playerList.transform, false);
                 newPlayer.GetComponent<PlayerGUI>().SetPlayerInfo(playerInfo);
 
-                if (!playerInfo.ready)
+                if (playerInfo.playerTeam == "Red")
+                {
+                    playerRed++;
+                    if(playerBlue != 0)
+                    {
+                        playerBlue--;
+                    }
+                }
+
+                if (playerInfo.playerTeam == "Blue")
+                {
+                    playerBlue++;
+                    if (playerRed != 0)
+                    {
+                        playerRed--;
+                    }
+                }
+
+                if (!playerInfo.ready || playerInfo.playerTeam == " ")
+                {
                     everyoneReady = false;
+                }
             }
 
-            startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1);
+            startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1) && playerRed == playerInfos.Length / 2 && playerBlue == playerInfos.Length / 2;
         }
 
         [ClientCallback]
@@ -58,25 +66,9 @@ namespace Mirror.Examples.MultipleMatch
             leaveButton.SetActive(!owner);
         }
 
-        public void UpdateLocalName(string oldName, string newName)
+        public void SetTeam(string team)
         {
-            Debug.Log("wii");
-        }
-
-        public void setBlue()
-        {
-            LocalPlayerData.playerTeam = "Blue";
-
-            //bluButton.SetActive(false);
-            //redButton.SetActive(false);
-        }
-
-        public void setRed()
-        {
-            LocalPlayerData.playerTeam = "Red";
-
-            //bluButton.SetActive(false);
-            //redButton.SetActive(false);
+            LocalPlayerData.playerTeam = team;
         }
     }
 }
