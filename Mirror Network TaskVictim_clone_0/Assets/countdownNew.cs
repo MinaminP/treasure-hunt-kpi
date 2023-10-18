@@ -1,4 +1,5 @@
 using Mirror;
+using Mirror.Examples.MultipleMatch;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,10 +14,15 @@ public class countdownNew : NetworkBehaviour
     public bool hasStarted = false;
 
     public TextMeshProUGUI timerText;
+    public RoomGUI roomGUI;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(LocalPlayerData.isOwner == true)
+        {
+            StartTimer(LocalPlayerData.gametimer);
+        }
+
     }
 
     // Update is called once per frame
@@ -39,6 +45,19 @@ public class countdownNew : NetworkBehaviour
             }
         }
         
+    }
+
+    public void changeTimer()
+    {
+        timer = 300f;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void StartTimer(float startTime)
+    {
+        timer = startTime;
+        //isCounting = true;
+        //hasStarted = true;
     }
 
     private void OnTimerChanged(float oldTimer, float newTimer)

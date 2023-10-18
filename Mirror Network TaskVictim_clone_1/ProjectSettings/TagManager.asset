@@ -12,6 +12,7 @@ TagManager:
   - canvas
   - cControll
   - water
+  - time
   layers:
   - Default
   - TransparentFX

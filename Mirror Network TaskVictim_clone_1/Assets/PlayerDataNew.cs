@@ -21,9 +21,10 @@ public class PlayerDataNew : NetworkBehaviour
     void Start()
     {
         //scoreboardController = GameObject.FindWithTag("canvas").GetComponent<ScoreboardController>();
-        //timerCounter = GameObject.FindWithTag("canvas").GetComponent<countdownNew>();
+        timerCounter = GameObject.FindWithTag("time").GetComponent<countdownNew>();
         //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
-        //timerCounter.hasStarted = true;
+        timerCounter.hasStarted = true;
+        //startwaktu();
         if (isLocalPlayer)
         {
             //float randomNumber = Random.Range(0, 1000000);
@@ -42,6 +43,11 @@ public class PlayerDataNew : NetworkBehaviour
         else
         {
             enabled = false;
+        }
+
+        if (isServer)
+        {
+            Debug.Log("saya HOST");
         }
         
     }
@@ -102,6 +108,19 @@ public class PlayerDataNew : NetworkBehaviour
         //scoreboard.realUpdate();
 
     }
+
+    [Command]
+    public void startwaktu()
+    {
+        startRpcWaktu();
+    }
+
+    [ClientRpc]
+    public void startRpcWaktu() {
+        timerCounter.StartTimer(LocalPlayerData.gametimer);
+    }
+
+
 
     // Update is called once per frame
     void Update()

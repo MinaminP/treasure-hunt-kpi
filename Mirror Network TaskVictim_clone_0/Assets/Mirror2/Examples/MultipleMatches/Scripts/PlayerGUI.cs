@@ -23,7 +23,7 @@ namespace Mirror.Examples.MultipleMatch
         public void SetPlayerInfo(PlayerInfo info)
         {
             //playerName.text = $"Player {info.playerIndex}";
-            playerName.text = $"{info.playerName} {info.playerTeam}";
+            playerName.text = $"{info.playerName} {info.playerIndex}";
             //CmdSetPlayerName(info.playerName);
             //loginController = GameObject.Find("Canvas (2)").GetComponent<loginController>();
             //playerName.text = loginController.PlayerUserName;

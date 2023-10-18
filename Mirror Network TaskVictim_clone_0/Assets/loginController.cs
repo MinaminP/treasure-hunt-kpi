@@ -21,7 +21,7 @@ public class loginController : MonoBehaviour
     {
         LocalPlayerData.playerUserName = nameInputField.text;
         Debug.Log(LocalPlayerData.playerUserName);
-        //PlayerPrefs.SetString("theName", nameInputField.text);
+        PlayerPrefs.SetString("theName", nameInputField.text);
         //PlayerUserName = LocalPlayerData.playerUserName;
         //canvasController.temporaryLocalName = LocalPlayerData.playerUserName;
         //Debug.Log("temporaryLocalName : " + canvasController.temporaryLocalName);
