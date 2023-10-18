@@ -40,6 +40,7 @@ namespace Mirror.Examples.MultipleMatch
     public struct PlayerInfo
     {
         public string playerName;
+        public string playerTeam;
         public int playerIndex;
         public bool ready;
         public Guid matchId;
@@ -64,7 +65,10 @@ namespace Mirror.Examples.MultipleMatch
         Start,
         Join,
         Leave,
-        Ready
+        Ready,
+        SelectTeamBlue,
+        SelectTeamRed,
+        SetName
     }
 
     /// <summary>
@@ -79,7 +83,8 @@ namespace Mirror.Examples.MultipleMatch
         Joined,
         Departed,
         UpdateRoom,
-        Started
+        Started,
+        SetName
     }
 
     //     A1 | B1 | C1
