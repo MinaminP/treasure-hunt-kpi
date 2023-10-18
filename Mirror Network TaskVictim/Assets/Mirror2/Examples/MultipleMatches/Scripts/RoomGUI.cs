@@ -4,7 +4,7 @@ using Mirror;
 
 namespace Mirror.Examples.MultipleMatch
 {
-    public class RoomGUI : NetworkBehaviour
+    public class RoomGUI : MonoBehaviour
     {
         public GameObject playerList;
         public GameObject playerPrefab;
@@ -12,8 +12,14 @@ namespace Mirror.Examples.MultipleMatch
         public GameObject leaveButton;
         public Button startButton;
         public bool owner;
+        public Button timerDefine5;
+        public Button timerDefine10;
+        public Button timerDefine15;
 
-        [SyncVar(hook = "UpdateLocalName")] public string localName;
+        //[SyncVar(hook = "UpdateLocalName")] public string localName;
+        //[SyncVar(hook = "UpdateLocalTime")] public float time;
+
+        //[SyncVar(hook = nameof(UpdateLocalTime))] public float time;
 
         private void Start()
         {
@@ -21,10 +27,12 @@ namespace Mirror.Examples.MultipleMatch
             //changeName();
         }
 
-        [Command]
-        public void changeName()
+
+        
+        public void changetimer(float timer)
         {
-            localName = LocalPlayerData.playerUserName;
+            //time = timer;
+            LocalPlayerData.gametimer = timer;
         }
 
         [ClientCallback]
@@ -35,6 +43,10 @@ namespace Mirror.Examples.MultipleMatch
 
             startButton.interactable = false;
             bool everyoneReady = true;
+
+            timerDefine5.interactable = false;
+            timerDefine10.interactable = false;
+            timerDefine15.interactable = false;
 
             
             foreach (PlayerInfo playerInfo in playerInfos)
@@ -48,20 +60,22 @@ namespace Mirror.Examples.MultipleMatch
             }
 
             startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1);
+
+            timerDefine5.interactable = owner;
+            timerDefine10.interactable = owner;
+            timerDefine15.interactable = owner;
         }
 
         [ClientCallback]
         public void SetOwner(bool owner)
         {
             this.owner = owner;
+            LocalPlayerData.isOwner = owner;
             cancelButton.SetActive(owner);
             leaveButton.SetActive(!owner);
         }
 
-        public void UpdateLocalName(string oldName, string newName)
-        {
-            Debug.Log("wii");
-        }
+      
 
         public void setBlue()
         {
