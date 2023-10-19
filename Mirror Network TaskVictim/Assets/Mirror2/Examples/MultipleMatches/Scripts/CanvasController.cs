@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Mirror.Examples.MultipleMatch
 {
@@ -68,8 +69,10 @@ namespace Mirror.Examples.MultipleMatch
         public RoomGUI roomGUI;
         public ToggleGroup toggleGroup;
 
+
         public string temporaryLocalName;
-        public GameObject canvas2;
+
+        public TMP_InputField nameInputField;
 
         /*string username;
 
@@ -240,6 +243,16 @@ namespace Mirror.Examples.MultipleMatch
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SelectTeamRed, matchId = matchId });
         }
 
+        [ClientCallback]
+        public void RequestSetName()
+        {
+            if (localPlayerMatch == Guid.Empty && localJoinedMatch == Guid.Empty) return;
+
+            Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
+
+            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName, matchId = matchId });
+        }
+
         /// <summary>
         /// Called from <see cref="MatchController.RpcExitGame"/>
         /// </summary>
@@ -270,7 +283,7 @@ namespace Mirror.Examples.MultipleMatch
             waitingConnections.Add(conn);
             //temporaryLocalName = LocalPlayerData.playerUserName;
             temporaryLocalName = PlayerPrefs.GetString("theName");
-            playerInfos.Add(conn, new PlayerInfo {playerName = temporaryLocalName, playerTeam = "", playerIndex = this.playerIndex, ready = false });
+            playerInfos.Add(conn, new PlayerInfo {playerName = temporaryLocalName, playerTeam = " ", playerIndex = this.playerIndex, ready = false });
             playerIndex++;
             SendMatchList();
         }
@@ -481,7 +494,7 @@ namespace Mirror.Examples.MultipleMatch
         void OnServerSetName(NetworkConnectionToClient conn, Guid matchId) 
         {
             PlayerInfo playerInfo = playerInfos[conn];
-            playerInfo.playerName = LocalPlayerData.playerUserName;
+            playerInfo.playerName = temporaryLocalName;
             playerInfos[conn] = playerInfo;
 
             HashSet<NetworkConnectionToClient> connections = matchConnections[matchId];

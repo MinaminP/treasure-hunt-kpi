@@ -15,6 +15,10 @@ namespace Mirror.Examples.MultipleMatch
         public int playerRed;
         public int playerBlue;
 
+        public Button redTeamButton;
+        public Button blueTeamButton;
+
+        public GameObject timerContainer;
         public Button timerDefine5;
         public Button timerDefine10;
         public Button timerDefine15;
@@ -33,28 +37,37 @@ namespace Mirror.Examples.MultipleMatch
             startButton.interactable = false;
             bool everyoneReady = true;
 
-            
+            timerDefine5.interactable = owner;
+            timerDefine10.interactable = owner;
+            timerDefine15.interactable = owner;
+
             foreach (PlayerInfo playerInfo in playerInfos)
             {
                 GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
                 newPlayer.transform.SetParent(playerList.transform, false);
                 newPlayer.GetComponent<PlayerGUI>().SetPlayerInfo(playerInfo);
 
-                if (playerInfo.playerTeam == "Red")
+                if(playerRed < playerInfos.Length)
                 {
-                    playerRed++;
-                    if(playerBlue != 0)
+                    if (playerInfo.playerTeam == "Red")
                     {
-                        playerBlue--;
+                        playerRed++;
+                        if (playerBlue != 0)
+                        {
+                            playerBlue--;
+                        }
                     }
                 }
 
-                if (playerInfo.playerTeam == "Blue")
+                if (playerBlue < playerInfos.Length)
                 {
-                    playerBlue++;
-                    if (playerRed != 0)
+                    if (playerInfo.playerTeam == "Blue")
                     {
-                        playerRed--;
+                        playerBlue++;
+                        if (playerRed != 0)
+                        {
+                            playerRed--;
+                        }
                     }
                 }
 
@@ -64,11 +77,8 @@ namespace Mirror.Examples.MultipleMatch
                 }
             }
 
-            startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1);
-
-            timerDefine5.interactable = owner;
-            timerDefine10.interactable = owner;
-            timerDefine15.interactable = owner;
+            startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1) && 
+                (playerRed == playerInfos.Length / 2 || playerRed == playerInfos.Length / 2 + 1) && (playerBlue == playerInfos.Length / 2 || playerBlue == playerInfos.Length / 2 + 1);
         }
 
         [ClientCallback]
@@ -77,11 +87,22 @@ namespace Mirror.Examples.MultipleMatch
             this.owner = owner;
             cancelButton.SetActive(owner);
             leaveButton.SetActive(!owner);
+            timerContainer.gameObject.SetActive(owner);
         }
 
         public void SetTeam(string team)
         {
             LocalPlayerData.playerTeam = team;
+            if(team == "Red")
+            {
+                redTeamButton.interactable = false;
+                blueTeamButton.interactable = true;
+            }
+            if (team == "Blue")
+            {
+                blueTeamButton.interactable = false;
+                redTeamButton.interactable= true;
+            }
         }
     }
 }
