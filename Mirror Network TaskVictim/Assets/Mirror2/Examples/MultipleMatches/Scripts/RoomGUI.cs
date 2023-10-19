@@ -19,6 +19,7 @@ namespace Mirror.Examples.MultipleMatch
         public Button blueTeamButton;
 
         public GameObject timerContainer;
+
         public Button timerDefine5;
         public Button timerDefine10;
         public Button timerDefine15;
@@ -27,6 +28,10 @@ namespace Mirror.Examples.MultipleMatch
         {
             LocalPlayerData.gametimer = timer;
         }
+
+        public int playerRed;
+        public int playerBlue;
+
 
         [ClientCallback]
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)

@@ -17,13 +17,16 @@ public class PlayerDataNew : NetworkBehaviour
     public ScoreboardController scoreboardController;
     public countdownNew timerCounter;
     public CanvasController canvasController;
+    public RandomSpawnTreasure random;
     // Start is called before the first frame update
     void Start()
     {
         //scoreboardController = GameObject.FindWithTag("canvas").GetComponent<ScoreboardController>();
         timerCounter = GameObject.FindWithTag("time").GetComponent<countdownNew>();
+        random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
         timerCounter.hasStarted = true;
+        random.RandomSpawn();
         //startwaktu();
         if (isLocalPlayer)
         {

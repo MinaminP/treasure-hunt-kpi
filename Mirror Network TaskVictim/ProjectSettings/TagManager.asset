@@ -12,6 +12,8 @@ TagManager:
   - canvas
   - cControll
   - water
+  - time
+  - random
   layers:
   - Default
   - TransparentFX
