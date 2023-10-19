@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
 
 namespace Mirror.Examples.MultipleMatch
 {
@@ -13,26 +12,20 @@ namespace Mirror.Examples.MultipleMatch
         public Button startButton;
         public bool owner;
 
+        public int playerRed;
+        public int playerBlue;
+
+        public Button redTeamButton;
+        public Button blueTeamButton;
+
+        public GameObject timerContainer;
+
         public Button timerDefine5;
         public Button timerDefine10;
         public Button timerDefine15;
 
-        //[SyncVar(hook = "UpdateLocalName")] public string localName;
-        //[SyncVar(hook = "UpdateLocalTime")] public float time;
-
-        //[SyncVar(hook = nameof(UpdateLocalTime))] public float time;
-
-        private void Start()
-        {
-            //localName = LocalPlayerData.playerUserName;
-            //changeName();
-        }
-
-
-        
         public void changetimer(float timer)
         {
-            //time = timer;
             LocalPlayerData.gametimer = timer;
         }
 
@@ -49,53 +42,72 @@ namespace Mirror.Examples.MultipleMatch
             startButton.interactable = false;
             bool everyoneReady = true;
 
-            //timerDefine5.interactable = false;
-            //timerDefine10.interactable = false;
-            //timerDefine15.interactable = false;
+            timerDefine5.interactable = owner;
+            timerDefine10.interactable = owner;
+            timerDefine15.interactable = owner;
 
-            
             foreach (PlayerInfo playerInfo in playerInfos)
             {
                 GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
                 newPlayer.transform.SetParent(playerList.transform, false);
                 newPlayer.GetComponent<PlayerGUI>().SetPlayerInfo(playerInfo);
 
-                if (!playerInfo.ready)
+                if(playerRed < playerInfos.Length)
+                {
+                    if (playerInfo.playerTeam == "Red")
+                    {
+                        playerRed++;
+                        if (playerBlue != 0)
+                        {
+                            playerBlue--;
+                        }
+                    }
+                }
+
+                if (playerBlue < playerInfos.Length)
+                {
+                    if (playerInfo.playerTeam == "Blue")
+                    {
+                        playerBlue++;
+                        if (playerRed != 0)
+                        {
+                            playerRed--;
+                        }
+                    }
+                }
+
+                if (!playerInfo.ready || playerInfo.playerTeam == " ")
+                {
                     everyoneReady = false;
+                }
             }
 
-            startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1);
-
-            timerDefine5.interactable = owner;
-            timerDefine10.interactable = owner;
-            timerDefine15.interactable = owner;
+            startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1) && 
+                (playerRed == playerInfos.Length / 2 || playerRed == playerInfos.Length / 2 + 1) && (playerBlue == playerInfos.Length / 2 || playerBlue == playerInfos.Length / 2 + 1);
         }
 
         [ClientCallback]
         public void SetOwner(bool owner)
         {
             this.owner = owner;
-            LocalPlayerData.isOwner = owner;
             cancelButton.SetActive(owner);
             leaveButton.SetActive(!owner);
+            timerContainer.gameObject.SetActive(owner);
         }
 
-      
-
-        public void setBlue()
+        public void SetTeam(string team)
         {
-            LocalPlayerData.playerTeam = "Blue";
-
-            //bluButton.SetActive(false);
-            //redButton.SetActive(false);
-        }
-
-        public void setRed()
-        {
-            LocalPlayerData.playerTeam = "Red";
-
-            //bluButton.SetActive(false);
-            //redButton.SetActive(false);
+            LocalPlayerData.playerTeam = team;
+            if(team == "Red")
+            {
+                redTeamButton.interactable = false;
+                blueTeamButton.interactable = true;
+            }
+            if (team == "Blue")
+            {
+                blueTeamButton.interactable = false;
+                redTeamButton.interactable= true;
+            }
         }
     }
 }

@@ -47,11 +47,6 @@ public class PlayerDataNew : NetworkBehaviour
         {
             enabled = false;
         }
-
-        if (isServer)
-        {
-            Debug.Log("saya HOST");
-        }
         
     }
 
@@ -111,19 +106,6 @@ public class PlayerDataNew : NetworkBehaviour
         //scoreboard.realUpdate();
 
     }
-
-    [Command]
-    public void startwaktu()
-    {
-        startRpcWaktu();
-    }
-
-    [ClientRpc]
-    public void startRpcWaktu() {
-        timerCounter.StartTimer(LocalPlayerData.gametimer);
-    }
-
-
 
     // Update is called once per frame
     void Update()
