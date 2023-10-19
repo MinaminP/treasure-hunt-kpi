@@ -160,7 +160,7 @@ namespace Mirror.Examples.MultipleMatch
         public void RequestCreateMatch()
         {
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Create });
-            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName });
+            //NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName });
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Mirror.Examples.MultipleMatch
             if (selectedMatch == Guid.Empty) return;
 
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Join, matchId = selectedMatch });
-            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName });
+            //NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName });
         }
 
         /// <summary>
@@ -271,8 +271,9 @@ namespace Mirror.Examples.MultipleMatch
         {
             waitingConnections.Add(conn);
             //temporaryLocalName = LocalPlayerData.playerUserName;
-            //temporaryLocalName = PlayerPrefs.GetString("theName");
-            playerInfos.Add(conn, new PlayerInfo { playerTeam = "", playerIndex = this.playerIndex, ready = false });
+            temporaryLocalName = PlayerPrefs.GetString("theName");
+
+            playerInfos.Add(conn, new PlayerInfo {playerName = this.temporaryLocalName, playerTeam = "", playerIndex = this.playerIndex, ready = false });
             playerIndex++;
             SendMatchList();
         }

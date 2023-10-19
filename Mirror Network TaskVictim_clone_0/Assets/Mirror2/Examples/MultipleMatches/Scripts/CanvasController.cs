@@ -160,6 +160,7 @@ namespace Mirror.Examples.MultipleMatch
         public void RequestCreateMatch()
         {
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Create });
+            //NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName });
         }
 
         /// <summary>
@@ -171,6 +172,7 @@ namespace Mirror.Examples.MultipleMatch
             if (selectedMatch == Guid.Empty) return;
 
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Join, matchId = selectedMatch });
+            //NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetName });
         }
 
         /// <summary>
@@ -220,6 +222,26 @@ namespace Mirror.Examples.MultipleMatch
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Start });
         }
 
+        [ClientCallback]
+        public void RequestTeamBlue()
+        {
+            if (localPlayerMatch == Guid.Empty && localJoinedMatch == Guid.Empty) return;
+
+            Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
+
+            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SelectTeamBlue, matchId = matchId });
+        }
+
+        [ClientCallback]
+        public void RequestTeamRed()
+        {
+            if (localPlayerMatch == Guid.Empty && localJoinedMatch == Guid.Empty) return;
+
+            Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
+
+            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SelectTeamRed, matchId = matchId });
+        }
+
         /// <summary>
         /// Called from <see cref="MatchController.RpcExitGame"/>
         /// </summary>
@@ -250,7 +272,8 @@ namespace Mirror.Examples.MultipleMatch
             waitingConnections.Add(conn);
             //temporaryLocalName = LocalPlayerData.playerUserName;
             temporaryLocalName = PlayerPrefs.GetString("theName");
-            playerInfos.Add(conn, new PlayerInfo { playerName = temporaryLocalName, playerIndex = this.playerIndex, ready = false });
+
+            playerInfos.Add(conn, new PlayerInfo {playerName = this.temporaryLocalName, playerTeam = "", playerIndex = this.playerIndex, ready = false });
             playerIndex++;
             SendMatchList();
         }
@@ -397,6 +420,21 @@ namespace Mirror.Examples.MultipleMatch
                         OnServerPlayerReady(conn, msg.matchId);
                         break;
                     }
+                case ServerMatchOperation.SelectTeamBlue:
+                    {
+                        OnServerPlayerSwitchBlue(conn, msg.matchId);
+                        break;
+                    }
+                case ServerMatchOperation.SelectTeamRed:
+                    {
+                        OnServerPlayerSwitchRed(conn, msg.matchId);
+                        break;
+                    }
+                case ServerMatchOperation.SetName:
+                    {
+                        OnServerSetName(conn, msg.matchId);
+                        break;
+                    }
             }
         }
 
@@ -405,6 +443,48 @@ namespace Mirror.Examples.MultipleMatch
         {
             PlayerInfo playerInfo = playerInfos[conn];
             playerInfo.ready = !playerInfo.ready;
+            playerInfos[conn] = playerInfo;
+
+            HashSet<NetworkConnectionToClient> connections = matchConnections[matchId];
+            PlayerInfo[] infos = connections.Select(playerConn => playerInfos[playerConn]).ToArray();
+
+            foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
+                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+        }
+
+        [ServerCallback]
+        void OnServerPlayerSwitchBlue(NetworkConnectionToClient conn, Guid matchId)
+        {
+            PlayerInfo playerInfo = playerInfos[conn];
+            playerInfo.playerTeam = "Blue";
+            playerInfos[conn] = playerInfo;
+
+            HashSet<NetworkConnectionToClient> connections = matchConnections[matchId];
+            PlayerInfo[] infos = connections.Select(playerConn => playerInfos[playerConn]).ToArray();
+
+            foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
+                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+        }
+
+        [ServerCallback]
+        void OnServerPlayerSwitchRed(NetworkConnectionToClient conn, Guid matchId)
+        {
+            PlayerInfo playerInfo = playerInfos[conn];
+            playerInfo.playerTeam = "Red";
+            playerInfos[conn] = playerInfo;
+
+            HashSet<NetworkConnectionToClient> connections = matchConnections[matchId];
+            PlayerInfo[] infos = connections.Select(playerConn => playerInfos[playerConn]).ToArray();
+
+            foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
+                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+        }
+
+        [ServerCallback]
+        void OnServerSetName(NetworkConnectionToClient conn, Guid matchId) 
+        {
+            PlayerInfo playerInfo = playerInfos[conn];
+            playerInfo.playerName = LocalPlayerData.playerUserName;
             playerInfos[conn] = playerInfo;
 
             HashSet<NetworkConnectionToClient> connections = matchConnections[matchId];
@@ -453,6 +533,7 @@ namespace Mirror.Examples.MultipleMatch
 
             PlayerInfo playerInfo = playerInfos[conn];
             playerInfo.ready = false;
+            playerInfo.playerTeam = " ";
             playerInfo.matchId = newMatchId;
             playerInfos[conn] = playerInfo;
 
@@ -546,6 +627,7 @@ namespace Mirror.Examples.MultipleMatch
 
             PlayerInfo playerInfo = playerInfos[conn];
             playerInfo.ready = false;
+            playerInfo.playerTeam = " ";
             playerInfo.matchId = matchId;
             playerInfos[conn] = playerInfo;
 

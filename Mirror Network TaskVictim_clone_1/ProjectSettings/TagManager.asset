@@ -13,6 +13,7 @@ TagManager:
   - cControll
   - water
   - time
+  - random
   layers:
   - Default
   - TransparentFX

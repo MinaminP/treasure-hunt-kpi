@@ -12,6 +12,7 @@ namespace Mirror.Examples.MultipleMatch
         public GameObject leaveButton;
         public Button startButton;
         public bool owner;
+
         public Button timerDefine5;
         public Button timerDefine10;
         public Button timerDefine15;
@@ -35,6 +36,10 @@ namespace Mirror.Examples.MultipleMatch
             LocalPlayerData.gametimer = timer;
         }
 
+        public int playerRed;
+        public int playerBlue;
+
+
         [ClientCallback]
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)
         {
@@ -44,9 +49,9 @@ namespace Mirror.Examples.MultipleMatch
             startButton.interactable = false;
             bool everyoneReady = true;
 
-            timerDefine5.interactable = false;
-            timerDefine10.interactable = false;
-            timerDefine15.interactable = false;
+            //timerDefine5.interactable = false;
+            //timerDefine10.interactable = false;
+            //timerDefine15.interactable = false;
 
             
             foreach (PlayerInfo playerInfo in playerInfos)
