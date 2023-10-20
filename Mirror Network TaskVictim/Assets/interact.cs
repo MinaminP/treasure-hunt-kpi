@@ -22,6 +22,12 @@ public class interact : NetworkBehaviour
     [SyncVar(hook = nameof(OnActiveChanged))]
     public bool isActive = false;
 
+    [SyncVar(hook = nameof(OnBlueDetected))]
+    public int blue = 0;
+
+    [SyncVar(hook = nameof(OnRedDetected))]
+    public int red = 0;
+
     public RandomSpawnTreasure random;
 
     // Start is called before the first frame update
@@ -57,9 +63,24 @@ public class interact : NetworkBehaviour
                 //scoreAdd.dataUpdates();
                 //canvas.changeScoreButton();
                 //gameObject.SetActive(false);
+                if (isActive == true)
+                {
+                    if (blue >= random.maxBlue)
+                    {
+                        Debug.Log("Blue Team got the treasure");
+                        hancurkan();
+                        random.RandomSpawn();
+                    }
 
-                hancurkan();
-                random.RandomSpawn();
+                    if(red >= random.maxRed)
+                    {
+                        Debug.Log("Red Team got the treasure");
+                        hancurkan();
+                        random.RandomSpawn();
+                    }
+                    
+                }
+                
             }
 
 
@@ -109,7 +130,15 @@ public class interact : NetworkBehaviour
         if (other.CompareTag("Player"))
         {
             isInArea = true;
-           
+            if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Blue")
+            {
+                blue++;
+            }
+
+            if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Red")
+            {
+                red++;
+            }
         }
     }
 
@@ -118,11 +147,29 @@ public class interact : NetworkBehaviour
         if (other.CompareTag("Player"))
         {
             isInArea = false;
+            if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Blue")
+            {
+                blue--;
+            }
 
+            if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Red")
+            {
+                red--;
+            }
         }
     }
 
     public void OnActiveChanged(bool oldVal, bool newVal)
+    {
+
+    }
+
+    public void OnBlueDetected(int oldVal, int newVal)
+    {
+
+    }
+
+    public void OnRedDetected(int oldVal, int newVal)
     {
 
     }

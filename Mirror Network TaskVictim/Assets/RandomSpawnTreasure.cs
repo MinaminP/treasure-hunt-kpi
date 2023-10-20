@@ -25,6 +25,14 @@ public class RandomSpawnTreasure : NetworkBehaviour
     [SyncVar(hook = nameof(OnTempRandomChanged))]
     public int tempRandom = 0;
 
+    [SyncVar(hook = nameof(OnGoodRandomChanged))]
+    public bool goodRandom = false;
+
+    [SyncVar(hook = nameof(OnMaxBlueChanged))]
+    public int maxBlue = 0;
+
+    [SyncVar(hook = nameof(OnMaxRedChanged))]
+    public int maxRed = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,15 +46,35 @@ public class RandomSpawnTreasure : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
+    public void addBlues()
+    {
+        
+        
+    }
+
+    [Command(requiresAuthority = false)]
     public void RandomSpawn()
     {
-        random = Random.Range(1, 11);
+        goodRandom = false;
+        //random = Random.Range(1, 11);
 
-        if (random == tempRandom)
+        while (goodRandom == false)
+        {
+            random = Random.Range(1, 11);
+            if (random == tempRandom)
+            {
+                goodRandom = false;
+            }else if(random != tempRandom)
+            {
+                goodRandom = true;
+            }
+        }
+
+        /*if (random == tempRandom)
         {
             //RandomSpawn();
             random = Random.Range(1, 11);
-        }
+        }*/
         //random = 2;
         if(random == 1)
         {
@@ -190,6 +218,21 @@ public class RandomSpawnTreasure : NetworkBehaviour
     }
 
     public void OnTempRandomChanged(int oldRandom, int newRandom)
+    {
+
+    }
+
+    public void OnGoodRandomChanged(bool oldRandom, bool newRandom)
+    {
+
+    }
+
+    public void OnMaxBlueChanged(int oldValue, int newValue)
+    {
+
+    }
+
+    public void OnMaxRedChanged(int oldValue, int newValue)
     {
 
     }
