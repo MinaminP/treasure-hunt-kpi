@@ -136,11 +136,12 @@ public class PlayerDataNew : NetworkBehaviour
         if (newTeam == "Red")
         {
             playerNameUI.color = Color.red;
-            
+            random.maxRed++;
         }
         else if (newTeam == "Blue")
         {
             playerNameUI.color = Color.blue;
+            random.maxBlue++;
         }
         //scoreboardController.UpdateSummaryTeam(PlayerName, newTeam);
 

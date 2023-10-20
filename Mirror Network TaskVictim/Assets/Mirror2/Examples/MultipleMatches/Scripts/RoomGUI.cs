@@ -29,8 +29,8 @@ namespace Mirror.Examples.MultipleMatch
             LocalPlayerData.gametimer = timer;
         }
 
-        public int playerRed;
-        public int playerBlue;
+        //public int playerRed;
+        //public int playerBlue;
 
 
         [ClientCallback]
@@ -90,6 +90,7 @@ namespace Mirror.Examples.MultipleMatch
         public void SetOwner(bool owner)
         {
             this.owner = owner;
+            LocalPlayerData.isOwner = owner;
             cancelButton.SetActive(owner);
             leaveButton.SetActive(!owner);
             timerContainer.gameObject.SetActive(owner);
