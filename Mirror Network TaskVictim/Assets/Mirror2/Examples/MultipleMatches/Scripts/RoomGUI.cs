@@ -29,10 +29,6 @@ namespace Mirror.Examples.MultipleMatch
             LocalPlayerData.gametimer = timer;
         }
 
-        //public int playerRed;
-        //public int playerBlue;
-
-
         [ClientCallback]
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)
         {
@@ -41,10 +37,6 @@ namespace Mirror.Examples.MultipleMatch
 
             startButton.interactable = false;
             bool everyoneReady = true;
-
-            timerDefine5.interactable = owner;
-            timerDefine10.interactable = owner;
-            timerDefine15.interactable = owner;
 
             foreach (PlayerInfo playerInfo in playerInfos)
             {

@@ -1,3 +1,5 @@
+using System;
+
 public class LocalPlayerData
 {
     public static string playerUserName;

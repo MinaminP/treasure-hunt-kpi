@@ -68,6 +68,7 @@ namespace Mirror.Examples.MultipleMatch
         public GameObject roomView;
         public RoomGUI roomGUI;
         public ToggleGroup toggleGroup;
+
         public GameObject randomSpawnerPrefab;
         public GameObject treasure1prefab;
         public GameObject treasure2prefab;
@@ -81,19 +82,45 @@ namespace Mirror.Examples.MultipleMatch
         public GameObject treasure10prefab;
         public GameObject timerPrefab;
 
+        public static CanvasController instance;
+
+        MultipleMatchAdditiveNetwork matchAdditiveNetwork;
+
         public string temporaryLocalName;
 
         public TMP_InputField nameInputField;
 
-        /*string username;
+        public GameObject timerObject;
+        public GameObject randomTreasureSpawner;
+        public GameObject[] treasures;
 
-        public struct NameMessage : NetworkMessage
+        /*public struct NameMessage : NetworkMessage
         {
             public string username;
         }*/
 
+        /*void Awake()
+        {
+            //Check if instance already exists
+            if (instance == null)
+            {
+                //if not, set instance to this
+                instance = this;
+            }
+            //If instance already exists and it's not this:
+            else if (instance != this)
+            {
+                Destroy(gameObject);
+            }
+
+            //Sets this to not be destroyed when reloading scene
+            DontDestroyOnLoad(gameObject);
+
+        }*/
+
         private void Start()
         {
+            matchAdditiveNetwork = FindObjectOfType<MultipleMatchAdditiveNetwork>();
             //temporaryLocalName = LocalPlayerData.playerUserName;
             //Debug.Log("tempLocalName : " + temporaryLocalName);
         }
@@ -220,7 +247,6 @@ namespace Mirror.Examples.MultipleMatch
             Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
 
             NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.Ready, matchId = matchId });
-
         }
 
         /// <summary>
@@ -294,7 +320,7 @@ namespace Mirror.Examples.MultipleMatch
             waitingConnections.Add(conn);
             //temporaryLocalName = LocalPlayerData.playerUserName;
             temporaryLocalName = PlayerPrefs.GetString("theName");
-            playerInfos.Add(conn, new PlayerInfo {playerName = this.temporaryLocalName, playerTeam = "", playerIndex = this.playerIndex, ready = false });
+            playerInfos.Add(conn, new PlayerInfo { playerName = temporaryLocalName, playerTeam = "", playerIndex = this.playerIndex, ready = false });
             playerIndex++;
             SendMatchList();
         }
@@ -359,21 +385,11 @@ namespace Mirror.Examples.MultipleMatch
         [ClientCallback]
         internal void OnClientConnect()
         {
-            //temporaryLocalName = LocalPlayerData.playerUserName;
+            temporaryLocalName = LocalPlayerData.playerUserName;
             //Debug.Log("tempLocalName : " + temporaryLocalName);
-            playerInfos.Add(NetworkClient.connection, new PlayerInfo { playerIndex = this.playerIndex, ready = false });
+            playerInfos.Add(NetworkClient.connection, new PlayerInfo { playerName = temporaryLocalName, playerIndex = this.playerIndex, ready = false });
         }
-
-        /*private void OnNameInput(NameMessage message)
-        {
-            temporaryLocalName += $"{message.username}";
-        }
-
-        private void SendName()
-        {
-            NetworkServer.SendToAll(new NameMessage { username = temporaryLocalName });
-        }
-         */
+        
 
         [ClientCallback]
         internal void OnStartClient()
@@ -383,7 +399,23 @@ namespace Mirror.Examples.MultipleMatch
             createButton.gameObject.SetActive(true);
             joinButton.gameObject.SetActive(true);
             NetworkClient.RegisterHandler<ClientMatchMessage>(OnClientMatchMessage);
+            //NetworkClient.RegisterHandler<NameMessage>(OnNameInput);
         }
+
+        /*private void OnNameInput(NameMessage message)
+        {
+            temporaryLocalName = message.username;
+        }
+
+        public void SendName(string username)
+        {
+            NameMessage msg = new NameMessage()
+            {
+                username = username
+            };
+
+            NetworkServer.SendToAll(msg);
+        }*/
 
         [ClientCallback]
         internal void OnClientDisconnect()
@@ -597,13 +629,26 @@ namespace Mirror.Examples.MultipleMatch
             if (!playerMatches.ContainsKey(conn)) return;
 
             Guid matchId;
+
             if (playerMatches.TryGetValue(conn, out matchId))
             {
-                GameObject matchControllerObject = Instantiate(matchControllerPrefab);
-                matchControllerObject.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(matchControllerObject);
+                //GameObject matchControllerObject = Instantiate(matchControllerPrefab);
+                //matchControllerObject.GetComponent<NetworkMatch>().matchId = matchId;
+                //NetworkServer.Spawn(matchControllerObject);
 
-                MatchController matchController = matchControllerObject.GetComponent<MatchController>();
+                timerObject.GetComponent<NetworkMatch>().matchId = matchId;
+                randomTreasureSpawner.GetComponent<NetworkMatch>().matchId = matchId;
+
+                timerObject.SetActive(true);
+                randomTreasureSpawner.SetActive(true);
+
+                for(int i = 0; i < treasures.Length; i++)
+                {
+                    treasures[i].GetComponent<NetworkMatch>().matchId = matchId;
+                    treasures[i].SetActive(true);
+                }
+
+                //MatchController matchController = matchControllerObject.GetComponent<MatchController>();
 
                 //percobaan spawn object
                 GameObject randomSpawner = Instantiate(randomSpawnerPrefab);
@@ -658,11 +703,20 @@ namespace Mirror.Examples.MultipleMatch
                 {
                     playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.Started });
 
-                    GameObject player = Instantiate(NetworkManager.singleton.playerPrefab);
+                    if(matchAdditiveNetwork != null)
+                    {
+                        playerConn.Send(new SceneMessage { sceneName = matchAdditiveNetwork.additiveScenes[0], sceneOperation = SceneOperation.LoadAdditive, customHandling = true });
+                    }
+
+
+                    Transform start = NetworkManager.singleton.GetStartPosition();
+
+                    GameObject player = Instantiate(NetworkManager.singleton.playerPrefab, start);
+                    player.transform.SetParent(null);
                     player.GetComponent<NetworkMatch>().matchId = matchId;
                     NetworkServer.AddPlayerForConnection(playerConn, player);
 
-                    if (matchController.player1 == null)
+                    /*if (matchController.player1 == null)
                         matchController.player1 = playerConn.identity;
                     else
                         matchController.player2 = playerConn.identity;
@@ -673,15 +727,15 @@ namespace Mirror.Examples.MultipleMatch
                     playerInfos[playerConn] = playerInfo;
                 }
 
-                matchController.startingPlayer = matchController.player1;
-                matchController.currentPlayer = matchController.player1;
+                //matchController.startingPlayer = matchController.player1;
+                //matchController.currentPlayer = matchController.player1;
 
                 playerMatches.Remove(conn);
                 openMatches.Remove(matchId);
                 matchConnections.Remove(matchId);
                 SendMatchList();
 
-                OnPlayerDisconnected += matchController.OnPlayerDisconnected;
+                //OnPlayerDisconnected += matchController.OnPlayerDisconnected;
             }
         }
 
