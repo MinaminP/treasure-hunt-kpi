@@ -13,6 +13,8 @@ public class loginController : MonoBehaviour
     public GameObject setNamePanel;
     public GameObject NetworkManagerObject;
 
+    //public GameObject randomTreasure;
+
     //public CanvasController canvasController;
 
     //[SyncVar(hook = nameof(SetPlayerName))] public string PlayerUserName;
@@ -26,7 +28,9 @@ public class loginController : MonoBehaviour
         //canvasController.temporaryLocalName = LocalPlayerData.playerUserName;
         //Debug.Log("temporaryLocalName : " + canvasController.temporaryLocalName);
         //CmdSetPlayerName(LocalPlayerData.playerUserName);
+
         NetworkManagerObject.SetActive(true);
+        //randomTreasure.SetActive(true);
         setNamePanel.SetActive(false);
     }
 

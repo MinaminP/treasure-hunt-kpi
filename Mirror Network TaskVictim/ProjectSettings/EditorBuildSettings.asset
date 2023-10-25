@@ -17,4 +17,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Mirror2/Examples/MultipleMatches/Scenes/New Folder/login.unity
     guid: fbd9332757e6c844fb9f7e4cb6353116
+  - enabled: 1
+    path: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Offline.unity
+    guid: ec97495294cb99a4fadad81c1aa760f1
+  - enabled: 1
+    path: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Lobby.unity
+    guid: 7033eeeb3efdd4c4b96fa852067df1c9
+  - enabled: 1
+    path: Assets/_PROJECTS/Lobby & Matchmaking/Scenes/Game.unity
+    guid: 7dc989da921c0674581d896ea2ea8c46
+  - enabled: 1
+    path: Assets/PolygonPirates/Scenes/Offline2.unity
+    guid: 8f45ffd30b1e1d6438609449aa153541
+  - enabled: 1
+    path: Assets/PolygonPirates/Scenes/Demo_Main_Polished 3.unity
+    guid: 4c38d1b4cd6f7d54a9fd6b5fee60154d
   m_configObjects: {}

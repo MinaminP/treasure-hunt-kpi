@@ -22,7 +22,9 @@ public class PlayerDataNew : NetworkBehaviour
     void Start()
     {
         //scoreboardController = GameObject.FindWithTag("canvas").GetComponent<ScoreboardController>();
+
         timerCounter = GameObject.FindWithTag("time").GetComponent<countdownNew>();
+
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
         timerCounter.hasStarted = true;
@@ -36,6 +38,7 @@ public class PlayerDataNew : NetworkBehaviour
             //CmdSendName("Player " + randomNumber);
             //CmdSendName(tempName);
             //UpdatePlayerName(PlayerName, "Player " + randomNumber);
+            
             CmdSendName(LocalPlayerData.playerUserName);
             CmdSendTeamName(LocalPlayerData.playerTeam);
 
@@ -120,6 +123,8 @@ public class PlayerDataNew : NetworkBehaviour
     {
         Debug.Log("Player changed name from " + oldName + " to " + newName);
         playerNameUI.text = newName;
+
+       
         //scoreboardController.UpdateName(oldName, newName);
     }
 
