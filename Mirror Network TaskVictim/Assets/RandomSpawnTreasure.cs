@@ -28,24 +28,24 @@ public class RandomSpawnTreasure : NetworkBehaviour
     [SyncVar(hook = nameof(OnGoodRandomChanged))]
     public bool goodRandom = false;
 
-    [SyncVar(hook = nameof(OnMaxBlueChanged))]
+    //[SyncVar(hook = nameof(OnMaxBlueChanged))]
     public int maxBlue = 0;
 
-    [SyncVar(hook = nameof(OnMaxRedChanged))]
+    //[SyncVar(hook = nameof(OnMaxRedChanged))]
     public int maxRed = 0;
     // Start is called before the first frame update
     void Start()
     {
-        treasure1 = GameObject.FindWithTag("treasure1");
-        treasure2 = GameObject.FindWithTag("treasure2");
-        treasure3 = GameObject.FindWithTag("treasure3");
-        treasure4 = GameObject.FindWithTag("treasure4");
-        treasure5 = GameObject.FindWithTag("treasure5");
-        treasure6 = GameObject.FindWithTag("treasure6");
-        treasure7 = GameObject.FindWithTag("treasure7");
-        treasure8 = GameObject.FindWithTag("treasure8");
-        treasure9 = GameObject.FindWithTag("treasure9");
-        treasure10 = GameObject.FindWithTag("treasure10");
+        //treasure1 = GameObject.FindWithTag("treasure1");
+        //treasure2 = GameObject.FindWithTag("treasure2");
+        //treasure3 = GameObject.FindWithTag("treasure3");
+        //treasure4 = GameObject.FindWithTag("treasure4");
+        //treasure5 = GameObject.FindWithTag("treasure5");
+        //treasure6 = GameObject.FindWithTag("treasure6");
+        //treasure7 = GameObject.FindWithTag("treasure7");
+        //treasure8 = GameObject.FindWithTag("treasure8");
+        //treasure9 = GameObject.FindWithTag("treasure9");
+        //treasure10 = GameObject.FindWithTag("treasure10");
     }
 
     // Update is called once per frame

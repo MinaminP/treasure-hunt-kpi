@@ -22,10 +22,10 @@ public class interact : NetworkBehaviour
     [SyncVar(hook = nameof(OnActiveChanged))]
     public bool isActive = false;
 
-    [SyncVar(hook = nameof(OnBlueDetected))]
+    //[SyncVar(hook = nameof(OnBlueDetected))]
     public int blue = 0;
 
-    [SyncVar(hook = nameof(OnRedDetected))]
+    //[SyncVar(hook = nameof(OnRedDetected))]
     public int red = 0;
 
     public RandomSpawnTreasure random;

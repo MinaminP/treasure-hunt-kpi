@@ -610,7 +610,7 @@ namespace Mirror.Examples.MultipleMatch
                 randomSpawner.GetComponent<NetworkMatch>().matchId = matchId;
                 NetworkServer.Spawn(randomSpawner);
 
-                GameObject treasure1 = Instantiate(treasure1prefab);
+                /*GameObject treasure1 = Instantiate(treasure1prefab);
                 treasure1.GetComponent<NetworkMatch>().matchId = matchId;
                 NetworkServer.Spawn(treasure1);
 
@@ -648,7 +648,7 @@ namespace Mirror.Examples.MultipleMatch
 
                 GameObject treasure10 = Instantiate(treasure10prefab);
                 treasure10.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure10);
+                NetworkServer.Spawn(treasure10);*/
 
                 GameObject timer = Instantiate(timerPrefab);
                 timer.GetComponent<NetworkMatch>().matchId = matchId;
