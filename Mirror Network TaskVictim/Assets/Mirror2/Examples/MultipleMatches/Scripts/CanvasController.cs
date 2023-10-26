@@ -70,16 +70,6 @@ namespace Mirror.Examples.MultipleMatch
         public ToggleGroup toggleGroup;
 
         public GameObject randomSpawnerPrefab;
-        public GameObject treasure1prefab;
-        public GameObject treasure2prefab;
-        public GameObject treasure3prefab;
-        public GameObject treasure4prefab;
-        public GameObject treasure5prefab;
-        public GameObject treasure6prefab;
-        public GameObject treasure7prefab;
-        public GameObject treasure8prefab;
-        public GameObject treasure9prefab;
-        public GameObject treasure10prefab;
         public GameObject timerPrefab;
 
         public static CanvasController instance;
@@ -89,10 +79,6 @@ namespace Mirror.Examples.MultipleMatch
         public string temporaryLocalName;
 
         public TMP_InputField nameInputField;
-
-        public GameObject timerObject;
-        public GameObject randomTreasureSpawner;
-        public GameObject[] treasures;
 
         /*public struct NameMessage : NetworkMessage
         {
@@ -636,64 +622,12 @@ namespace Mirror.Examples.MultipleMatch
                 //matchControllerObject.GetComponent<NetworkMatch>().matchId = matchId;
                 //NetworkServer.Spawn(matchControllerObject);
 
-                timerObject.GetComponent<NetworkMatch>().matchId = matchId;
-                randomTreasureSpawner.GetComponent<NetworkMatch>().matchId = matchId;
-
-                timerObject.SetActive(true);
-                randomTreasureSpawner.SetActive(true);
-
-                for(int i = 0; i < treasures.Length; i++)
-                {
-                    treasures[i].GetComponent<NetworkMatch>().matchId = matchId;
-                    treasures[i].SetActive(true);
-                }
-
                 //MatchController matchController = matchControllerObject.GetComponent<MatchController>();
 
                 //percobaan spawn object
                 GameObject randomSpawner = Instantiate(randomSpawnerPrefab);
                 randomSpawner.GetComponent<NetworkMatch>().matchId = matchId;
                 NetworkServer.Spawn(randomSpawner);
-
-                /*GameObject treasure1 = Instantiate(treasure1prefab);
-                treasure1.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure1);
-
-                GameObject treasure2 = Instantiate(treasure2prefab);
-                treasure2.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure2);
-
-                GameObject treasure3 = Instantiate(treasure3prefab);
-                treasure3.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure3);
-
-                GameObject treasure4 = Instantiate(treasure4prefab);
-                treasure4.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure4);
-
-                GameObject treasure5 = Instantiate(treasure5prefab);
-                treasure5.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure5);
-
-                GameObject treasure6 = Instantiate(treasure6prefab);
-                treasure6.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure6);
-
-                GameObject treasure7 = Instantiate(treasure7prefab);
-                treasure7.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure7);
-
-                GameObject treasure8 = Instantiate(treasure8prefab);
-                treasure8.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure8);
-
-                GameObject treasure9 = Instantiate(treasure9prefab);
-                treasure9.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure9);
-
-                GameObject treasure10 = Instantiate(treasure10prefab);
-                treasure10.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(treasure10);*/
 
                 GameObject timer = Instantiate(timerPrefab);
                 timer.GetComponent<NetworkMatch>().matchId = matchId;
