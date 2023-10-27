@@ -22,11 +22,10 @@ public class PlayerDataNew : NetworkBehaviour
     void Start()
     {
         //scoreboardController = GameObject.FindWithTag("canvas").GetComponent<ScoreboardController>();
-
+        //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
         timerCounter = GameObject.FindWithTag("time").GetComponent<countdownNew>();
 
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
-        //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
         timerCounter.hasStarted = true;
         random.RandomSpawn();
         //startwaktu();

@@ -33,6 +33,7 @@ public class RandomSpawnTreasure : NetworkBehaviour
 
     //[SyncVar(hook = nameof(OnMaxRedChanged))]
     public int maxRed = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,17 +56,9 @@ public class RandomSpawnTreasure : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void addBlues()
-    {
-        
-        
-    }
-
-    [Command(requiresAuthority = false)]
     public void RandomSpawn()
     {
         goodRandom = false;
-        //random = Random.Range(1, 11);
 
         while (goodRandom == false)
         {
@@ -87,8 +80,6 @@ public class RandomSpawnTreasure : NetworkBehaviour
         //random = 2;
         if(random == 1)
         {
-            //Instantiate(TreasureObject, treasure1.position, treasure1.rotation);
-            //NetworkServer.spa
             treasure1.GetComponent<interact>().isActive = true;
             treasure2.GetComponent<interact>().isActive = false;
             treasure3.GetComponent<interact>().isActive = false;

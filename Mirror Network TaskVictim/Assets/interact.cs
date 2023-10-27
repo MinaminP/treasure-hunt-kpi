@@ -82,8 +82,6 @@ public class interact : NetworkBehaviour
                 }
                 
             }
-
-
         }
 
         if (isActive == false)
@@ -122,8 +120,6 @@ public class interact : NetworkBehaviour
             hancurkan();
         }
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {

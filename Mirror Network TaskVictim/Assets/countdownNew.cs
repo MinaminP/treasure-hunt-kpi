@@ -14,6 +14,7 @@ public class countdownNew : NetworkBehaviour
     public bool hasStarted = false;
 
     public TextMeshProUGUI timerText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,6 @@ public class countdownNew : NetworkBehaviour
         {
             StartTimer(LocalPlayerData.gametimer);
         }
-
     }
 
     // Update is called once per frame
@@ -40,15 +40,9 @@ public class countdownNew : NetworkBehaviour
                     timer = 0;
                     isCounting = false;
                 }
-
             }
         }
         
-    }
-
-    public void changeTimer()
-    {
-        timer = 300f;
     }
 
     [Command(requiresAuthority = false)]
