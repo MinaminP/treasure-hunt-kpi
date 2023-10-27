@@ -67,6 +67,7 @@ public class interact : NetworkBehaviour
                 {
                     if (blue >= random.maxBlue)
                     {
+                        canvas.changeScoreButton();
                         Debug.Log("Blue Team got the treasure");
                         hancurkan();
                         random.RandomSpawn();
@@ -74,6 +75,7 @@ public class interact : NetworkBehaviour
 
                     if(red >= random.maxRed)
                     {
+                        canvas.changeScoreButton();
                         Debug.Log("Red Team got the treasure");
                         hancurkan();
                         random.RandomSpawn();

@@ -71,6 +71,7 @@ namespace Mirror.Examples.MultipleMatch
 
         public GameObject randomSpawnerPrefab;
         public GameObject timerPrefab;
+        public GameObject canvas2prefab;
 
         public static CanvasController instance;
 
@@ -632,6 +633,10 @@ namespace Mirror.Examples.MultipleMatch
                 GameObject timer = Instantiate(timerPrefab);
                 timer.GetComponent<NetworkMatch>().matchId = matchId;
                 NetworkServer.Spawn(timer);
+
+                GameObject canvas2 = Instantiate(canvas2prefab);
+                canvas2.GetComponent<NetworkMatch>().matchId = matchId;
+                NetworkServer.Spawn(canvas2);
 
                 foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
                 {

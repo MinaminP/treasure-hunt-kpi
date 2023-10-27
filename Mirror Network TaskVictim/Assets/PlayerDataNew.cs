@@ -21,7 +21,7 @@ public class PlayerDataNew : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //scoreboardController = GameObject.FindWithTag("canvas").GetComponent<ScoreboardController>();
+        scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
         //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
         timerCounter = GameObject.FindWithTag("time").GetComponent<countdownNew>();
 
@@ -43,7 +43,7 @@ public class PlayerDataNew : NetworkBehaviour
 
             //scoreboardController.addPlayer(PlayerName, PlayerTeamName);
             //CmdSendTeamName("Red");
-            //CmdSendInitializeScore();
+            CmdSendInitializeScore();
         }
         else
         {
@@ -65,7 +65,7 @@ public class PlayerDataNew : NetworkBehaviour
     {
         PlayerScore += playerScore;
         Debug.Log(PlayerScore);
-        //scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
+        scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
 
     }
 
@@ -130,6 +130,7 @@ public class PlayerDataNew : NetworkBehaviour
     public void UpdatePlayerScore(int oldScore, int newScore)
     {
         Debug.Log(PlayerName + " score updated from " + oldScore + " to " + newScore);
+        scoreboardController.UpdateTopTeamScore();
         //scoreboardController.UpdateScore(PlayerName, newScore);
     }
 
