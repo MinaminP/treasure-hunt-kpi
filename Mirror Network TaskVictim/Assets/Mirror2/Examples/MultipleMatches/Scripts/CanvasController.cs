@@ -619,6 +619,9 @@ namespace Mirror.Examples.MultipleMatch
 
             if (playerMatches.TryGetValue(conn, out matchId))
             {
+                GameObject canvas2 = Instantiate(canvas2prefab);
+                canvas2.GetComponent<NetworkMatch>().matchId = matchId;
+                NetworkServer.Spawn(canvas2);
                 //GameObject matchControllerObject = Instantiate(matchControllerPrefab);
                 //matchControllerObject.GetComponent<NetworkMatch>().matchId = matchId;
                 //NetworkServer.Spawn(matchControllerObject);
@@ -634,9 +637,7 @@ namespace Mirror.Examples.MultipleMatch
                 timer.GetComponent<NetworkMatch>().matchId = matchId;
                 NetworkServer.Spawn(timer);
 
-                GameObject canvas2 = Instantiate(canvas2prefab);
-                canvas2.GetComponent<NetworkMatch>().matchId = matchId;
-                NetworkServer.Spawn(canvas2);
+                
 
                 foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
                 {

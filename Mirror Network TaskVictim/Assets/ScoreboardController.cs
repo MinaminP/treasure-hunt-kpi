@@ -16,12 +16,42 @@ public class ScoreboardController : NetworkBehaviour
     public TextMeshProUGUI scoreText2;
     public TextMeshProUGUI topTeamScoreText;
 
+    public TextMeshProUGUI RedScoreText;
+    public TextMeshProUGUI BlueScoreText;
+
+
+    //[SyncVar(hook = nameof(OnObjectNameChanged))]
+    //public string ObjectName = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
+
+    [SyncVar(hook = nameof(OnRedScoreChanged))] public int RedScore;
+
+    [SyncVar(hook = nameof(OnBlueScoreChanged))] public int BlueScore;
+
     [System.Serializable]
     public class PlayerTeam
     {
         public string teamName;
         public int teamScore;
         //public string TeamName;
+    }
+
+    //start
+    private void Start()
+    {
+        //gameObject.name = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
+    }
+
+    void Update()
+    {
+        RedScoreText.text = "Red : " + RedScore;
+        BlueScoreText.text = "Blue : " + BlueScore;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void setObjectName()
+    {
+        //ObjectName = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
+        //gameObject.name = ObjectName;
     }
 
     public void UpdateTeamScore(string teamName, int scoreChange)
@@ -101,6 +131,48 @@ public class ScoreboardController : NetworkBehaviour
 
         //Debug.Log("Total score : " + totalScore);
 
+    }
+
+    [Command(requiresAuthority = false)]
+    public void addRedScore()
+    {
+        
+        //RedScore++;
+        
+        
+        //RedScoreText.text = "Red : " + RedScore;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void addBlueScore()
+    {
+        //BlueScore++;
+        
+        //BlueScoreText.text = "Blue : " + BlueScore;
+    }
+
+    public void OnObjectNameChanged(string oldName, string newName)
+    {
+      
+    }
+
+    public void OnRedScoreChanged(int oldScore, int newScore)
+    {
+        //Debug.Log(PlayerName + " score updated from " + oldScore + " to " + newScore);
+        //scoreboardController.UpdateTopTeamScore();
+        //scoreboardController.UpdateScore(PlayerName, newScore);
+
+        //RedScoreText.text = "Red : " + RedScore;
+        Debug.Log("Score Updated");
+    }
+
+    public void OnBlueScoreChanged(int oldScore, int newScore)
+    {
+        //Debug.Log(PlayerName + " score updated from " + oldScore + " to " + newScore);
+        //scoreboardController.UpdateTopTeamScore();
+        //scoreboardController.UpdateScore(PlayerName, newScore);
+        //BlueScoreText.text = "Blue : " + BlueScore;
+        Debug.Log("Score Updated");
     }
 
 

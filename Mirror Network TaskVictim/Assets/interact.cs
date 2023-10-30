@@ -30,6 +30,8 @@ public class interact : NetworkBehaviour
 
     public RandomSpawnTreasure random;
 
+    public ScoreboardController scoreboardController;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -37,6 +39,8 @@ public class interact : NetworkBehaviour
         canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         isInArea = false;
+
+        scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
     }
 
     // Update is called once per frame
@@ -68,6 +72,7 @@ public class interact : NetworkBehaviour
                     if (blue >= random.maxBlue)
                     {
                         canvas.changeScoreButton();
+                        //addBlueScoree();
                         Debug.Log("Blue Team got the treasure");
                         hancurkan();
                         random.RandomSpawn();
@@ -76,6 +81,7 @@ public class interact : NetworkBehaviour
                     if(red >= random.maxRed)
                     {
                         canvas.changeScoreButton();
+                        //addRedScoree();
                         Debug.Log("Red Team got the treasure");
                         hancurkan();
                         random.RandomSpawn();
@@ -98,6 +104,17 @@ public class interact : NetworkBehaviour
         
     }
 
+    [Command(requiresAuthority = false)]
+    public void addRedScoree()
+    {
+        scoreboardController.addRedScore();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void addBlueScoree()
+    {
+        scoreboardController.addBlueScore();
+    }
 
     [Command(requiresAuthority = false)]
     public void hancurkan()
