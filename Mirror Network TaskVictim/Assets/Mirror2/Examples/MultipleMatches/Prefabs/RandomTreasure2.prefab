@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 49297605933773233}
   - component: {fileID: 49297605933773235}
   - component: {fileID: 49297605933773236}
+  - component: {fileID: 8147506051675476519}
   m_Layer: 0
   m_Name: Treasure (9)
   m_TagString: Untagged
@@ -59,6 +60,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &49297605933773235
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -88,6 +90,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8147506051675476519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49297605933773237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &360346551257145249
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +127,7 @@ GameObject:
   - component: {fileID: 360346551257145253}
   - component: {fileID: 360346551257145255}
   - component: {fileID: 360346551257145248}
+  - component: {fileID: 7255302818949132544}
   m_Layer: 0
   m_Name: Treasure
   m_TagString: Untagged
@@ -147,6 +175,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &360346551257145255
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -176,6 +205,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7255302818949132544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360346551257145249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &1245781424993845139
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +349,7 @@ GameObject:
   - component: {fileID: 1399261287367668339}
   - component: {fileID: 1399261287367668337}
   - component: {fileID: 1399261287367668342}
+  - component: {fileID: 6472573180587345760}
   m_Layer: 0
   m_Name: Treasure (5)
   m_TagString: Untagged
@@ -342,6 +397,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &1399261287367668337
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -371,6 +427,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6472573180587345760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399261287367668343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &2087873252538677034
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,6 +796,7 @@ GameObject:
   - component: {fileID: 4571496852625981250}
   - component: {fileID: 4571496852625981248}
   - component: {fileID: 4571496852625981255}
+  - component: {fileID: 6748577968192119865}
   m_Layer: 0
   m_Name: Treasure (1)
   m_TagString: Untagged
@@ -762,6 +844,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &4571496852625981248
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -791,6 +874,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6748577968192119865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4571496852625981254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &4648492680341236079
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,6 +911,7 @@ GameObject:
   - component: {fileID: 4648492680341236075}
   - component: {fileID: 4648492680341236073}
   - component: {fileID: 4648492680341236078}
+  - component: {fileID: 8986515197345603574}
   m_Layer: 0
   m_Name: Treasure (3)
   m_TagString: Untagged
@@ -850,6 +959,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &4648492680341236073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -879,6 +989,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8986515197345603574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4648492680341236079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &5614296990565921936
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,6 +1026,7 @@ GameObject:
   - component: {fileID: 5614296990565921940}
   - component: {fileID: 5614296990565921942}
   - component: {fileID: 5614296990565921937}
+  - component: {fileID: 7166962953767527403}
   m_Layer: 0
   m_Name: Treasure (4)
   m_TagString: Untagged
@@ -938,6 +1074,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &5614296990565921942
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -967,6 +1104,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7166962953767527403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614296990565921936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &5866776104054719127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,6 +1639,7 @@ GameObject:
   - component: {fileID: 8278280544733858559}
   - component: {fileID: 8278280544733858557}
   - component: {fileID: 8278280544733858554}
+  - component: {fileID: 7705065251123165568}
   m_Layer: 0
   m_Name: Treasure (8)
   m_TagString: Untagged
@@ -1524,6 +1687,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &8278280544733858557
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1553,6 +1717,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7705065251123165568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278280544733858555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &8445850613655473981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,6 +1754,7 @@ GameObject:
   - component: {fileID: 8445850613655473977}
   - component: {fileID: 8445850613655473979}
   - component: {fileID: 8445850613655473980}
+  - component: {fileID: 7625634598885194089}
   m_Layer: 0
   m_Name: Treasure (6)
   m_TagString: Untagged
@@ -1612,6 +1802,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &8445850613655473979
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1641,6 +1832,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7625634598885194089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8445850613655473981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &8699914854991737150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1653,6 +1869,7 @@ GameObject:
   - component: {fileID: 8699914854991737146}
   - component: {fileID: 8699914854991737144}
   - component: {fileID: 8699914854991737151}
+  - component: {fileID: 3310573361496071223}
   m_Layer: 0
   m_Name: Treasure (7)
   m_TagString: Untagged
@@ -1700,6 +1917,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &8699914854991737144
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1729,6 +1947,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3310573361496071223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8699914854991737150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1
 --- !u!1 &8942732289561671498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1984,7 @@ GameObject:
   - component: {fileID: 8942732289561671502}
   - component: {fileID: 8942732289561671500}
   - component: {fileID: 8942732289561671499}
+  - component: {fileID: 8165314368795163507}
   m_Layer: 0
   m_Name: Treasure (2)
   m_TagString: Untagged
@@ -1788,6 +2032,7 @@ MonoBehaviour:
   blue: 0
   red: 0
   random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &8942732289561671500
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1817,3 +2062,28 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8165314368795163507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942732289561671498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2292727d870784dfe94572764f14057a, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278246648
+  iconGO: {fileID: 0}
+  scaleWithZoom: 0
+  rotate: 0
+  rotateWithMap: 0
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1

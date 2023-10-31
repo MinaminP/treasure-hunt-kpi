@@ -17,7 +17,7 @@ public class PlayerDataNew : NetworkBehaviour
     public TextMeshProUGUI playerNameUI;
 
     public ScoreboardController scoreboardController;
-    public GameObject sccontroll;
+    public ScoreboardController sccontroll;
 
     public countdownNew timerCounter;
     public CanvasController canvasController;
@@ -29,9 +29,10 @@ public class PlayerDataNew : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
-        
-     
+        //scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
+        sccontroll = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
+        scoreboardController = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
+
         //sccontroll = GameObject.FindWithTag("scoreboard").GetComponent<NetworkMatch>().matchId = gameObject.GetComponent<NetworkMatch>().matchId;
         //sccontroll = GameObject.
         //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
@@ -55,7 +56,7 @@ public class PlayerDataNew : NetworkBehaviour
 
             //scoreboardController.addPlayer(PlayerName, PlayerTeamName);
             //CmdSendTeamName("Red");
-            //CmdSendInitializeScore();
+            CmdSendInitializeScore();
         }
         else
         {
@@ -75,7 +76,8 @@ public class PlayerDataNew : NetworkBehaviour
     public void CmdSendName(string playerName)
     {
         PlayerName = playerName;
-        gameObject.name = PlayerName;
+        //gameObject.name = PlayerName;
+        gameObject.name = "player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString();
 
     }
 
@@ -86,7 +88,8 @@ public class PlayerDataNew : NetworkBehaviour
         Debug.Log(PlayerScore);
 
         //pake ini
-        //scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
+        scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
+        scoreboardController.UpdateScore(PlayerName, 1);
 
         /*if (PlayerTeamName == "Red")
         {
@@ -132,7 +135,13 @@ public class PlayerDataNew : NetworkBehaviour
         //scoreboard.UpdateScore(PlayerName, PlayerScore);
 
         //pake ini
-        //scoreboardController.UpdateTeamScore(PlayerTeamName, 0);
+        if (scoreboardController != null)
+        {
+            scoreboardController.UpdateTeamScore(PlayerTeamName, 0);
+            scoreboardController.addPlayer(PlayerName, PlayerTeamName);
+            scoreboardController.UpdateScore(PlayerName, 0);
+        }
+        
 
         Debug.Log("Initialize");
         //scoreboard.playerCountTotal += 1;
@@ -160,12 +169,12 @@ public class PlayerDataNew : NetworkBehaviour
 
         if (PlayerTeamName == "Red")
         {
-            scoreboardController.RedScore++;
+            //scoreboardController.RedScore++;
             //scoreboardController.addRedScore();
         }
         else if (PlayerTeamName == "Blue")
         {
-            scoreboardController.BlueScore++;
+            //scoreboardController.BlueScore++;
             //scoreboardController.addBlueScore();
         }
 

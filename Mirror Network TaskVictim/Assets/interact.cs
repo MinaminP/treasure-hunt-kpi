@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Unity.VisualScripting;
+using DMM;
 
 public class interact : NetworkBehaviour
 {
@@ -32,10 +33,13 @@ public class interact : NetworkBehaviour
 
     public ScoreboardController scoreboardController;
 
+    public DMMapIcon DMI;
+
     // Start is called before the first frame update
     public void Start()
     {
         //scoreAdd.dataUpdates();
+        DMI = GetComponent<DMMapIcon>();
         canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         isInArea = false;
@@ -95,10 +99,12 @@ public class interact : NetworkBehaviour
         if (isActive == false)
         {
             //gameObject.SetActive(false);
+            DMI.enabled = false;
             theObject.SetActive(false);
         }else if(isActive == true)
         {
             //gameObject.SetActive(true);
+            DMI.enabled = true;
             theObject.SetActive(true);
         }
         

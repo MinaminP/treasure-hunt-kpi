@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2560478372865424326}
   - component: {fileID: 2560478372865424324}
   - component: {fileID: 2560478372865424348}
+  - component: {fileID: -6127391212946188773}
   m_Layer: 0
   m_Name: Sphere (2)
   m_TagString: bola
@@ -106,6 +107,12 @@ MonoBehaviour:
   score: 0
   canvas: {fileID: 0}
   scoreAdd: {fileID: 0}
+  theObject: {fileID: 0}
+  isActive: 0
+  blue: 0
+  red: 0
+  random: {fileID: 0}
+  scoreboardController: {fileID: 0}
 --- !u!54 &2560478372865424326
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,3 +159,28 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.07
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6127391212946188773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2560478372865424325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 6af7abe2c9b2245bdbfcf5d8c14bf5e7, type: 3}
+  tint:
+    serializedVersion: 2
+    rgba: 4278584995
+  iconGO: {fileID: 0}
+  scaleWithZoom: 1
+  rotate: 0
+  rotateWithMap: 1
+  mapPosition: {x: 0, y: 0, z: 0}
+  useDirectionIndicator: 1
+  directionIcon: {fileID: 21300000, guid: 49de23c9bc033411ea0440b9c6672f03, type: 3}
+  rotationOffset: -90
+  layer: -1

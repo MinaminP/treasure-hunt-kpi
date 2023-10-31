@@ -19,6 +19,8 @@ public class ScoreboardController : NetworkBehaviour
     public TextMeshProUGUI RedScoreText;
     public TextMeshProUGUI BlueScoreText;
 
+    
+
 
     //[SyncVar(hook = nameof(OnObjectNameChanged))]
     //public string ObjectName = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
@@ -38,13 +40,23 @@ public class ScoreboardController : NetworkBehaviour
     //start
     private void Start()
     {
-        //gameObject.name = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
+        gameObject.name = "board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString();
+        //GameObject.Find("player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<PlayerDataNew>();
+        //GameObject.FindGameObjectsWithTag("Player");
+        PlayerDataNew[] playerss = FindObjectsOfType<PlayerDataNew>();
+        for (int i = 0; i < playerss.Length; i++)
+        {
+            if (playerss[i].name == "player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString())
+            {
+                playerss[i].GetComponent<PlayerDataNew>().sccontroll = this;
+            }
+        }
     }
 
     void Update()
     {
-        RedScoreText.text = "Red : " + RedScore;
-        BlueScoreText.text = "Blue : " + BlueScore;
+        //RedScoreText.text = "Red : " + RedScore;
+        //BlueScoreText.text = "Blue : " + BlueScore;
     }
 
     [Command(requiresAuthority = false)]
@@ -173,6 +185,117 @@ public class ScoreboardController : NetworkBehaviour
         //scoreboardController.UpdateScore(PlayerName, newScore);
         //BlueScoreText.text = "Blue : " + BlueScore;
         Debug.Log("Score Updated");
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private List<PlayerScore> playerScores = new List<PlayerScore>();
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI summaryRed;
+    public TextMeshProUGUI summaryBlue;
+
+    [System.Serializable]
+    public class PlayerScore
+    {
+        public string playerName;
+        public int score;
+        public string tim;
+    }
+
+
+
+    public void addPlayer(string playerName, string tim)
+    {
+        // Cek apakah pemain sudah ada dalam daftar
+        if (playerScores.Exists(x => x.playerName == playerName))
+        {
+            Debug.LogWarning("Player already exists in the scoreboard: " + playerName);
+            return;
+        }
+
+        // Tambahkan pemain baru dengan skor awal 0
+        PlayerScore newPlayerScore = new PlayerScore
+        {
+            playerName = playerName,
+            score = 0,
+            tim = tim
+            //TeamName = Team
+        };
+        playerScores.Add(newPlayerScore);
+
+        // Memanggil Rpc untuk mengirim pembaruan skor kepada semua pemain
+        //RpcUpdateScore(playerScores.OrderByDescending(x => x.score).ToList());
+
+        //RpcUpdateStatus(playerScores.OrderByDescending(x => x.score).ToList());
+
+        RpcUpdateScoreSummary(playerScores.OrderByDescending(x => x.score).ToList());
+
+        //playerCountTotal++;
+
+        //playerScores.Clear();
+    }
+
+    public void UpdateScore(string playerName, int scoreChange)
+    {
+        PlayerScore playerScore = playerScores.Find(x => x.playerName == playerName);
+
+        if (playerScore != null)
+        {
+            playerScore.score += scoreChange;
+            //playerName = playerScore.playerName;
+        }
+        else
+        {
+
+            Debug.LogWarning("Player not found in the scoreboard: " + playerName);
+        }
+
+        //playerScore.score += scoreChange;
+
+        // Memanggil Rpc untuk mengirim pembaruan skor kepada semua pemain
+        //RpcUpdateScore(playerScores.OrderByDescending(x => x.score).ToList());
+
+        RpcUpdateScoreSummary(playerScores.OrderByDescending(x => x.score).ToList());
+        //RpcUpdateScoreSummary(playerScores.OrderByDescending(x => x.score).ToList(), playerTeams.OrderByDescending(x => x.teamScore).ToList());
+    }
+
+    [ClientRpc]
+    private void RpcUpdateScoreSummary(List<PlayerScore> playerScoreList)
+    {
+        // Update UI Text hanya pada klien
+        if (summaryRed != null)
+        {
+            //string scoreString = "Green:\n";
+            string scoreString2 = "Red:\n";
+            string scoreString3 = "Blue:\n";
+
+            foreach (var playerScore in playerScoreList)
+            {
+                
+                if (playerScore.tim == "Red")
+                {
+                    scoreString2 += playerScore.playerName + ": " + playerScore.score + "\n";
+                }
+
+                if (playerScore.tim == "Blue")
+                {
+                    scoreString3 += playerScore.playerName + ": " + playerScore.score + "\n";
+                }
+
+
+                //scoreString += playerScore.playerName + ": " + playerScore.score + "\n";
+                //Debug.Log("tim " + playerScore.tim);
+                //scoreString += playerScore.playerName + ": " + playerScore.score + "\n";
+            }
+
+
+            //summaryGreen.text = scoreString;
+            summaryRed.text = scoreString2;
+            summaryBlue.text = scoreString3;
+
+        }
+
+        //Debug.Log("Total score : " + totalScore);
+
     }
 
 
