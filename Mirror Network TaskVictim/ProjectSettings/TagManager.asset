@@ -24,6 +24,7 @@ TagManager:
   - treasure8
   - treasure9
   - treasure10
+  - scoreboard
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - UI
   - Characters
   - 
-  - 
+  - DMMap
   - 
   - 
   - 

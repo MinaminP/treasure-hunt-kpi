@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Unity.VisualScripting;
+using DMM;
 
 public class interact : NetworkBehaviour
 {
@@ -31,14 +32,19 @@ public class interact : NetworkBehaviour
     public RandomSpawnTreasure random;
 
     public GameObject pickupArea;
+    public ScoreboardController scoreboardController;
+    public DMMapIcon DMI;
 
     // Start is called before the first frame update
     public void Start()
     {
         //scoreAdd.dataUpdates();
+        DMI = GetComponent<DMMapIcon>();
         canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         isInArea = false;
+
+        scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
     }
 
     // Update is called once per frame
@@ -69,6 +75,8 @@ public class interact : NetworkBehaviour
                 {
                     if (blue >= random.maxBlue)
                     {
+                        canvas.changeScoreButton();
+                        //addBlueScoree();
                         Debug.Log("Blue Team got the treasure");
                         hancurkan();
                         random.RandomSpawn();
@@ -76,6 +84,8 @@ public class interact : NetworkBehaviour
 
                     if(red >= random.maxRed)
                     {
+                        canvas.changeScoreButton();
+                        //addRedScoree();
                         Debug.Log("Red Team got the treasure");
                         hancurkan();
                         random.RandomSpawn();
@@ -89,15 +99,28 @@ public class interact : NetworkBehaviour
         if (isActive == false)
         {
             //gameObject.SetActive(false);
+            DMI.enabled = false;
             theObject.SetActive(false);
         }else if(isActive == true)
         {
             //gameObject.SetActive(true);
+            DMI.enabled = true;
             theObject.SetActive(true);
         }
         
     }
 
+    [Command(requiresAuthority = false)]
+    public void addRedScoree()
+    {
+        scoreboardController.addRedScore();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void addBlueScoree()
+    {
+        scoreboardController.addBlueScore();
+    }
 
     [Command(requiresAuthority = false)]
     public void hancurkan()

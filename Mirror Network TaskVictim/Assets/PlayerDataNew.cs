@@ -5,6 +5,8 @@ using Mirror;
 using TMPro;
 using Mirror.Examples.MultipleMatch;
 using UnityEngine.TextCore.Text;
+using Unity.VisualScripting;
+using UnityEngine.PlayerLoop;
 
 public class PlayerDataNew : NetworkBehaviour
 {
@@ -15,14 +17,22 @@ public class PlayerDataNew : NetworkBehaviour
     public TextMeshProUGUI playerNameUI;
 
     public ScoreboardController scoreboardController;
+    public ScoreboardController sccontroll;
+
     public countdownNew timerCounter;
     public CanvasController canvasController;
     public RandomSpawnTreasure random;
 
+    public string localMatchId;
     // Start is called before the first frame update
     void Start()
     {
-        //scoreboardController = GameObject.FindWithTag("canvas").GetComponent<ScoreboardController>();
+        //scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
+        sccontroll = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
+        scoreboardController = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
+
+        //sccontroll = GameObject.FindWithTag("scoreboard").GetComponent<NetworkMatch>().matchId = gameObject.GetComponent<NetworkMatch>().matchId;
+        //sccontroll = GameObject.
         //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
         timerCounter = GameObject.FindWithTag("time").GetComponent<countdownNew>();
 
@@ -46,7 +56,7 @@ public class PlayerDataNew : NetworkBehaviour
 
             //scoreboardController.addPlayer(PlayerName, PlayerTeamName);
             //CmdSendTeamName("Red");
-            //CmdSendInitializeScore();
+            CmdSendInitializeScore();
         }
         else
         {
@@ -55,11 +65,20 @@ public class PlayerDataNew : NetworkBehaviour
         
     }
 
+    void Update()
+    {
+        
+    }
+
+   
+
     [Command]
     public void CmdSendName(string playerName)
     {
         PlayerName = playerName;
         gameObject.name = PlayerName;
+        //gameObject.name = PlayerName;
+        gameObject.name = "player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString();
     }
 
     [Command]
@@ -67,7 +86,19 @@ public class PlayerDataNew : NetworkBehaviour
     {
         PlayerScore += playerScore;
         Debug.Log(PlayerScore);
-        //scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
+
+        //pake ini
+        scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
+        scoreboardController.UpdateScore(PlayerName, 1);
+
+        /*if (PlayerTeamName == "Red")
+        {
+            scoreboardController.addRedScore();
+        }
+        else if (PlayerTeamName == "Blue")
+        {
+            scoreboardController.addBlueScore();
+        }*/
 
     }
 
@@ -102,22 +133,23 @@ public class PlayerDataNew : NetworkBehaviour
         //scoreboard.updateDataPlayer();
         //scoreboard.UpdateScore(PlayerName, PlayerScore);
 
-        scoreboardController.UpdateTeamScore(PlayerTeamName, 0);
+        //pake ini
+        if (scoreboardController != null)
+        {
+            scoreboardController.UpdateTeamScore(PlayerTeamName, 0);
+            scoreboardController.addPlayer(PlayerName, PlayerTeamName);
+            scoreboardController.UpdateScore(PlayerName, 0);
+        }
+        
 
+        Debug.Log("Initialize");
         //scoreboard.playerCountTotal += 1;
 
         //scoreboard.realUpdate();
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        /*if (timerCounter.timer <= 0)
-        {
-            scoreboardController.UpdateTopTeamScore();
-        }*/
-    }
+   
 
     public void UpdatePlayerName(string oldName, string newName)
     {
@@ -131,7 +163,21 @@ public class PlayerDataNew : NetworkBehaviour
     public void UpdatePlayerScore(int oldScore, int newScore)
     {
         Debug.Log(PlayerName + " score updated from " + oldScore + " to " + newScore);
+        //scoreboardController.UpdateTopTeamScore();
         //scoreboardController.UpdateScore(PlayerName, newScore);
+
+        if (PlayerTeamName == "Red")
+        {
+            //scoreboardController.RedScore++;
+            //scoreboardController.addRedScore();
+        }
+        else if (PlayerTeamName == "Blue")
+        {
+            //scoreboardController.BlueScore++;
+            //scoreboardController.addBlueScore();
+        }
+
+
     }
 
     public void UpdateTeamName(string oldTeam, string newTeam)
@@ -149,7 +195,5 @@ public class PlayerDataNew : NetworkBehaviour
             random.maxBlue++;
         }
         //scoreboardController.UpdateSummaryTeam(PlayerName, newTeam);
-
-
     }
 }

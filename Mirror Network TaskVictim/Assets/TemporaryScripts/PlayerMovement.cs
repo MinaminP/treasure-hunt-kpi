@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using Cinemachine;
+using DMM;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -112,6 +113,7 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         //private PlayerCharacter pc;
+        private AssignMapFocus am;
 
         public GameObject swimBehaviour;
 
@@ -154,8 +156,11 @@ namespace StarterAssets
             playerInput.enabled = true;
 
             swimBehaviour.SetActive(true);
-           /* pc = GetComponent<PlayerCharacter>();
 
+            am = GetComponent<AssignMapFocus>();
+            am.enabled = true;
+           /* pc = GetComponent<PlayerCharacter>();
+           
             if(pc != null )
             {
                 pc.characterLocomotion.isControllable = true;

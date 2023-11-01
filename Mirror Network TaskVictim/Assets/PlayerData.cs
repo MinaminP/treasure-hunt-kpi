@@ -138,11 +138,12 @@ public class PlayerData : NetworkBehaviour
     public void CmdSendName(string playerName)
     {
         PlayerName = playerName;
-        gameObject.name = PlayerName;
+        //gameObject.name = PlayerName;
+        //gameObject.name = "player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString();
         //scoreboard.UpdateName(gameObject.name, PlayerName);
         //scoreboard.UpdateScoreboard(pla);
         //scoreboard.updateDataPlayer();
-        
+
     }
 
     [Command]

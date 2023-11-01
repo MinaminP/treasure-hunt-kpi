@@ -371,9 +371,10 @@ public class ScoreBoardNew : NetworkBehaviour
         PlayerTeam topTeam = playerTeams.OrderByDescending(x => x.teamName).FirstOrDefault();
         if (topTeam != null)
         {
-            topTeamScoreText.text = "Winner : " + topTeam.teamName + " - " + topTeam.teamScore.ToString();
+            
             if (topTeam.teamScore >= 5)
             {
+                topTeamScoreText.text = "Winner : " + topTeam.teamName + " - " + topTeam.teamScore.ToString();
                 Debug.Log(topTeam.teamName + "Just passed target score");
             }
             
