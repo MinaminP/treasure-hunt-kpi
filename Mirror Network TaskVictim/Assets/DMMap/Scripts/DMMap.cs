@@ -316,7 +316,7 @@ namespace DMM {
             if (configs.Count <= 0) Debug.LogError("[DMMap] - Error:  Need at least one config to load!");
             LayerMask layer = LayerMask.NameToLayer("DMMap");
             if (layer.value == -1) Debug.LogError("DMMap Layer was not found.  Please follow the instructions in the Readme.txt to set up a DMMap layer!");
-            DMMapCamera.cullingMask = 1 << layer.value;
+            //DMMapCamera.cullingMask = 1 << layer.value;
 
             started = true;
             LoadConfig(loadedConfig);

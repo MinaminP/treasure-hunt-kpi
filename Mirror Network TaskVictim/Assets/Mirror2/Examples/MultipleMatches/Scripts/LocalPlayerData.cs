@@ -6,5 +6,6 @@ public class LocalPlayerData
     public static string playerTeam;
     public static float gametimer;
     public static bool isOwner;
+    public static int avatarId = 0;
     public static bool isActive;
 }

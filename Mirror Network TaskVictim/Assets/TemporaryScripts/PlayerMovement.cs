@@ -2,6 +2,7 @@ using UnityEngine;
 using Mirror;
 using Cinemachine;
 using DMM;
+using UnityEngine.UIElements;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -114,6 +115,7 @@ namespace StarterAssets
 
         //private PlayerCharacter pc;
         private AssignMapFocus am;
+        private DMMapIcon dmi;
 
         public GameObject swimBehaviour;
 
@@ -159,6 +161,11 @@ namespace StarterAssets
 
             am = GetComponent<AssignMapFocus>();
             am.enabled = true;
+
+            dmi = GetComponent<DMMapIcon>();
+            dmi.rotateWithMap = false;
+            dmi.scaleWithZoom = false;
+            dmi.rotate = false;
            /* pc = GetComponent<PlayerCharacter>();
            
             if(pc != null )
@@ -439,6 +446,11 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            
         }
     }
 }

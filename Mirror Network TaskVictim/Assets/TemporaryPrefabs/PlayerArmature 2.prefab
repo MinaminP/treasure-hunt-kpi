@@ -2837,9 +2837,9 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4278255379
   iconGO: {fileID: 0}
-  scaleWithZoom: 0
-  rotate: 0
-  rotateWithMap: 0
+  scaleWithZoom: 1
+  rotate: 1
+  rotateWithMap: 1
   mapPosition: {x: 0, y: 0, z: 0}
   useDirectionIndicator: 0
   directionIcon: {fileID: 0}

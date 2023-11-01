@@ -36,7 +36,7 @@ public class SwimBehaviour : NetworkBehaviour
         {
             playerMovement.Gravity = -15.0f;
             playerMovement.Grounded = true;
-            playerMovement.GroundedOffset = -0.14f;
+            playerMovement.GroundedOffset = -0.26f;
             playerMovement.GroundedRadius = 0.28f;
             playerMovement.isSwimming = false;
             characterController.height = 1.8f;

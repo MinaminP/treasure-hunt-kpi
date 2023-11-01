@@ -36,7 +36,7 @@ public class interactNew : NetworkBehaviour
                 //siCanvas.GetComponent<playerList>().updateDataPlayer();
                 //scoreAdd.tambahSkor();
                 //scoreAdd.dataUpdates();
-                canvas.changeScoreButton();
+                //canvas.changeScoreButton();
                 hancurkan();
             }
 
@@ -56,7 +56,7 @@ public class interactNew : NetworkBehaviour
         if (collision.collider.tag == "Player")
         {
             Debug.Log("Got it");
-            canvas.changeScoreButton();
+            //canvas.changeScoreButton();
             hancurkan();
         }
     }

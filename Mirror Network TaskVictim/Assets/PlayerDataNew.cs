@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 using Mirror.Examples.MultipleMatch;
+using UnityEngine.TextCore.Text;
 using Unity.VisualScripting;
 using UnityEngine.PlayerLoop;
 
@@ -12,7 +13,6 @@ public class PlayerDataNew : NetworkBehaviour
     [SyncVar(hook = "UpdatePlayerName")] public string PlayerName;
     [SyncVar(hook = "UpdatePlayerScore")] public int PlayerScore;
     [SyncVar(hook = "UpdateTeamName")] public string PlayerTeamName;
-
 
     public TextMeshProUGUI playerNameUI;
 
@@ -23,14 +23,12 @@ public class PlayerDataNew : NetworkBehaviour
     public CanvasController canvasController;
     public RandomSpawnTreasure random;
 
-    //public bool isActive;
-
     public string localMatchId;
     // Start is called before the first frame update
     void Start()
     {
         //scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
-        sccontroll = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
+        //sccontroll = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
         scoreboardController = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
 
         //sccontroll = GameObject.FindWithTag("scoreboard").GetComponent<NetworkMatch>().matchId = gameObject.GetComponent<NetworkMatch>().matchId;
@@ -40,8 +38,10 @@ public class PlayerDataNew : NetworkBehaviour
 
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         timerCounter.hasStarted = true;
-        random.RandomSpawn();
+        //random.RandomSpawn();
         //startwaktu();
+        
+
         if (isLocalPlayer)
         {
             //float randomNumber = Random.Range(0, 1000000);
@@ -67,8 +67,27 @@ public class PlayerDataNew : NetworkBehaviour
 
     void Update()
     {
+        if (timerCounter.timer <= 0)
+        {
+            if (isLocalPlayer)
+            {
+                //CmdShowWin();
+                //scoreboardController.UpdateTopTeamScore();
+                scoreboardController.GetComponent<Animator>().Play("end");
+            }
+            //scoreboardController.isEnd = true;
+            
+        }
+    }
+
+    [Command]
+    public void CmdShowWin()
+    {
+        scoreboardController.UpdateTopTeamScore();
         
     }
+
+    
 
    
 
@@ -76,20 +95,24 @@ public class PlayerDataNew : NetworkBehaviour
     public void CmdSendName(string playerName)
     {
         PlayerName = playerName;
+        gameObject.name = PlayerName;
         //gameObject.name = PlayerName;
         gameObject.name = "player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString();
-
     }
 
     [Command]
-    public void CmdSendScore(int playerScore)
+    public void CmdSendScore(int playerScore, string tim)
     {
         PlayerScore += playerScore;
         Debug.Log(PlayerScore);
 
         //pake ini
-        scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
-        scoreboardController.UpdateScore(PlayerName, 1);
+        if (tim == PlayerTeamName)
+        {
+            scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
+            scoreboardController.UpdateScore(PlayerName, 1);
+        }
+        scoreboardController.UpdateTopTeamScore();
 
         /*if (PlayerTeamName == "Red")
         {
@@ -107,7 +130,6 @@ public class PlayerDataNew : NetworkBehaviour
     {
         PlayerTeamName = playerTeamName;
 
-        
         //Debug.Log("Player Team " + PlayerTeamName);
 
         //scoreboardController.UpdateSummaryTeam(PlayerName, playerTeamName);
@@ -196,9 +218,5 @@ public class PlayerDataNew : NetworkBehaviour
             random.maxBlue++;
         }
         //scoreboardController.UpdateSummaryTeam(PlayerName, newTeam);
-
-        
-
-
     }
 }

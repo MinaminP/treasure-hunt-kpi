@@ -31,8 +31,8 @@ public class interact : NetworkBehaviour
 
     public RandomSpawnTreasure random;
 
+    public GameObject pickupArea;
     public ScoreboardController scoreboardController;
-
     public DMMapIcon DMI;
 
     // Start is called before the first frame update
@@ -75,8 +75,9 @@ public class interact : NetworkBehaviour
                 {
                     if (blue >= random.maxBlue)
                     {
-                        canvas.changeScoreButton();
+                        canvas.changeScoreButton("Blue");
                         //addBlueScoree();
+                        //scoreboardController.BlueScore++;
                         Debug.Log("Blue Team got the treasure");
                         hancurkan();
                         random.RandomSpawn();
@@ -84,7 +85,8 @@ public class interact : NetworkBehaviour
 
                     if(red >= random.maxRed)
                     {
-                        canvas.changeScoreButton();
+                        //scoreboardController.RedScore++;
+                        canvas.changeScoreButton("Red");
                         //addRedScoree();
                         Debug.Log("Red Team got the treasure");
                         hancurkan();
@@ -141,7 +143,7 @@ public class interact : NetworkBehaviour
         if (collision.collider.tag == "Player")
         {
             Debug.Log("Got it");
-            canvas.changeScoreButton();
+            //canvas.changeScoreButton();
             hancurkan();
         }
     }
@@ -160,6 +162,19 @@ public class interact : NetworkBehaviour
             {
                 red++;
             }
+
+            if (blue < red)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+            }
+            else if (red < blue)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+            }
+            else
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 50);
+            }
         }
     }
 
@@ -171,12 +186,22 @@ public class interact : NetworkBehaviour
             if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Blue")
             {
                 blue--;
+                if (blue < 0)
+                {
+                    blue = 0;
+                }
             }
 
             if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Red")
             {
                 red--;
+                if (red < 0)
+                {
+                    red = 0;
+                }
             }
+
+            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
         }
     }
 

@@ -40,6 +40,9 @@ public class countdownNew : NetworkBehaviour
                     timer = 0;
                     isCounting = false;
                 }
+            }else if (isCounting == false)
+            {
+
             }
         }
         

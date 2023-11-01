@@ -19,6 +19,7 @@ public class ScoreboardController : NetworkBehaviour
     public TextMeshProUGUI RedScoreText;
     public TextMeshProUGUI BlueScoreText;
 
+    //public Count
     
 
 
@@ -28,6 +29,8 @@ public class ScoreboardController : NetworkBehaviour
     [SyncVar(hook = nameof(OnRedScoreChanged))] public int RedScore;
 
     [SyncVar(hook = nameof(OnBlueScoreChanged))] public int BlueScore;
+
+    [SyncVar(hook = nameof(OnEndChanged))] public bool isEnd = false;
 
     [System.Serializable]
     public class PlayerTeam
@@ -48,7 +51,7 @@ public class ScoreboardController : NetworkBehaviour
         {
             if (playerss[i].name == "player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString())
             {
-                playerss[i].GetComponent<PlayerDataNew>().sccontroll = this;
+                playerss[i].GetComponent<PlayerDataNew>().scoreboardController = this;
             }
         }
     }
@@ -57,6 +60,15 @@ public class ScoreboardController : NetworkBehaviour
     {
         //RedScoreText.text = "Red : " + RedScore;
         //BlueScoreText.text = "Blue : " + BlueScore;
+        if (isEnd == true)
+        {
+            //gameObject.GetComponent<Animator>().Play("endgame");
+        }
+    }
+
+    public void showw()
+    {
+        gameObject.GetComponent<Animator>().Play("endgame");
     }
 
     [Command(requiresAuthority = false)]
@@ -118,7 +130,7 @@ public class ScoreboardController : NetworkBehaviour
 
     }
 
-    [Command(requiresAuthority = false)]
+    
     public void UpdateTopTeamScore()
     {
         //RpcUpdateTopTeamScore();
@@ -133,12 +145,10 @@ public class ScoreboardController : NetworkBehaviour
         // Update UI Text hanya pada klien
         if (topTeamScoreText != null)
         {
-            if (score.teamScore >= 5)
-            {
-                Debug.Log(score.teamName + "Just passed target score");
-                topTeamScoreText.text = score.teamName + " Win";
-            }
-            
+     
+            Debug.Log(score.teamName + "Just passed target score");
+            topTeamScoreText.text = score.teamName + " Win";
+
         }
 
         //Debug.Log("Total score : " + totalScore);
@@ -295,6 +305,11 @@ public class ScoreboardController : NetworkBehaviour
         }
 
         //Debug.Log("Total score : " + totalScore);
+
+    }
+
+    public void OnEndChanged(bool oldVal, bool newVal)
+    {
 
     }
 

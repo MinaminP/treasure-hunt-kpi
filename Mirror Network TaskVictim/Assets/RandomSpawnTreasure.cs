@@ -47,6 +47,11 @@ public class RandomSpawnTreasure : NetworkBehaviour
         //treasure8 = GameObject.FindWithTag("treasure8");
         //treasure9 = GameObject.FindWithTag("treasure9");
         //treasure10 = GameObject.FindWithTag("treasure10");
+        if (LocalPlayerData.isOwner == true)
+        {
+            RandomSpawn();
+        }
+        //RandomSpawn();
     }
 
     // Update is called once per frame

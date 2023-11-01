@@ -13,6 +13,10 @@ public class loginController : MonoBehaviour
     public GameObject setNamePanel;
     public GameObject NetworkManagerObject;
 
+    public GameObject[] charactersUI;
+
+    public Button startButton;
+
     //public GameObject randomTreasure;
 
     //public CanvasController canvasController;
@@ -32,6 +36,27 @@ public class loginController : MonoBehaviour
         NetworkManagerObject.SetActive(true);
         //randomTreasure.SetActive(true);
         setNamePanel.SetActive(false);
+    }
+
+    public void SelectCharacter(int avatar)
+    {
+        LocalPlayerData.avatarId = avatar;
+
+        charactersUI[avatar].gameObject.SetActive(true);
+
+        for(int i = 0; i < charactersUI.Length; i++)
+        {
+            if(i == avatar)
+            {
+                charactersUI[i].gameObject.SetActive(true);
+            } 
+            else
+            {
+                charactersUI[i].SetActive(false);
+            }
+        }
+
+        startButton.interactable = true;
     }
 
     /*[Command]
