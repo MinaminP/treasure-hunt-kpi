@@ -74,6 +74,8 @@ namespace Mirror.Examples.MultipleMatch
 
         public static CanvasController instance;
 
+        public GameObject canvasInGame;
+
         MultipleMatchAdditiveNetwork matchAdditiveNetwork;
 
         public string temporaryLocalName;
@@ -772,6 +774,7 @@ namespace Mirror.Examples.MultipleMatch
                     {
                         lobbyView.SetActive(false);
                         roomView.SetActive(false);
+                        canvasInGame.SetActive(true);
                         break;
                     }
             }

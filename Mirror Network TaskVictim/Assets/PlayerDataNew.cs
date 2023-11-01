@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 using Mirror.Examples.MultipleMatch;
+using UnityEngine.TextCore.Text;
 
 public class PlayerDataNew : NetworkBehaviour
 {
@@ -11,13 +12,13 @@ public class PlayerDataNew : NetworkBehaviour
     [SyncVar(hook = "UpdatePlayerScore")] public int PlayerScore;
     [SyncVar(hook = "UpdateTeamName")] public string PlayerTeamName;
 
-
     public TextMeshProUGUI playerNameUI;
 
     public ScoreboardController scoreboardController;
     public countdownNew timerCounter;
     public CanvasController canvasController;
     public RandomSpawnTreasure random;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,8 @@ public class PlayerDataNew : NetworkBehaviour
         timerCounter.hasStarted = true;
         random.RandomSpawn();
         //startwaktu();
+        
+
         if (isLocalPlayer)
         {
             //float randomNumber = Random.Range(0, 1000000);
@@ -57,7 +60,6 @@ public class PlayerDataNew : NetworkBehaviour
     {
         PlayerName = playerName;
         gameObject.name = PlayerName;
-
     }
 
     [Command]
@@ -74,7 +76,6 @@ public class PlayerDataNew : NetworkBehaviour
     {
         PlayerTeamName = playerTeamName;
 
-        
         //Debug.Log("Player Team " + PlayerTeamName);
 
         //scoreboardController.UpdateSummaryTeam(PlayerName, playerTeamName);

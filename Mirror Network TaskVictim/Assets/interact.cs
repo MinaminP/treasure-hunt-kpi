@@ -30,6 +30,8 @@ public class interact : NetworkBehaviour
 
     public RandomSpawnTreasure random;
 
+    public GameObject pickupArea;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -135,6 +137,19 @@ public class interact : NetworkBehaviour
             {
                 red++;
             }
+
+            if (blue < red)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+            }
+            else if (red < blue)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+            }
+            else
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 50);
+            }
         }
     }
 
@@ -152,6 +167,8 @@ public class interact : NetworkBehaviour
             {
                 red--;
             }
+
+            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
         }
     }
 
