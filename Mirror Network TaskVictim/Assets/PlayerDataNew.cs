@@ -17,7 +17,6 @@ public class PlayerDataNew : NetworkBehaviour
     public TextMeshProUGUI playerNameUI;
 
     public ScoreboardController scoreboardController;
-    public ScoreboardController sccontroll;
 
     public countdownNew timerCounter;
     public CanvasController canvasController;
@@ -28,7 +27,6 @@ public class PlayerDataNew : NetworkBehaviour
     void Start()
     {
         //scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
-        sccontroll = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
         scoreboardController = GameObject.Find("board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<ScoreboardController>();
 
         //sccontroll = GameObject.FindWithTag("scoreboard").GetComponent<NetworkMatch>().matchId = gameObject.GetComponent<NetworkMatch>().matchId;
@@ -38,7 +36,7 @@ public class PlayerDataNew : NetworkBehaviour
 
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         timerCounter.hasStarted = true;
-        random.RandomSpawn();
+        //random.RandomSpawn();
         //startwaktu();
         
 

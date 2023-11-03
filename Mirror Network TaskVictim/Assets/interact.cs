@@ -33,13 +33,13 @@ public class interact : NetworkBehaviour
 
     public GameObject pickupArea;
     public ScoreboardController scoreboardController;
-    public DMMapIcon DMI;
+    //public DMMapIcon DMI;
 
     // Start is called before the first frame update
     public void Start()
     {
         //scoreAdd.dataUpdates();
-        DMI = GetComponent<DMMapIcon>();
+        //DMI = GetComponent<DMMapIcon>();
         canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         isInArea = false;
@@ -73,24 +73,28 @@ public class interact : NetworkBehaviour
                 //gameObject.SetActive(false);
                 if (isActive == true)
                 {
-                    if (blue >= random.maxBlue)
+                    if (red != blue)
                     {
-                        canvas.changeScoreButton();
-                        //addBlueScoree();
-                        Debug.Log("Blue Team got the treasure");
-                        hancurkan();
-                        random.RandomSpawn();
+                        if (blue >= random.maxBlue)
+                        {
+                            canvas.changeScoreButton();
+                            //addBlueScoree();
+                            scoreboardController.UpdateTeamScore("Blue", 1);
+                            Debug.Log("Blue Team got the treasure");
+                            hancurkan();
+                            random.RandomSpawn();
+                        }
+                        else if (red >= random.maxRed)
+                        {
+                            canvas.changeScoreButton();
+                            //addRedScoree();
+                            scoreboardController.UpdateTeamScore("Red", 1);
+                            Debug.Log("Red Team got the treasure");
+                            hancurkan();
+                            random.RandomSpawn();
+                        }
                     }
 
-                    if(red >= random.maxRed)
-                    {
-                        canvas.changeScoreButton();
-                        //addRedScoree();
-                        Debug.Log("Red Team got the treasure");
-                        hancurkan();
-                        random.RandomSpawn();
-                    }
-                    
                 }
                 
             }
@@ -99,12 +103,12 @@ public class interact : NetworkBehaviour
         if (isActive == false)
         {
             //gameObject.SetActive(false);
-            DMI.enabled = false;
+            //DMI.enabled = false;
             theObject.SetActive(false);
         }else if(isActive == true)
         {
             //gameObject.SetActive(true);
-            DMI.enabled = true;
+            //DMI.enabled = true;
             theObject.SetActive(true);
         }
         
@@ -161,6 +165,25 @@ public class interact : NetworkBehaviour
                 red++;
             }
 
+            if (blue < red)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+            }
+            else if (red < blue)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+            }
+            else
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 50);
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
             if (blue < red)
             {
                 pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);

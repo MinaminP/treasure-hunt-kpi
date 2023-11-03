@@ -7,10 +7,6 @@ using System.Linq;
 
 public class ScoreboardController : NetworkBehaviour
 {
-    
-
-
-
     private List<PlayerTeam> playerTeams = new List<PlayerTeam>();
     //public Text scoreText; // UI Text untuk menampilkan skor
     public TextMeshProUGUI scoreText2;
@@ -18,12 +14,10 @@ public class ScoreboardController : NetworkBehaviour
 
     public TextMeshProUGUI RedScoreText;
     public TextMeshProUGUI BlueScoreText;
-
-    
-
-
     //[SyncVar(hook = nameof(OnObjectNameChanged))]
     //public string ObjectName = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
+
+    public GameObject scoreBoardUI;
 
     [SyncVar(hook = nameof(OnRedScoreChanged))] public int RedScore;
 
@@ -48,15 +42,19 @@ public class ScoreboardController : NetworkBehaviour
         {
             if (playerss[i].name == "player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString())
             {
-                playerss[i].GetComponent<PlayerDataNew>().sccontroll = this;
+                playerss[i].GetComponent<PlayerDataNew>().scoreboardController = this;
             }
         }
     }
 
-    void Update()
+    private void Update()
     {
-        //RedScoreText.text = "Red : " + RedScore;
-        //BlueScoreText.text = "Blue : " + BlueScore;
+        scoreBoardUI.SetActive(false);
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            Debug.Log("Tab Pressed");
+            scoreBoardUI.SetActive(true);
+        }
     }
 
     [Command(requiresAuthority = false)]
