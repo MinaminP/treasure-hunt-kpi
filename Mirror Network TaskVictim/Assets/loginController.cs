@@ -17,11 +17,19 @@ public class loginController : MonoBehaviour
 
     public Button startButton;
 
+    public string address;
+
+    NetworkManager manager;
     //public GameObject randomTreasure;
 
     //public CanvasController canvasController;
 
     //[SyncVar(hook = nameof(SetPlayerName))] public string PlayerUserName;
+
+    private void Start()
+    {
+        manager = NetworkManagerObject.GetComponent<NetworkManager>();
+    }
 
     public void setTheName()
     {
@@ -36,6 +44,16 @@ public class loginController : MonoBehaviour
         NetworkManagerObject.SetActive(true);
         //randomTreasure.SetActive(true);
         setNamePanel.SetActive(false);
+
+        /*if (!NetworkClient.active)
+        {
+            // Client + IP
+            manager.StartClient();
+            // This updates networkAddress every frame from the TextField
+            manager.networkAddress = address;
+        }*/
+
+        NetworkManagerObject.GetComponent<NetworkManagerHUD>().enabled = true;
     }
 
     public void SelectCharacter(int avatar)
@@ -55,8 +73,16 @@ public class loginController : MonoBehaviour
                 charactersUI[i].SetActive(false);
             }
         }
-
+        
         startButton.interactable = true;
+    }
+
+    public void ServerStart()
+    {
+        if (!NetworkClient.active)
+        {
+            manager.StartServer();
+        }
     }
 
     /*[Command]

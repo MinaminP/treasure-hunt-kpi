@@ -5,7 +5,7 @@ using Mirror;
 
 public class PlayerCollision : NetworkBehaviour
 {
-    [Range(0.5f, 5f)] public float strength = 1.1f;
+    public float forceMagnitude;
     // Start is called before the first frame update
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -21,6 +21,16 @@ public class PlayerCollision : NetworkBehaviour
             hit.controller.Move(direction * strength);
             //hit.controller.SimpleMove(pushDir.normalized);
         }*/
+
+        Rigidbody rigidbody = hit.collider.attachedRigidbody;
+        if (rigidbody != null) 
+        {
+            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
+            forceDirection.y = 0;
+            forceDirection.Normalize();
+
+            rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,14 +47,14 @@ public class PlayerCollision : NetworkBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+       /* if (other.tag == "Player")
         {
             Debug.Log("Collided");
             Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
             CharacterController controller = other.gameObject.GetComponent<CharacterController>();
             controller.Move(direction.normalized);
             //collision.rigidbody.AddForce(direction * strength, ForceMode.Impulse);
-        }
+        }*/
     }
 
     /*private void OnCollisionEnter(Collision collision)

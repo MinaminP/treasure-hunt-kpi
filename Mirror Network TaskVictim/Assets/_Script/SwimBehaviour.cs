@@ -5,7 +5,7 @@ using StarterAssets;
 using Mirror;
 using UnityEngine.InputSystem;
 
-public class SwimBehaviour : NetworkBehaviour
+public class SwimBehaviour : MonoBehaviour
 {
     public PlayerMovement playerMovement;
     public CharacterController characterController;
