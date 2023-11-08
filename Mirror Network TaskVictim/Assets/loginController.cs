@@ -16,12 +16,9 @@ public class loginController : MonoBehaviour
     public GameObject[] charactersUI;
 
     public Button startButton;
-
     public string address;
 
     NetworkManager manager;
-    //public GameObject randomTreasure;
-
     //public CanvasController canvasController;
 
     //[SyncVar(hook = nameof(SetPlayerName))] public string PlayerUserName;
@@ -42,7 +39,6 @@ public class loginController : MonoBehaviour
         //CmdSetPlayerName(LocalPlayerData.playerUserName);
 
         NetworkManagerObject.SetActive(true);
-        //randomTreasure.SetActive(true);
         setNamePanel.SetActive(false);
 
         /*if (!NetworkClient.active)
@@ -83,6 +79,27 @@ public class loginController : MonoBehaviour
         {
             manager.StartServer();
         }
+    }
+
+    public void SelectCharacter(int avatar)
+    {
+        LocalPlayerData.avatarId = avatar;
+
+        charactersUI[avatar].gameObject.SetActive(true);
+
+        for(int i = 0; i < charactersUI.Length; i++)
+        {
+            if(i == avatar)
+            {
+                charactersUI[i].gameObject.SetActive(true);
+            } 
+            else
+            {
+                charactersUI[i].SetActive(false);
+            }
+        }
+
+        startButton.interactable = true;
     }
 
     /*[Command]

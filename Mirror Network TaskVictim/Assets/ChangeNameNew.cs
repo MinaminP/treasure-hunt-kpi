@@ -18,9 +18,9 @@ public class ChangeNameNew : MonoBehaviour
         playerData.CmdSendName(nameField.text);
     }
 
-    public void changeScoreButton()
+    public void changeScoreButton(string namaTim)
     {
-        playerData.CmdSendScore(1);
+        playerData.CmdSendScore(1,namaTim);
         
     }
 
