@@ -155,6 +155,9 @@ namespace StarterAssets
             PlayerInput playerInput = GetComponent<PlayerInput>();
             playerInput.enabled = true;
 
+            //Rigidbody rigidbody = GetComponent<Rigidbody>();
+            //rigidbody.isKinematic = true;
+
             swimBehaviour.SetActive(true);
 
             am = GetComponent<AssignMapFocus>();
@@ -437,7 +440,7 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+               // AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
 

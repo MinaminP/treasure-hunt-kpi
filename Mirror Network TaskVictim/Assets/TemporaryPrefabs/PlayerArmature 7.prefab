@@ -8629,7 +8629,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8794599909375976251}
   - component: {fileID: 8162601327868377483}
-  - component: {fileID: 2136691879180374897}
   - component: {fileID: 5614086055237985789}
   - component: {fileID: 8162601327868377485}
   - component: {fileID: 5755129127479827458}
@@ -8640,8 +8639,6 @@ GameObject:
   - component: {fileID: 1484555827350971641}
   - component: {fileID: 1093883628288662443}
   - component: {fileID: 1459724763975300444}
-  - component: {fileID: 3686043703007770873}
-  - component: {fileID: 4235860957920347546}
   m_Layer: 3
   m_Name: PlayerArmature 7
   m_TagString: Player
@@ -8687,23 +8684,6 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.93, z: 0}
---- !u!114 &2136691879180374897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8162601327868377473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  canPush: 1
-  strength: 1.1
 --- !u!114 &5614086055237985789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8879,7 +8859,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8162601327868377473}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb2c9889846af2442b3b94ba86f9169e, type: 3}
   m_Name: 
@@ -8887,8 +8867,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  MoveSpeed: 2
-  SprintSpeed: 5.335
+  MoveSpeed: 5
+  SprintSpeed: 8
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
@@ -9020,38 +9000,6 @@ MonoBehaviour:
   - {fileID: 1029995924752744335}
   - {fileID: 1029995924752803175}
   - {fileID: 1029995924752800759}
---- !u!54 &3686043703007770873
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8162601327868377473}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &4235860957920347546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8162601327868377473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64d573fc1c78f234c8f4f4d141b13e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  forceMagnitude: 1
 --- !u!1 &8272579516694613469
 GameObject:
   m_ObjectHideFlags: 0

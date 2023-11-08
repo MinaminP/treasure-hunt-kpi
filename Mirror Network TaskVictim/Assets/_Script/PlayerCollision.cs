@@ -3,34 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PlayerCollision : NetworkBehaviour
+public class PlayerCollision : MonoBehaviour
 {
     public float forceMagnitude;
     // Start is called before the first frame update
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        /*if (hit.collider.tag == "Player" && !isLocalPlayer)
+        /*if (hit.collider.tag == "Player")
         {
-            //Vector3 pushDir = new Vector3(hit.moveDirection.x, hit.moveDirection.y, hit.moveDirection.z);
-            Vector3 direction = (hit.gameObject.transform.position - gameObject.transform.position).normalized;
-            Debug.Log(direction);
+            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
+            forceDirection.y = 0;
+            forceDirection.Normalize();
 
-            if (direction.y < -0.3f) return;
-            //CharacterController controller = gameObject.GetComponent<CharacterController>();
-            //hit.controller.Move(pushDir.normalized * strength);
-            hit.controller.Move(direction * strength);
-            //hit.controller.SimpleMove(pushDir.normalized);
-        }*/
+            CharacterController controller = hit.gameObject.GetComponent<CharacterController>();
 
-        Rigidbody rigidbody = hit.collider.attachedRigidbody;
+            controller.Move(forceDirection * forceMagnitude);
+        }
+
+        /*Rigidbody rigidbody = hit.collider.attachedRigidbody;
         if (rigidbody != null) 
         {
             Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
             forceDirection.y = 0;
             forceDirection.Normalize();
 
-            rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
-        }
+            hit.controller.Move(forceDirection * forceMagnitude);
+            //rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,21 +39,21 @@ public class PlayerCollision : NetworkBehaviour
             Debug.Log("Collided");
             Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
             CharacterController controller = other.gameObject.GetComponent<CharacterController>();
-            controller.Move(direction.normalized * strength);
+            controller.Move(direction.normalized  * forceMagnitude);
             //collision.rigidbody.AddForce(direction * strength, ForceMode.Impulse);
         }*/
     }
 
     private void OnTriggerStay(Collider other)
     {
-       /* if (other.tag == "Player")
+       if (other.tag == "Player")
         {
             Debug.Log("Collided");
             Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
             CharacterController controller = other.gameObject.GetComponent<CharacterController>();
-            controller.Move(direction.normalized);
+            controller.Move(direction.normalized * forceMagnitude);
             //collision.rigidbody.AddForce(direction * strength, ForceMode.Impulse);
-        }*/
+        }
     }
 
     /*private void OnCollisionEnter(Collision collision)

@@ -7,6 +7,7 @@ using Mirror.Examples.MultipleMatch;
 using UnityEngine.TextCore.Text;
 using Unity.VisualScripting;
 using UnityEngine.PlayerLoop;
+using StarterAssets;
 
 public class PlayerDataNew : NetworkBehaviour
 {
@@ -22,6 +23,8 @@ public class PlayerDataNew : NetworkBehaviour
     public CanvasController canvasController;
     public RandomSpawnTreasure random;
 
+    PlayerMovement movement;
+
     public string localMatchId;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +36,8 @@ public class PlayerDataNew : NetworkBehaviour
         //sccontroll = GameObject.
         //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
         timerCounter = GameObject.FindWithTag("time").GetComponent<countdownNew>();
+
+        movement = GetComponent<PlayerMovement>();
 
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         timerCounter.hasStarted = true;
@@ -48,7 +53,9 @@ public class PlayerDataNew : NetworkBehaviour
             //CmdSendName("Player " + randomNumber);
             //CmdSendName(tempName);
             //UpdatePlayerName(PlayerName, "Player " + randomNumber);
-            
+
+            movement.enabled = true;
+
             CmdSendName(LocalPlayerData.playerUserName);
             CmdSendTeamName(LocalPlayerData.playerTeam);
 

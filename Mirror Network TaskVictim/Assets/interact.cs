@@ -73,28 +73,26 @@ public class interact : NetworkBehaviour
                 //gameObject.SetActive(false);
                 if (isActive == true)
                 {
-                    if (red != blue)
-                    {
-                        if (blue >= random.maxBlue)
-                        {
-                            canvas.changeScoreButton();
-                            //addBlueScoree();
-                            scoreboardController.UpdateTeamScore("Blue", 1);
-                            Debug.Log("Blue Team got the treasure");
-                            hancurkan();
-                            random.RandomSpawn();
-                        }
-                        else if (red >= random.maxRed)
-                        {
-                            canvas.changeScoreButton();
-                            //addRedScoree();
-                            scoreboardController.UpdateTeamScore("Red", 1);
-                            Debug.Log("Red Team got the treasure");
-                            hancurkan();
-                            random.RandomSpawn();
-                        }
-                    }
+                    if (red == blue) return;
 
+                    if (blue >= random.maxBlue)
+                    {
+                        canvas.changeScoreButton();
+                        //addBlueScoree();
+                        scoreboardController.UpdateTeamScore("Blue", 1);
+                        Debug.Log("Blue Team got the treasure");
+                        hancurkan();
+                        random.RandomSpawn();
+                    }
+                    else if (red >= random.maxRed)
+                    {
+                        canvas.changeScoreButton();
+                        //addRedScoree();
+                        scoreboardController.UpdateTeamScore("Red", 1);
+                        Debug.Log("Red Team got the treasure");
+                        hancurkan();
+                        random.RandomSpawn();
+                    }
                 }
                 
             }
