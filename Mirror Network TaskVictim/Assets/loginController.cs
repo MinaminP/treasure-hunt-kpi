@@ -81,27 +81,6 @@ public class loginController : MonoBehaviour
         }
     }
 
-    public void SelectCharacter(int avatar)
-    {
-        LocalPlayerData.avatarId = avatar;
-
-        charactersUI[avatar].gameObject.SetActive(true);
-
-        for(int i = 0; i < charactersUI.Length; i++)
-        {
-            if(i == avatar)
-            {
-                charactersUI[i].gameObject.SetActive(true);
-            } 
-            else
-            {
-                charactersUI[i].SetActive(false);
-            }
-        }
-
-        startButton.interactable = true;
-    }
-
     /*[Command]
     public void CmdSetPlayerName(string name)
     {
