@@ -7,6 +7,9 @@ using Mirror.Examples.MultipleMatch;
 using UnityEngine.TextCore.Text;
 using Unity.VisualScripting;
 using UnityEngine.PlayerLoop;
+using DMM;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerDataNew : NetworkBehaviour
 {
@@ -23,7 +26,10 @@ public class PlayerDataNew : NetworkBehaviour
     public CanvasController canvasController;
     public RandomSpawnTreasure random;
 
+    public bool isFullscreen = false;
+
     public string localMatchId;
+    public DMMapIcon dmii;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,8 +46,10 @@ public class PlayerDataNew : NetworkBehaviour
         timerCounter.hasStarted = true;
         //random.RandomSpawn();
         //startwaktu();
+       
+        dmii = GetComponent<DMMapIcon>();
         
-
+        
         if (isLocalPlayer)
         {
             //float randomNumber = Random.Range(0, 1000000);
@@ -54,19 +62,26 @@ public class PlayerDataNew : NetworkBehaviour
             CmdSendName(LocalPlayerData.playerUserName);
             CmdSendTeamName(LocalPlayerData.playerTeam);
 
+            
+
             //scoreboardController.addPlayer(PlayerName, PlayerTeamName);
             //CmdSendTeamName("Red");
             CmdSendInitializeScore();
+            DMMap.instance.LoadConfig(0);
         }
         else
         {
             enabled = false;
         }
         
+
     }
 
     void Update()
     {
+        //Debug.Log("SAYA BAGIAN DARI " + PlayerTeamName);
+        //dmii.tint = Color.red;
+        //dmii.iconGO.GetComponent<Image>().color = Color.red;
         if (timerCounter.timer <= 0)
         {
             if (isLocalPlayer)
@@ -78,6 +93,25 @@ public class PlayerDataNew : NetworkBehaviour
             //scoreboardController.isEnd = true;
             
         }
+
+        if (isLocalPlayer)
+        {
+            if (Input.GetKeyUp(KeyCode.M))
+            {
+                if (isFullscreen == false)
+                {
+                    DMMap.instance.LoadConfig(1);
+                    isFullscreen = true;
+                }else if (isFullscreen == true)
+                {
+                    DMMap.instance.LoadConfig(0);
+                    isFullscreen = false;
+                }
+                
+            }
+            
+        }
+
     }
 
     [Command]
@@ -129,7 +163,7 @@ public class PlayerDataNew : NetworkBehaviour
     public void CmdSendTeamName(string playerTeamName)
     {
         PlayerTeamName = playerTeamName;
-
+        
         //Debug.Log("Player Team " + PlayerTeamName);
 
         //scoreboardController.UpdateSummaryTeam(PlayerName, playerTeamName);
@@ -191,13 +225,15 @@ public class PlayerDataNew : NetworkBehaviour
 
         if (PlayerTeamName == "Red")
         {
-            //scoreboardController.RedScore++;
+            scoreboardController.RedScore++;
             //scoreboardController.addRedScore();
+            
         }
         else if (PlayerTeamName == "Blue")
         {
-            //scoreboardController.BlueScore++;
+            scoreboardController.BlueScore++;
             //scoreboardController.addBlueScore();
+            
         }
 
 
@@ -210,11 +246,13 @@ public class PlayerDataNew : NetworkBehaviour
         if (newTeam == "Red")
         {
             playerNameUI.color = Color.red;
+            dmii.tint = Color.red;
             random.maxRed++;
         }
         else if (newTeam == "Blue")
         {
             playerNameUI.color = Color.blue;
+            dmii.tint = Color.blue;
             random.maxBlue++;
         }
         //scoreboardController.UpdateSummaryTeam(PlayerName, newTeam);

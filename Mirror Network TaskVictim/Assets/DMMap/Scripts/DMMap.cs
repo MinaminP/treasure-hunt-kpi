@@ -364,7 +364,7 @@ namespace DMM {
             Vector3 camPos = Vector3.zero;
             switch (orientation) {
                 case MapOrientation.XZ:
-                    camPos.y = 25f;
+                    camPos.y = 100f;
                     break;
                 case MapOrientation.XY:
                     camPos.z = -25f;
@@ -405,13 +405,15 @@ namespace DMM {
                 Vector3 camPos = new Vector3(configs[loadedConfig].objectToFocusOn.position.x, configs[loadedConfig].objectToFocusOn.position.y, configs[loadedConfig].objectToFocusOn.position.z);
                 switch (orientation) {
                     case MapOrientation.XZ:
-                        camPos.y = 25f;
+                        camPos.y = 250f;
                         break;
                     case MapOrientation.XY:
                         camPos.z = -25f;
+                        camPos.y = 250f;
                         break;
                     case MapOrientation.YZ:
                         camPos.x = 25f;
+                        camPos.y = 250f;
                         break;
                 }
 

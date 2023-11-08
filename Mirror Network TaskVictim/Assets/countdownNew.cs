@@ -15,6 +15,8 @@ public class countdownNew : NetworkBehaviour
 
     public TextMeshProUGUI timerText;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +34,11 @@ public class countdownNew : NetworkBehaviour
             if (isCounting)
             {
                 //scoreTarget -= Time.deltaTime;
-
                 timer -= Time.deltaTime;
-                timerText.text = timer.ToString("F1");
+                int minutes = (int)timer / 60;
+                int seconds = (int)timer % 60;
+                timerText.text = minutes.ToString() + ":" + ((seconds < 10) ? ("0") : ("")) + seconds.ToString();
+                //timerText.text = timer.ToString("F1");
                 if (timer <= 0)
                 {
                     timer = 0;

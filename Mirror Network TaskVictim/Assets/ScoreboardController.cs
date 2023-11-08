@@ -58,8 +58,8 @@ public class ScoreboardController : NetworkBehaviour
 
     void Update()
     {
-        //RedScoreText.text = "Red : " + RedScore;
-        //BlueScoreText.text = "Blue : " + BlueScore;
+        RedScoreText.text = "Red : " + RedScore;
+        BlueScoreText.text = "Blue : " + BlueScore;
         if (isEnd == true)
         {
             //gameObject.GetComponent<Animator>().Play("endgame");

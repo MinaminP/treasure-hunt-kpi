@@ -32,6 +32,7 @@ namespace DMM {
         /// If false, the icon with not rotate with the map.  Useful for icons that must not rotate (words, numbers, symbols)
         /// </summary>
         public bool rotateWithMap = false;
+        //public GameObject player;
 
         [HideInInspector]
         public Vector3 mapPosition = Vector3.zero;
@@ -59,9 +60,16 @@ namespace DMM {
             iconGO.layer = LayerMask.NameToLayer("DMMap");
             iconGO.transform.parent = DMMap.instance.iconContainer.transform;
 
+            
+            
+            
             Image img = iconGO.AddComponent<Image>();
             img.sprite = icon;
             img.color = tint;
+            
+
+
+            
 
             //Vector3 pos = this.gameObject.transform.position;
             RotateIcon();
@@ -137,7 +145,18 @@ namespace DMM {
         public void UpdateIcons() {
             mapPosition = DMMap.instance.WorldtoUI(this.gameObject.transform.position);
             //since camera will always be aligned to the mapImage UI, just us that
-
+            //Debug.Log("icon milik ");
+            if (gameObject.tag == "Player")
+            {
+                /*if (gameObject.GetComponent<PlayerDataNew>().PlayerTeamName == "Red")
+                {
+                    iconGO.GetComponent<Image>().color = Color.red;
+                }else if (gameObject.GetComponent<PlayerDataNew>().PlayerTeamName == "Blue")
+                {
+                    iconGO.GetComponent<Image>().color = Color.blue;
+                }*/
+                iconGO.GetComponent<Image>().color = tint;
+            }
             mapPosition.z = 0f;
             if (useDirectionIndicator) {
                 float threshold = DMMap.instance.configs[DMMap.instance.loadedConfig].iconDistanceThreshold;
