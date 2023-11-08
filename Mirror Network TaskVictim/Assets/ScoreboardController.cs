@@ -51,11 +51,11 @@ public class ScoreboardController : NetworkBehaviour
 
     private void Update()
     {
-        scoreBoardUI.SetActive(false);
+        //scoreBoardUI.SetActive(false);
         if (Input.GetKey(KeyCode.Tab))
         {
             Debug.Log("Tab Pressed");
-            scoreBoardUI.SetActive(true);
+            //scoreBoardUI.SetActive(true);
         }
         RedScoreText.text = "Red : " + RedScore;
         BlueScoreText.text = "Blue : " + BlueScore;

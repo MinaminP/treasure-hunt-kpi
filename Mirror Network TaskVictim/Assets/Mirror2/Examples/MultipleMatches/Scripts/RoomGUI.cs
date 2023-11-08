@@ -15,6 +15,9 @@ namespace Mirror.Examples.MultipleMatch
         public int playerRed;
         public int playerBlue;
 
+        public int updatedPlayerRed;
+        public int updatedPlayerBlue;
+
         public Button redTeamButton;
         public Button blueTeamButton;
 
@@ -43,8 +46,10 @@ namespace Mirror.Examples.MultipleMatch
                 GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
                 newPlayer.transform.SetParent(playerList.transform, false);
                 newPlayer.GetComponent<PlayerGUI>().SetPlayerInfo(playerInfo);
-
-                if(playerRed < playerInfos.Length)
+                //playerInfo.playerTeam = "";
+                //playerInfos[playerInfo.playerIndex].playerTeam = "";
+                //lokasi awal
+                if (playerRed < playerInfos.Length)
                 {
                     if (playerInfo.playerTeam == "Red")
                     {
@@ -67,11 +72,14 @@ namespace Mirror.Examples.MultipleMatch
                         }
                     }
                 }
+                
 
                 if (!playerInfo.ready || playerInfo.playerTeam == " ")
                 {
                     everyoneReady = false;
                 }
+
+                
             }
 
             startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1) && 
@@ -93,11 +101,13 @@ namespace Mirror.Examples.MultipleMatch
             LocalPlayerData.playerTeam = team;
             if(team == "Red")
             {
+               
                 redTeamButton.interactable = false;
                 blueTeamButton.interactable = true;
             }
             if (team == "Blue")
             {
+                
                 blueTeamButton.interactable = false;
                 redTeamButton.interactable= true;
             }
