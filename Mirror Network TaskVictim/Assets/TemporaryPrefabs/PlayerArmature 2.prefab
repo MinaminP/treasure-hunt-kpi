@@ -2804,7 +2804,9 @@ MonoBehaviour:
   timerCounter: {fileID: 0}
   canvasController: {fileID: 0}
   random: {fileID: 0}
+  isFullscreen: 0
   localMatchId: 
+  dmii: {fileID: 0}
 --- !u!114 &2094918470585560061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2859,7 +2861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 64.78, y: -35, z: 0}
   color: {r: 0, g: 0, b: 0, a: 1}
-  text: Text that follows the player!
+  text: 
   font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &4489818826156495853
 MonoBehaviour:
