@@ -85,8 +85,9 @@ namespace Mirror.Examples.MultipleMatch
         UpdateRoom,
         Started,
         SetName,
-        SelectTeamBlue,
-        SelectTeamRed
+        UpdateCountRed,
+        UpdateCountBlue,
+        forceJustJoin
     }
 
     //     A1 | B1 | C1

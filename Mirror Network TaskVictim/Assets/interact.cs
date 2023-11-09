@@ -28,6 +28,9 @@ public class interact : NetworkBehaviour
     //[SyncVar(hook = nameof(OnRedDetected))]
     public int red = 0;
 
+    public bool isRedFirst = false;
+    public bool isBlueFirst = false;
+
     public RandomSpawnTreasure random;
 
     public GameObject pickupArea;
@@ -93,7 +96,6 @@ public class interact : NetworkBehaviour
             DMI.enabled = true;
             theObject.SetActive(true);
         }
-        
     }
 
     [Command(requiresAuthority = false)]
@@ -136,7 +138,6 @@ public class interact : NetworkBehaviour
             {
                 red++;
             }
-
             //TreasureRadiusChecker();
 
             /*if (red == random.maxRed)
@@ -188,7 +189,6 @@ public class interact : NetworkBehaviour
                     red = 0;
                 }
             }
-
             /*if(blue == random.maxBlue || red == random.maxRed)
             {
                 pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);

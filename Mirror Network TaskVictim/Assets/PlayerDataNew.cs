@@ -112,6 +112,18 @@ public class PlayerDataNew : NetworkBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        if (PlayerTeamName == "Red")
+        {
+            random.maxRed--;
+        }
+        else if (PlayerTeamName == "Blue")
+        {
+            random.maxBlue--;
+        }
+    }
+
     [Command]
     public void CmdShowWin()
     {

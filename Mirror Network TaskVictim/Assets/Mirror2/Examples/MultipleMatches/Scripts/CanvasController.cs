@@ -77,6 +77,8 @@ namespace Mirror.Examples.MultipleMatch
         public static CanvasController instance;
 
         public GameObject canvasInGame;
+        public int redCount;
+        public int blueCount;
 
         MultipleMatchAdditiveNetwork matchAdditiveNetwork;
 
@@ -260,6 +262,7 @@ namespace Mirror.Examples.MultipleMatch
         [ClientCallback]
         public void RequestTeamBlue()
         {
+            
             if (localPlayerMatch == Guid.Empty && localJoinedMatch == Guid.Empty) return;
 
             Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
@@ -270,6 +273,7 @@ namespace Mirror.Examples.MultipleMatch
         [ClientCallback]
         public void RequestTeamRed()
         {
+            
             if (localPlayerMatch == Guid.Empty && localJoinedMatch == Guid.Empty) return;
 
             Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
@@ -473,11 +477,17 @@ namespace Mirror.Examples.MultipleMatch
                 case ServerMatchOperation.SelectTeamBlue:
                     {
                         OnServerPlayerSwitchBlue(conn, msg.matchId);
+                        //blueCount++;
+                        //roomGUI.addBlues(blueCount);
+                        //roomGUI.addReds(redCount);
                         break;
                     }
                 case ServerMatchOperation.SelectTeamRed:
                     {
                         OnServerPlayerSwitchRed(conn, msg.matchId);
+                        //redCount++;
+                        //roomGUI.addReds(redCount);
+                        //roomGUI.addBlues(blueCount);
                         break;
                     }
                 case ServerMatchOperation.SetName:
@@ -508,12 +518,16 @@ namespace Mirror.Examples.MultipleMatch
             PlayerInfo playerInfo = playerInfos[conn];
             playerInfo.playerTeam = "Blue";
             playerInfos[conn] = playerInfo;
+            //roomGUI.addBlues(blueCount);
 
             HashSet<NetworkConnectionToClient> connections = matchConnections[matchId];
             PlayerInfo[] infos = connections.Select(playerConn => playerInfos[playerConn]).ToArray();
 
             foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
                 playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+
+            foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
+                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateCountBlue, playerInfos = infos });
         }
 
         [ServerCallback]
@@ -522,12 +536,16 @@ namespace Mirror.Examples.MultipleMatch
             PlayerInfo playerInfo = playerInfos[conn];
             playerInfo.playerTeam = "Red";
             playerInfos[conn] = playerInfo;
+            
 
             HashSet<NetworkConnectionToClient> connections = matchConnections[matchId];
             PlayerInfo[] infos = connections.Select(playerConn => playerInfos[playerConn]).ToArray();
 
             foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
                 playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+
+            foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
+                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateCountRed, playerInfos = infos });
         }
 
         [ServerCallback]
@@ -712,6 +730,9 @@ namespace Mirror.Examples.MultipleMatch
 
             foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
                 playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+
+            foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
+                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.forceJustJoin, playerInfos = infos });
         }
 
         /// <summary>
@@ -757,6 +778,7 @@ namespace Mirror.Examples.MultipleMatch
                         ShowRoomView();
                         roomGUI.RefreshRoomPlayers(msg.playerInfos);
                         roomGUI.SetOwner(true);
+                        roomGUI.justJoined = true;
                         break;
                     }
                 case ClientMatchOperation.Cancelled:
@@ -771,6 +793,7 @@ namespace Mirror.Examples.MultipleMatch
                         ShowRoomView();
                         roomGUI.RefreshRoomPlayers(msg.playerInfos);
                         roomGUI.SetOwner(false);
+                        roomGUI.justJoined = true;
                         break;
                     }
                 case ClientMatchOperation.Departed:
@@ -790,6 +813,23 @@ namespace Mirror.Examples.MultipleMatch
                         roomView.SetActive(false);
                         titleText.SetActive(false);
                         canvasInGame.SetActive(true);
+                        break;
+                    }
+                case ClientMatchOperation.UpdateCountBlue:
+                    {
+                        roomGUI.addBlues();
+                        //roomGUI.addReds(redCount);
+                        break;
+                    }
+                case ClientMatchOperation.UpdateCountRed:
+                    {
+                        roomGUI.addReds();
+                        
+                        break;
+                    }
+                case ClientMatchOperation.forceJustJoin:
+                    {
+                        roomGUI.justJoined = true;
                         break;
                     }
             }
