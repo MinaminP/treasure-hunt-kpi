@@ -11,6 +11,7 @@ namespace Mirror.Examples.MultipleMatch
         public GameObject leaveButton;
         public Button startButton;
         public bool owner;
+        public bool justJoined;
 
         public int playerRed;
         public int playerBlue;
@@ -41,6 +42,8 @@ namespace Mirror.Examples.MultipleMatch
             startButton.interactable = false;
             bool everyoneReady = true;
 
+            //bool fakeReady = true;
+
             foreach (PlayerInfo playerInfo in playerInfos)
             {
                 GameObject newPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
@@ -49,9 +52,38 @@ namespace Mirror.Examples.MultipleMatch
                 //playerInfo.playerTeam = "";
                 //playerInfos[playerInfo.playerIndex].playerTeam = "";
                 //lokasi awal
-                if (playerRed < playerInfos.Length)
+
+                /*if (everyoneReady)
                 {
-                    if (playerInfo.playerTeam == "Red")
+                    if (playerRed < playerInfos.Length)
+                    {
+                        if (playerInfo.playerTeam == "Red")
+                        {
+                            playerRed++;
+                            if (playerBlue != 0)
+                            {
+                                playerBlue--;
+                            }
+                        }
+
+                    }
+
+                    if (playerBlue < playerInfos.Length)
+                    {
+                        if (playerInfo.playerTeam == "Blue")
+                        {
+                            playerBlue++;
+                            if (playerRed != 0)
+                            {
+                                playerRed--;
+                            }
+                        }
+                    }
+                }*/
+                
+                /*if (playerRed < playerInfos.Length)
+                {
+                    if (LocalPlayerData.playerTeam == "Red")
                     {
                         playerRed++;
                         if (playerBlue != 0)
@@ -63,7 +95,7 @@ namespace Mirror.Examples.MultipleMatch
 
                 if (playerBlue < playerInfos.Length)
                 {
-                    if (playerInfo.playerTeam == "Blue")
+                    if (LocalPlayerData.playerTeam == "Blue")
                     {
                         playerBlue++;
                         if (playerRed != 0)
@@ -71,8 +103,9 @@ namespace Mirror.Examples.MultipleMatch
                             playerRed--;
                         }
                     }
-                }
-                
+                }*/
+
+
 
                 if (!playerInfo.ready || playerInfo.playerTeam == " ")
                 {
@@ -94,6 +127,44 @@ namespace Mirror.Examples.MultipleMatch
             cancelButton.SetActive(owner);
             leaveButton.SetActive(!owner);
             timerContainer.gameObject.SetActive(owner);
+        }
+
+        [ClientCallback]
+        public void addReds()
+        {
+            if (!justJoined)
+            {
+                playerBlue--;
+                if (playerBlue <= 0)
+                {
+                    playerBlue = 0;
+                }
+                
+            }
+            playerRed++;
+            justJoined = false;
+
+
+        }
+
+        [ClientCallback]
+        public void addBlues()
+        {
+            
+            
+            if (!justJoined)
+            {
+                playerRed--;
+                if (playerRed <= 0)
+                {
+                    playerRed = 0;
+                }
+                
+            }
+            playerBlue++;
+            justJoined = false;
+
+
         }
 
         public void SetTeam(string team)

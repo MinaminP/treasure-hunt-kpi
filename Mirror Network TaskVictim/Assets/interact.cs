@@ -29,6 +29,9 @@ public class interact : NetworkBehaviour
     //[SyncVar(hook = nameof(OnRedDetected))]
     public int red = 0;
 
+    public bool isRedFirst = false;
+    public bool isBlueFirst = false;
+
     public RandomSpawnTreasure random;
 
     public GameObject pickupArea;
@@ -111,7 +114,80 @@ public class interact : NetworkBehaviour
             //DMI.enabled = true;
             theObject.SetActive(true);
         }
-        
+
+        /*if (blue < red)
+        {
+            if (red >= random.maxRed)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+            }
+            
+        }
+        else if (red < blue)
+        {
+            if (blue >= random.maxBlue)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+            }
+            
+        }else if(red == blue)
+        {
+            if (red >= random.maxRed)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+            }else if (blue >= random.maxBlue)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+            }
+        }
+
+        if (red == 0 && blue == 0)
+        {
+            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
+        }*/
+
+        if (red >= random.maxRed)
+        {
+            if (isBlueFirst == false)
+            {
+                //pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+                isRedFirst = true;
+            }else if (isBlueFirst == true)
+            {
+                isRedFirst=false;
+            }
+
+        } else if (red < random.maxRed) 
+        { 
+            isRedFirst=false;
+        }
+
+        if (blue >= random.maxBlue)
+        {
+            if (isRedFirst == false)
+            {
+                isBlueFirst = true;
+            }else if (isRedFirst == true)
+            {
+                isBlueFirst = false;
+            }
+        }else if (blue < random.maxBlue)
+        {
+            isBlueFirst = false;
+        }
+
+        if (isBlueFirst == true)
+        {
+            pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+        }else if (isRedFirst == true)
+        {
+            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+        }else if (isRedFirst == false && isBlueFirst == false)
+        {
+            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
+        }
+
+
     }
 
     [Command(requiresAuthority = false)]
@@ -165,14 +241,7 @@ public class interact : NetworkBehaviour
                 red++;
             }
 
-            if (blue < red)
-            {
-                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
-            }
-            else if (red < blue)
-            {
-                pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
-            }
+            
         }
     }
 
@@ -199,7 +268,7 @@ public class interact : NetworkBehaviour
                 }
             }
 
-            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
+            //pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
         }
     }
 
