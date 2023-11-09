@@ -62,8 +62,6 @@ public class PlayerDataNew : NetworkBehaviour
             CmdSendName(LocalPlayerData.playerUserName);
             CmdSendTeamName(LocalPlayerData.playerTeam);
 
-            
-
             //scoreboardController.addPlayer(PlayerName, PlayerTeamName);
             //CmdSendTeamName("Red");
             CmdSendInitializeScore();
@@ -120,10 +118,6 @@ public class PlayerDataNew : NetworkBehaviour
         scoreboardController.UpdateTopTeamScore();
         
     }
-
-    
-
-   
 
     [Command]
     public void CmdSendName(string playerName)
@@ -253,4 +247,17 @@ public class PlayerDataNew : NetworkBehaviour
         }
         //scoreboardController.UpdateSummaryTeam(PlayerName, newTeam);
     }
+
+    private void OnDestroy()
+    {
+        if (PlayerTeamName == "Red")
+        {
+            random.maxRed--;
+        }
+        else if (PlayerTeamName == "Blue")
+        {
+            random.maxBlue--;
+        }
+    }
 }
+

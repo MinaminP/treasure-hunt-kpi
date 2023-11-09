@@ -384,7 +384,7 @@ namespace Mirror.Examples.MultipleMatch
         {
             temporaryLocalName = LocalPlayerData.playerUserName;
             //Debug.Log("tempLocalName : " + temporaryLocalName);
-            playerInfos.Add(NetworkClient.connection, new PlayerInfo { playerName = temporaryLocalName, playerIndex = this.playerIndex, ready = false });
+            playerInfos.Add(NetworkClient.connection, new PlayerInfo { playerName = temporaryLocalName, playerTeam = "", playerIndex = this.playerIndex, ready = false });
         }
         
 
@@ -701,7 +701,7 @@ namespace Mirror.Examples.MultipleMatch
 
             PlayerInfo playerInfo = playerInfos[conn];
             playerInfo.ready = false;
-            playerInfo.playerTeam = " ";
+            playerInfo.playerTeam = "";
             playerInfo.matchId = matchId;
             playerInfos[conn] = playerInfo;
 

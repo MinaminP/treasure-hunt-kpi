@@ -19,7 +19,6 @@ public class interact : NetworkBehaviour
     public scoreAdder scoreAdd;
     public GameObject theObject;
 
-
     [SyncVar(hook = nameof(OnActiveChanged))]
     public bool isActive = false;
 
@@ -35,11 +34,13 @@ public class interact : NetworkBehaviour
     public ScoreboardController scoreboardController;
     public DMMapIcon DMI;
 
+    public bool isBlueFirst, isRedFirst;
+
     // Start is called before the first frame update
     public void Start()
     {
         //scoreAdd.dataUpdates();
-        //DMI = GetComponent<DMMapIcon>();
+        DMI = GetComponent<DMMapIcon>();
         canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         isInArea = false;
@@ -52,29 +53,10 @@ public class interact : NetworkBehaviour
     {
         if (isInArea == true)
         {
-            /*if (isLocalPlayer)
-            {
-                if (Input.GetKeyUp(KeyCode.E))
-                {
-                    //Player.GetComponent<scoreAdder>().skorNambahh(1f);
-                    //siCanvas.GetComponent<playerList>().updateDataPlayer();
-                    scoreAdd.tambahSkor();
-                    scoreAdd.dataUpdates();
-                    hancurkan();
-                }
-            }*/
             if (Input.GetKeyUp(KeyCode.E))
             {
-                //Player.GetComponent<scoreAdder>().skorNambahh(1f);
-                //siCanvas.GetComponent<playerList>().updateDataPlayer();
-                //scoreAdd.tambahSkor();
-                //scoreAdd.dataUpdates();
-                //canvas.changeScoreButton();
-                //gameObject.SetActive(false);
                 if (isActive == true)
                 {
-                    if (red == blue) return;
-
                     if (blue >= random.maxBlue)
                     {
                         canvas.changeScoreButton("Blue");
@@ -96,19 +78,19 @@ public class interact : NetworkBehaviour
                         random.RandomSpawn();
                     }
                 }
-                
             }
+            TreasureRadiusChecker();
         }
 
         if (isActive == false)
         {
             //gameObject.SetActive(false);
-            //DMI.enabled = false;
+            DMI.enabled = false;
             theObject.SetActive(false);
         }else if(isActive == true)
         {
             //gameObject.SetActive(true);
-            //DMI.enabled = true;
+            DMI.enabled = true;
             theObject.SetActive(true);
         }
         
@@ -140,16 +122,6 @@ public class interact : NetworkBehaviour
         isActive = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            Debug.Log("Got it");
-            //canvas.changeScoreButton();
-            hancurkan();
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -165,14 +137,32 @@ public class interact : NetworkBehaviour
                 red++;
             }
 
-            if (blue < red)
+            //TreasureRadiusChecker();
+
+            /*if (red == random.maxRed)
             {
                 pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
             }
-            else if (red < blue)
+            else if (blue == random.maxBlue)
             {
                 pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+            }*/
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            /*if (red == random.maxRed)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
             }
+            else if (blue == random.maxBlue)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+            }*/
+            //TreasureRadiusChecker();
         }
     }
 
@@ -199,6 +189,60 @@ public class interact : NetworkBehaviour
                 }
             }
 
+            /*if(blue == random.maxBlue || red == random.maxRed)
+            {
+                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
+            }*/
+
+            //TreasureRadiusChecker();
+        }
+    }
+
+    public void TreasureRadiusChecker()
+    {
+        if (red >= random.maxRed)
+        {
+            if (isBlueFirst == false)
+            {
+                isRedFirst = true;
+            }
+            else if (isBlueFirst == true)
+            {
+                isRedFirst = false;
+            }
+
+        }
+        else if (red < random.maxRed)
+        {
+            isRedFirst = false;
+        }
+
+        if (blue >= random.maxBlue)
+        {
+            if (isRedFirst == false)
+            {
+                isBlueFirst = true;
+            }
+            else if (isRedFirst == true)
+            {
+                isBlueFirst = false;
+            }
+        }
+        else if (blue < random.maxBlue)
+        {
+            isBlueFirst = false;
+        }
+
+        if (isBlueFirst == true)
+        {
+            pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+        }
+        else if (isRedFirst == true)
+        {
+            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+        }
+        else if (isRedFirst == false && isBlueFirst == false)
+        {
             pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
         }
     }

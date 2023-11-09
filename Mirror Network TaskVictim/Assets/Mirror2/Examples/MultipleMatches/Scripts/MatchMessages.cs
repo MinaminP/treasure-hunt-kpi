@@ -84,7 +84,9 @@ namespace Mirror.Examples.MultipleMatch
         Departed,
         UpdateRoom,
         Started,
-        SetName
+        SetName,
+        SelectTeamBlue,
+        SelectTeamRed
     }
 
     //     A1 | B1 | C1

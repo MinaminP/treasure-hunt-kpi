@@ -12,6 +12,8 @@ namespace Mirror.Examples.MultipleMatch
         public Button startButton;
         public bool owner;
 
+        public bool justJoined;
+
         public int playerRed;
         public int playerBlue;
 
@@ -44,33 +46,36 @@ namespace Mirror.Examples.MultipleMatch
                 newPlayer.transform.SetParent(playerList.transform, false);
                 newPlayer.GetComponent<PlayerGUI>().SetPlayerInfo(playerInfo);
 
-                if(playerRed < playerInfos.Length)
-                {
-                    if (playerInfo.playerTeam == "Red")
-                    {
-                        playerRed++;
-                        if (playerBlue != 0)
-                        {
-                            playerBlue--;
-                        }
-                    }
-                }
-
-                if (playerBlue < playerInfos.Length)
-                {
-                    if (playerInfo.playerTeam == "Blue")
-                    {
-                        playerBlue++;
-                        if (playerRed != 0)
-                        {
-                            playerRed--;
-                        }
-                    }
-                }
-
-                if (!playerInfo.ready || playerInfo.playerTeam == " ")
+                if (!playerInfo.ready)
                 {
                     everyoneReady = false;
+                }
+
+                if (everyoneReady)
+                {
+                    if (playerRed < playerInfos.Length)
+                    {
+                        if (playerInfo.playerTeam == "Red")
+                        {
+                            playerRed++;
+                            if (playerBlue != 0)
+                            {
+                                playerBlue--;
+                            }
+                        }
+                    }
+
+                    if (playerBlue < playerInfos.Length)
+                    {
+                        if (playerInfo.playerTeam == "Blue")
+                        {
+                            playerBlue++;
+                            if (playerRed != 0)
+                            {
+                                playerRed--;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -91,6 +96,7 @@ namespace Mirror.Examples.MultipleMatch
         public void SetTeam(string team)
         {
             LocalPlayerData.playerTeam = team;
+            justJoined = false;
             if(team == "Red")
             {
                 redTeamButton.interactable = false;
