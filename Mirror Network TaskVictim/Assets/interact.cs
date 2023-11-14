@@ -86,7 +86,7 @@ public class interact : NetworkBehaviour
                 }
             }
         }
-        
+
         TreasureRadiusChecker();
 
         if (isActive == false)
@@ -94,7 +94,8 @@ public class interact : NetworkBehaviour
             //gameObject.SetActive(false);
             DMI.enabled = false;
             theObject.SetActive(false);
-        }else if(isActive == true)
+        }
+        else if (isActive == true)
         {
             //gameObject.SetActive(true);
             DMI.enabled = true;
@@ -256,7 +257,7 @@ public class interact : NetworkBehaviour
             pickupAreaBlue.SetActive(false);
             //pickupArea.GetComponent<ParticleSystem>().main.startColor = new Color32(255, 255, 255, 30);
         }
-    }   
+    }
 
     public void OnActiveChanged(bool oldVal, bool newVal)
     {

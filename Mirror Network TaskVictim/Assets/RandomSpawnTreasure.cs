@@ -46,7 +46,13 @@ public class RandomSpawnTreasure : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        /*if (maxBlue <= 1 )
+        {
+            maxBlue = 1;
+        }else if (maxRed <= 1)
+        {
+            maxRed = 1;
+        }*/
     }
 
     [Command(requiresAuthority = false)]

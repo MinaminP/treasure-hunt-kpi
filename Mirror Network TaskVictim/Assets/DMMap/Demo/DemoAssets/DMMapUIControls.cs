@@ -3,17 +3,70 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DMM;
+using Unity.VisualScripting;
 
 public class DMMapUIControls : MonoBehaviour {
 
     public Transform followTarget;
+    public GameObject mapCamera;
+    public float zoomValue;
+    public float xValue;
+    public float zValue;
+    public GameObject mapImage;
+    public Button xBUTTON;
+
+    public bool dragging = false;
+    public float xDragStart;
+    public float yDragStart;
+    public float xDrag;
+    public float yDrag;
 
     public void Awake() {
-       // EventSystem.current.sendNavigationEvents = false;
+        // EventSystem.current.sendNavigationEvents = false;
     }
 
+
+
     public void SetZoom(float value) {
-        DMMap.instance.configs[DMMap.instance.loadedConfig].zoom = value;
+        //DMMap.instance.configs[DMMap.instance.loadedConfig].zoom = value;
+        //Vector3 campos = mapCamera.transform.position;
+        //ampos.y = value;
+        //zoomValue = campos.y;
+        zoomValue = value;
+        mapCamera.transform.position = new Vector3(mapCamera.transform.position.x, zoomValue, mapCamera.transform.position.z);
+    }
+
+    public void SetX(float value)
+    {
+        //DMMap.instance.configs[DMMap.instance.loadedConfig].zoom = value;
+        //Vector3 campos = mapCamera.transform.position;
+        //ampos.y = value;
+        //zoomValue = campos.y;
+        xValue = value;
+        //mapImage.GetComponent<RawImage>().uvRect.Equals(xValue);
+        mapCamera.transform.position = new Vector3(xValue, mapCamera.transform.position.y, mapCamera.transform.position.z);
+    }
+
+    public void SetXbutton()
+    {
+        //DMMap.instance.configs[DMMap.instance.loadedConfig].zoom = value;
+        //Vector3 campos = mapCamera.transform.position;
+        //ampos.y = value;
+        //zoomValue = campos.y;
+        //xValue = value;
+        //mapImage.GetComponent<RawImage>().uvRect.Equals(xValue);
+        //mapCamera.transform.position = new Vector3(3, mapCamera.transform.position.y, mapCamera.transform.position.z) * Time.deltaTime;
+        //mapCamera.transform.position += transform.right * 3 * Time.deltaTime;
+    }
+
+    public void SetZ(float value)
+    {
+        //DMMap.instance.configs[DMMap.instance.loadedConfig].zoom = value;
+        //Vector3 campos = mapCamera.transform.position;
+        //ampos.y = value;
+        //zoomValue = campos.y;
+        zValue = value;
+        mapCamera.transform.position = new Vector3(mapCamera.transform.position.x, mapCamera.transform.position.y, zValue);
     }
 
     public void ToggleRotate(bool value) {
@@ -60,5 +113,39 @@ public class DMMapUIControls : MonoBehaviour {
         //    toggle = !toggle;
         //    DMMap.instance.gameObject.SetActive(toggle);
         //}
+
+        //xBUTTON.onClick.AddListener(SetXbutton);
+        if (Input.GetKey(KeyCode.J))
+        {
+            mapCamera.transform.Translate(mapCamera.transform.right * -20f * Time.deltaTime);
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+
+            if (!dragging)
+            {
+                dragging = true;
+
+                xDragStart = Input.GetAxis("Mouse X");
+                yDragStart = Input.GetAxis("Mouse Y");
+            }
+
+
+            xDrag = Input.GetAxis("Mouse X") * 200f;
+            yDrag = Input.GetAxis("Mouse Y") * 200f;
+
+            //DragValuesText.text = "x = " + xDrag + ", y = " + yDrag;
+            Debug.Log("x = " + xDrag + ", y = " + yDrag);
+            mapCamera.transform.Translate(mapCamera.transform.right * -(xDrag) * Time.deltaTime);
+            mapCamera.transform.Translate(mapCamera.transform.forward * yDrag * Time.deltaTime);
+        }
+        else
+        {
+            if (dragging)
+            {
+                dragging = false;
+            }
+        }
     }
 }
