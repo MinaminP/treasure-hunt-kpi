@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using Unity.VisualScripting;
 using DMM;
+using static UnityEngine.ParticleSystem;
 
 public class interact : NetworkBehaviour
 {
@@ -33,11 +34,9 @@ public class interact : NetworkBehaviour
 
     public RandomSpawnTreasure random;
 
-    public GameObject pickupArea;
+    public GameObject pickupAreaWhite, pickupAreaBlue, pickupAreaRed;
     public ScoreboardController scoreboardController;
     public DMMapIcon DMI;
-
-    public bool isBlueFirst, isRedFirst;
 
     // Start is called before the first frame update
     public void Start()
@@ -47,6 +46,10 @@ public class interact : NetworkBehaviour
         canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         isInArea = false;
+
+        pickupAreaWhite.SetActive(true);
+        pickupAreaRed.SetActive(false);
+        pickupAreaBlue.SetActive(false);
 
         scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
     }
@@ -60,7 +63,7 @@ public class interact : NetworkBehaviour
             {
                 if (isActive == true)
                 {
-                    if (blue >= random.maxBlue)
+                    if (isBlueFirst)
                     {
                         canvas.changeScoreButton("Blue");
                         //addBlueScoree();
@@ -70,7 +73,7 @@ public class interact : NetworkBehaviour
                         hancurkan();
                         random.RandomSpawn();
                     }
-                    else if (red >= random.maxRed)
+                    else if (isRedFirst)
                     {
                         //scoreboardController.RedScore++;
                         canvas.changeScoreButton("Red");
@@ -82,8 +85,9 @@ public class interact : NetworkBehaviour
                     }
                 }
             }
-            TreasureRadiusChecker();
         }
+        
+        TreasureRadiusChecker();
 
         if (isActive == false)
         {
@@ -153,8 +157,9 @@ public class interact : NetworkBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.IsDestroyed())
         {
+
             /*if (red == random.maxRed)
             {
                 pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
@@ -232,20 +237,26 @@ public class interact : NetworkBehaviour
         {
             isBlueFirst = false;
         }
-
         if (isBlueFirst == true)
         {
-            pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
+            pickupAreaWhite.SetActive(false);
+            pickupAreaRed.SetActive(false);
+            pickupAreaBlue.SetActive(true);
         }
         else if (isRedFirst == true)
         {
-            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+            pickupAreaWhite.SetActive(false);
+            pickupAreaRed.SetActive(true);
+            pickupAreaBlue.SetActive(false);
         }
         else if (isRedFirst == false && isBlueFirst == false)
         {
-            pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
+            pickupAreaWhite.SetActive(true);
+            pickupAreaRed.SetActive(false);
+            pickupAreaBlue.SetActive(false);
+            //pickupArea.GetComponent<ParticleSystem>().main.startColor = new Color32(255, 255, 255, 30);
         }
-    }
+    }   
 
     public void OnActiveChanged(bool oldVal, bool newVal)
     {

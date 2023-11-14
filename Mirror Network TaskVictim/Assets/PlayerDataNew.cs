@@ -28,8 +28,11 @@ public class PlayerDataNew : NetworkBehaviour
     PlayerMovement movement;
     public bool isFullscreen = false;
 
+    public bool destroyed = false;
+
     public string localMatchId;
     public DMMapIcon dmii;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -114,13 +117,25 @@ public class PlayerDataNew : NetworkBehaviour
 
     private void OnDestroy()
     {
+        interact ball = FindObjectOfType<interact>();
+
         if (PlayerTeamName == "Red")
         {
-            random.maxRed--;
+            //ball.red--;
+            random.remred();
+            if(random.maxRed != 1)
+            {
+                random.maxRed--;
+            }
         }
         else if (PlayerTeamName == "Blue")
         {
-            random.maxBlue--;
+            //ball.blue--;
+            random.remblue();
+            if(random.maxBlue != 1)
+            {
+                random.maxBlue--;
+            }
         }
     }
 
@@ -238,7 +253,6 @@ public class PlayerDataNew : NetworkBehaviour
             
         }
 
-
     }
 
     public void UpdateTeamName(string oldTeam, string newTeam)
@@ -258,18 +272,6 @@ public class PlayerDataNew : NetworkBehaviour
             random.maxBlue++;
         }
         //scoreboardController.UpdateSummaryTeam(PlayerName, newTeam);
-    }
-
-    private void OnDestroy()
-    {
-        if (PlayerTeamName == "Red")
-        {
-            random.maxRed--;
-        }
-        else if (PlayerTeamName == "Blue")
-        {
-            random.maxBlue--;
-        }
     }
 }
 

@@ -37,16 +37,6 @@ public class RandomSpawnTreasure : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //treasure1 = GameObject.FindWithTag("treasure1");
-        //treasure2 = GameObject.FindWithTag("treasure2");
-        //treasure3 = GameObject.FindWithTag("treasure3");
-        //treasure4 = GameObject.FindWithTag("treasure4");
-        //treasure5 = GameObject.FindWithTag("treasure5");
-        //treasure6 = GameObject.FindWithTag("treasure6");
-        //treasure7 = GameObject.FindWithTag("treasure7");
-        //treasure8 = GameObject.FindWithTag("treasure8");
-        //treasure9 = GameObject.FindWithTag("treasure9");
-        //treasure10 = GameObject.FindWithTag("treasure10");
         if (LocalPlayerData.isOwner)
         {
             RandomSpawn();
@@ -214,6 +204,34 @@ public class RandomSpawnTreasure : NetworkBehaviour
         }
 
         tempRandom = random;
+    }
+
+    public void remred()
+    {
+        treasure1.GetComponent<interact>().red--;
+        treasure2.GetComponent<interact>().red--;
+        treasure3.GetComponent<interact>().red--;
+        treasure4.GetComponent<interact>().red--;
+        treasure5.GetComponent<interact>().red--;
+        treasure6.GetComponent<interact>().red--;
+        treasure7.GetComponent<interact>().red--;
+        treasure8.GetComponent<interact>().red--;
+        treasure9.GetComponent<interact>().red--;
+        treasure10.GetComponent<interact>().red--;
+    }
+
+    public void remblue()
+    {
+        treasure1.GetComponent<interact>().blue--;
+        treasure2.GetComponent<interact>().blue--;
+        treasure3.GetComponent<interact>().blue--;
+        treasure4.GetComponent<interact>().blue--;
+        treasure5.GetComponent<interact>().blue--;
+        treasure6.GetComponent<interact>().blue--;
+        treasure7.GetComponent<interact>().blue--;
+        treasure8.GetComponent<interact>().blue--;
+        treasure9.GetComponent<interact>().blue--;
+        treasure10.GetComponent<interact>().blue--;
     }
 
     public void OnRandomChanged(int oldRandom, int newRandom)

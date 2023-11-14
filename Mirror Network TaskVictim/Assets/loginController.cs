@@ -11,6 +11,8 @@ public class loginController : MonoBehaviour
 {
     public TMP_InputField nameInputField;
     public GameObject setNamePanel;
+    public GameObject selectCharacterPanel;
+    public GameObject playerSetupCanvas;
     public GameObject NetworkManagerObject;
 
     public GameObject[] charactersUI;
@@ -33,13 +35,14 @@ public class loginController : MonoBehaviour
         LocalPlayerData.playerUserName = nameInputField.text;
         Debug.Log(LocalPlayerData.playerUserName);
         PlayerPrefs.SetString("theName", nameInputField.text);
-        //PlayerUserName = LocalPlayerData.playerUserName;
-        //canvasController.temporaryLocalName = LocalPlayerData.playerUserName;
-        //Debug.Log("temporaryLocalName : " + canvasController.temporaryLocalName);
-        //CmdSetPlayerName(LocalPlayerData.playerUserName);
-
-        NetworkManagerObject.SetActive(true);
         setNamePanel.SetActive(false);
+        selectCharacterPanel.SetActive(true);
+    }
+
+    public void GameStart()
+    {
+        NetworkManagerObject.SetActive(true);
+        playerSetupCanvas.SetActive(false);
 
         /*if (!NetworkClient.active)
         {

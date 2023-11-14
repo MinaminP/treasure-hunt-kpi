@@ -77,6 +77,7 @@ namespace Mirror.Examples.MultipleMatch
         public static CanvasController instance;
 
         public GameObject canvasInGame;
+        public GameObject background;
         public int redCount;
         public int blueCount;
 
@@ -149,6 +150,7 @@ namespace Mirror.Examples.MultipleMatch
             matchConnections.Clear();
             waitingConnections.Clear();
             titleText.SetActive(true);
+            background.SetActive(true);
             localPlayerMatch = Guid.Empty;
             localJoinedMatch = Guid.Empty;
         }
@@ -812,6 +814,7 @@ namespace Mirror.Examples.MultipleMatch
                         lobbyView.SetActive(false);
                         roomView.SetActive(false);
                         titleText.SetActive(false);
+                        background.SetActive(false);
                         canvasInGame.SetActive(true);
                         break;
                     }

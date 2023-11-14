@@ -46,7 +46,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-       if (other.tag == "Player")
+        if (other.tag == "Player")
         {
             Debug.Log("Collided");
             Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
@@ -55,16 +55,4 @@ public class PlayerCollision : MonoBehaviour
             //collision.rigidbody.AddForce(direction * strength, ForceMode.Impulse);
         }
     }
-
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            Debug.Log("Collided");
-            Vector3 direction = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
-            CharacterController controller = collision.gameObject.GetComponent<CharacterController>();
-            controller.Move(-direction.normalized * strength);
-            //collision.rigidbody.AddForce(direction * strength, ForceMode.Impulse);
-        }
-    }*/
 }
