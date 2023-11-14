@@ -34,6 +34,8 @@ public class PlayerDataNew : NetworkBehaviour
     public string localMatchId;
     public DMMapIcon dmii;
     public GameObject mapCamera;
+
+    public bool canInteract = false;
     // Start is called before the first frame update
     void Start()
     {
