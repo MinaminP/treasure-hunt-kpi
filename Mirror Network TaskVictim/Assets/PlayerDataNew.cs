@@ -27,9 +27,11 @@ public class PlayerDataNew : NetworkBehaviour
     public RandomSpawnTreasure random;
     PlayerMovement movement;
     public bool isFullscreen = false;
+    public bool Destroyed = false;
 
     public string localMatchId;
     public DMMapIcon dmii;
+    public GameObject mapCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,7 @@ public class PlayerDataNew : NetworkBehaviour
 
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         timerCounter.hasStarted = true;
+        mapCamera = GameObject.Find("DMMapCamera");
         //random.RandomSpawn();
         //startwaktu();
         dmii = GetComponent<DMMapIcon>();
@@ -102,7 +105,10 @@ public class PlayerDataNew : NetworkBehaviour
                 {
                     DMMap.instance.LoadConfig(1);
                     isFullscreen = true;
-                }else if (isFullscreen == true)
+                    //DMMap.instance.transform.position = new Vector3(0f, 0f, 0f);
+                    mapCamera.transform.position = new Vector3(0f, 981f, 0f);
+                }
+                else if (isFullscreen == true)
                 {
                     DMMap.instance.LoadConfig(0);
                     isFullscreen = false;
@@ -116,13 +122,19 @@ public class PlayerDataNew : NetworkBehaviour
 
     private void OnDestroy()
     {
+        //interact[] interactss = FindObjectsOfType<interact>();
+        Destroyed = true;
         if (PlayerTeamName == "Red")
         {
             random.maxRed--;
+            random.remred();
+            
         }
         else if (PlayerTeamName == "Blue")
         {
             random.maxBlue--;
+            random.remblue();
+            
         }
     }
 

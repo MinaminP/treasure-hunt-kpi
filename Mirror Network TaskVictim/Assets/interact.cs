@@ -42,7 +42,7 @@ public class interact : NetworkBehaviour
     public void Start()
     {
         //scoreAdd.dataUpdates();
-        //DMI = GetComponent<DMMapIcon>();
+        DMI = GetComponent<DMMapIcon>();
         canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         isInArea = false;
@@ -106,12 +106,12 @@ public class interact : NetworkBehaviour
         if (isActive == false)
         {
             //gameObject.SetActive(false);
-            //DMI.enabled = false;
+            DMI.enabled = false;
             theObject.SetActive(false);
         }else if(isActive == true)
         {
             //gameObject.SetActive(true);
-            //DMI.enabled = true;
+            DMI.enabled = true;
             theObject.SetActive(true);
         }
 
@@ -187,6 +187,13 @@ public class interact : NetworkBehaviour
             pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
         }
 
+        if (red <= 0)
+        {
+            red = 0;
+        }else if (blue <= 0)
+        {
+            blue = 0;
+        }
 
     }
 
@@ -267,6 +274,37 @@ public class interact : NetworkBehaviour
                     red = 0;
                 }
             }
+
+            //pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (other.GetComponent<PlayerDataNew>().Destroyed == true)
+            {
+                isInArea = false;
+                if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Blue")
+                {
+                    blue--;
+                    if (blue < 0)
+                    {
+                        blue = 0;
+                    }
+                }
+
+                if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Red")
+                {
+                    red--;
+                    if (red < 0)
+                    {
+                        red = 0;
+                    }
+                }
+            }
+            
 
             //pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
         }

@@ -56,7 +56,13 @@ public class RandomSpawnTreasure : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        /*if (maxBlue <= 1 )
+        {
+            maxBlue = 1;
+        }else if (maxRed <= 1)
+        {
+            maxRed = 1;
+        }*/
     }
 
     [Command(requiresAuthority = false)]
@@ -214,6 +220,50 @@ public class RandomSpawnTreasure : NetworkBehaviour
         }
 
         tempRandom = random;
+    }
+
+    public void remred()
+    {
+        treasure1.GetComponent<interact>().red--;
+        treasure2.GetComponent<interact>().red--;
+        treasure3.GetComponent<interact>().red--;
+        treasure4.GetComponent<interact>().red--;
+        treasure5.GetComponent<interact>().red--;
+        treasure6.GetComponent<interact>().red--;
+        treasure7.GetComponent<interact>().red--;
+        treasure8.GetComponent<interact>().red--;
+        treasure9.GetComponent<interact>().red--;
+        treasure10.GetComponent<interact>().red--;
+        if (maxBlue <= 1)
+        {
+            maxBlue = 1;
+        }
+        else if (maxRed <= 1)
+        {
+            maxRed = 1;
+        }
+    }
+
+    public void remblue()
+    {
+        treasure1.GetComponent<interact>().blue--;
+        treasure2.GetComponent<interact>().blue--;
+        treasure3.GetComponent<interact>().blue--;
+        treasure4.GetComponent<interact>().blue--;
+        treasure5.GetComponent<interact>().blue--;
+        treasure6.GetComponent<interact>().blue--;
+        treasure7.GetComponent<interact>().blue--;
+        treasure8.GetComponent<interact>().blue--;
+        treasure9.GetComponent<interact>().blue--;
+        treasure10.GetComponent<interact>().blue--;
+        if (maxBlue <= 1)
+        {
+            maxBlue = 1;
+        }
+        else if (maxRed <= 1)
+        {
+            maxRed = 1;
+        }
     }
 
     public void OnRandomChanged(int oldRandom, int newRandom)

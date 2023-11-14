@@ -3430,7 +3430,7 @@ MonoBehaviour:
   generateOnStart: 1
   triangulationScale: 100
   orientation: 0
-  loadedConfig: 1
+  loadedConfig: 0
   configs:
   - name: Minimap
     meshLayerMaterial:
@@ -3442,7 +3442,7 @@ MonoBehaviour:
     overlay: {fileID: 2800000, guid: 831471ddfbf8347728af994b94e3eb9f, type: 3}
     uiPosition: {fileID: 1338692375}
     zoom: 85
-    rotate: 1
+    rotate: 0
     objectToFocusOn: {fileID: 0}
     globalIconScale: 0.1
     iconScaleMode: 0
@@ -3709,7 +3709,7 @@ Camera:
   m_BackGroundColor: {r: 0.745283, g: 0.66372377, b: 0.66372377, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 1
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 50
@@ -3765,7 +3765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318852365}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 250, z: 0}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4081,7 +4081,7 @@ RectTransform:
   m_GameObject: {fileID: 1318866301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.48726, y: 0.48726, z: 0.48726}
+  m_LocalScale: {x: 1.1862602, y: 1.1862602, z: 1.1862602}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1338682907}
@@ -4089,8 +4089,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: 0}
-  m_SizeDelta: {x: 800, y: 800}
+  m_AnchoredPosition: {x: 14, y: 0}
+  m_SizeDelta: {x: 740.1588, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1338720943
 RectTransform:
@@ -4594,6 +4594,103 @@ Transform:
   - {fileID: 2064369029}
   m_Father: {fileID: 0}
   m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1464303258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1464303262}
+  - component: {fileID: 1464303261}
+  - component: {fileID: 1464303260}
+  - component: {fileID: 1464303259}
+  m_Layer: 0
+  m_Name: Sphere (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &1464303259
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464303258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1464303260
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464303258}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1464303261
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464303258}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1464303262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464303258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 631.02014, y: 100, z: 58.760376}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1474558641
 GameObject:
@@ -6242,24 +6339,36 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 11403856, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
+      propertyPath: m_MaxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11403856, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DMMapUIControls, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 11442522, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: m_Color.b
-      value: .698529422
+      value: 0.6985294
       objectReference: {fileID: 0}
     - target: {fileID: 11442522, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: m_Color.g
-      value: .698529422
+      value: 0.6985294
       objectReference: {fileID: 0}
     - target: {fileID: 11442522, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: m_Color.r
-      value: .698529422
+      value: 0.6985294
       objectReference: {fileID: 0}
     - target: {fileID: 11468398, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: toggle
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468398, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
+      propertyPath: mapCamera
+      value: 
+      objectReference: {fileID: 1464303258}
+    - target: {fileID: 11468398, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
+      propertyPath: zoomValue
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 11468398, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: followTarget
@@ -6267,11 +6376,11 @@ PrefabInstance:
       objectReference: {fileID: 531273283}
     - target: {fileID: 22402040, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 86.4000015
+      value: 86.4
       objectReference: {fileID: 0}
     - target: {fileID: 22402040, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 221.699997
+      value: 221.7
       objectReference: {fileID: 0}
     - target: {fileID: 22403904, guid: bd87b1886418a4932bb448b62139ee69, type: 3}
       propertyPath: m_AnchorMax.x

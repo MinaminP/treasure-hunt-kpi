@@ -168,7 +168,7 @@ namespace StarterAssets
             dmi = GetComponent<DMMapIcon>();
             dmi.rotateWithMap = false;
             dmi.scaleWithZoom = false;
-            dmi.rotate = false;
+            //dmi.rotate = false;
            /* pc = GetComponent<PlayerCharacter>();
            
             if(pc != null )

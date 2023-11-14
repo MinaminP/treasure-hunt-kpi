@@ -8918,6 +8918,7 @@ MonoBehaviour:
   canvasController: {fileID: 0}
   random: {fileID: 0}
   isFullscreen: 0
+  Destroyed: 0
   localMatchId: 
   dmii: {fileID: 0}
 --- !u!114 &2094918470585560061
