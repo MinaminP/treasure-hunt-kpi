@@ -821,13 +821,14 @@ namespace Mirror.Examples.MultipleMatch
                 case ClientMatchOperation.UpdateCountBlue:
                     {
                         roomGUI.addBlues();
+                        roomGUI.RefreshRoomPlayers(msg.playerInfos);
                         //roomGUI.addReds(redCount);
                         break;
                     }
                 case ClientMatchOperation.UpdateCountRed:
                     {
                         roomGUI.addReds();
-                        
+                        roomGUI.RefreshRoomPlayers(msg.playerInfos);
                         break;
                     }
                 case ClientMatchOperation.forceJustJoin:

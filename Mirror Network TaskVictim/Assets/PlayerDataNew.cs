@@ -130,16 +130,17 @@ public class PlayerDataNew : NetworkBehaviour
         {
             //ball.red--;
             random.remred();
-            if(random.maxRed != 1)
+            if(random.maxRed !<= 1)
             {
                 random.maxRed--;
             }
+            
         }
         else if (PlayerTeamName == "Blue")
         {
             //ball.blue--;
             random.remblue();
-            if(random.maxBlue != 1)
+            if(random.maxBlue !<= 1)
             {
                 random.maxBlue--;
             }

@@ -21,6 +21,9 @@ public class DMMapUIControls : MonoBehaviour {
     public float xDrag;
     public float yDrag;
 
+    public float scrollWheel;
+    public float scrollSensitivity;
+
     public void Awake() {
         // EventSystem.current.sendNavigationEvents = false;
     }
@@ -136,7 +139,7 @@ public class DMMapUIControls : MonoBehaviour {
             yDrag = Input.GetAxis("Mouse Y") * 200f;
 
             //DragValuesText.text = "x = " + xDrag + ", y = " + yDrag;
-            Debug.Log("x = " + xDrag + ", y = " + yDrag);
+            //Debug.Log("x = " + xDrag + ", y = " + yDrag);
             mapCamera.transform.Translate(mapCamera.transform.right * -(xDrag) * Time.deltaTime);
             mapCamera.transform.Translate(mapCamera.transform.forward * yDrag * Time.deltaTime);
         }
@@ -147,5 +150,9 @@ public class DMMapUIControls : MonoBehaviour {
                 dragging = false;
             }
         }
+
+        scrollWheel = Input.GetAxis("Mouse ScrollWheel") * scrollSensitivity;
+        //Debug.Log("scroll = " + scrollWheel);
+        mapCamera.transform.Translate(mapCamera.transform.up * scrollWheel * Time.deltaTime);
     }
 }

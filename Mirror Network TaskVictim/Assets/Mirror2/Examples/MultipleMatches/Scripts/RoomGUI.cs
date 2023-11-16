@@ -28,6 +28,9 @@ namespace Mirror.Examples.MultipleMatch
         public Button timerDefine10;
         public Button timerDefine15;
 
+        public bool isAlreadyTeamed = false;
+        public Button readyButton;
+
         public void changetimer(float timer)
         {
             LocalPlayerData.gametimer = timer;
@@ -115,6 +118,8 @@ namespace Mirror.Examples.MultipleMatch
                 
             }
 
+            readyButton.interactable = isAlreadyTeamed;
+
             startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1) && 
                 (playerRed == playerInfos.Length / 2 || playerRed == playerInfos.Length / 2 + 1) && (playerBlue == playerInfos.Length / 2 || playerBlue == playerInfos.Length / 2 + 1);
         }
@@ -143,7 +148,7 @@ namespace Mirror.Examples.MultipleMatch
             }
             playerRed++;
             justJoined = false;
-
+            isAlreadyTeamed = true;
 
         }
 
@@ -163,7 +168,7 @@ namespace Mirror.Examples.MultipleMatch
             }
             playerBlue++;
             justJoined = false;
-
+            isAlreadyTeamed = true;
 
         }
 
