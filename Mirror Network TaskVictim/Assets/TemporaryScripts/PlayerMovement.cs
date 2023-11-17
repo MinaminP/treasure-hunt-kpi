@@ -210,6 +210,14 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+
+            if (isSwimming == true)
+            {
+                if (gameObject.transform.position.y < -3.037925f)
+                {
+                    gameObject.transform.position = new Vector3(gameObject.transform.position.x, -3.037925f, gameObject.transform.position.z); ;
+                }
+            }
         }
 
         private void LateUpdate()

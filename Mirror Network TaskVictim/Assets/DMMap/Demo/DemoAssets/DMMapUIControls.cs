@@ -163,19 +163,30 @@ public class DMMapUIControls : MonoBehaviour {
         {
             if (isFullscreen == false)
             {
-                
-                isFullscreen = true;
-                mapFrame.SetActive(true);
+                openMap();
 
             }
             else if (isFullscreen == true)
             {
-                
-                isFullscreen = false;
-                mapFrame.SetActive(false);
+                closeMap();
 
             }
 
         }
+    }
+
+    public void openMap()
+    {
+        DMMap.instance.LoadConfig(1);
+        isFullscreen = true;
+        mapCamera.transform.position = new Vector3(0f, 981f, 0f);
+        mapFrame.SetActive(true);
+    }
+
+    public void closeMap()
+    {
+        DMMap.instance.LoadConfig(0);
+        isFullscreen = false;
+        mapFrame.SetActive(false);
     }
 }
