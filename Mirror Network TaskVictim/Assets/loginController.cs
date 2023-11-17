@@ -44,15 +44,15 @@ public class loginController : MonoBehaviour
         NetworkManagerObject.SetActive(true);
         playerSetupCanvas.SetActive(false);
 
-        /*if (!NetworkClient.active)
+        if (!NetworkClient.active)
         {
             // Client + IP
             manager.StartClient();
             // This updates networkAddress every frame from the TextField
             manager.networkAddress = address;
-        }*/
+        }
 
-        NetworkManagerObject.GetComponent<NetworkManagerHUD>().enabled = true;
+        NetworkManagerObject.GetComponent<NetworkManagerHUD>().enabled = false;
     }
 
     public void SelectCharacter(int avatar)

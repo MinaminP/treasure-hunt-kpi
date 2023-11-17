@@ -59,6 +59,12 @@ public class ScoreboardController : NetworkBehaviour
         }
         RedScoreText.text = "Red : " + RedScore;
         BlueScoreText.text = "Blue : " + BlueScore;
+
+        if (RedScore == BlueScore)
+        {
+            topTeamScoreText.text = "Draw!";
+        }
+
         if (isEnd == true)
         {
             //gameObject.GetComponent<Animator>().Play("endgame");
@@ -120,6 +126,7 @@ public class ScoreboardController : NetworkBehaviour
             foreach (var playerTeamScore in playerTeamList)
             {
                 scoreString += playerTeamScore.teamName + ": " + playerTeamScore.teamScore + "\n";
+
             }
 
             scoreText2.text = scoreString;
@@ -147,6 +154,8 @@ public class ScoreboardController : NetworkBehaviour
      
             Debug.Log(score.teamName + "Just passed target score");
             topTeamScoreText.text = score.teamName + " Win";
+
+            
 
         }
 

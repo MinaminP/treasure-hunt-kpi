@@ -103,7 +103,7 @@ public class PlayerDataNew : NetworkBehaviour
             
         }
 
-        if (isLocalPlayer)
+        /*if (isLocalPlayer)
         {
             if (Input.GetKeyUp(KeyCode.M))
             {
@@ -124,7 +124,7 @@ public class PlayerDataNew : NetworkBehaviour
                 
             }
             
-        }
+        }*/
 
     }
 
