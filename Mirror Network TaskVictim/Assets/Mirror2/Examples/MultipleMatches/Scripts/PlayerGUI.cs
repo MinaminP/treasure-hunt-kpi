@@ -27,7 +27,7 @@ namespace Mirror.Examples.MultipleMatch
             //CmdSetPlayerName(info.playerName);
             //loginController = GameObject.Find("Canvas (2)").GetComponent<loginController>();
             //playerName.text = loginController.PlayerUserName;
-            playerName.color = info.ready ? Color.green : Color.red;
+            playerName.color = info.ready ? Color.green : Color.white;
         }
 
         /*[Command(requiresAuthority = false)]
