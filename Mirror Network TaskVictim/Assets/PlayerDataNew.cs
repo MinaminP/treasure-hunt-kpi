@@ -34,6 +34,7 @@ public class PlayerDataNew : NetworkBehaviour
     public string localMatchId;
     public DMMapIcon dmii;
     public GameObject mapCamera;
+    public GameObject mapFrame;
 
     public bool canInteract = false;
     // Start is called before the first frame update
@@ -52,6 +53,7 @@ public class PlayerDataNew : NetworkBehaviour
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         timerCounter.hasStarted = true;
         mapCamera = GameObject.Find("DMMapCamera");
+        //mapFrame = GameObject.Find("mapFrame");
         //random.RandomSpawn();
         //startwaktu();
         dmii = GetComponent<DMMapIcon>();
@@ -73,6 +75,8 @@ public class PlayerDataNew : NetworkBehaviour
             //CmdSendTeamName("Red");
             CmdSendInitializeScore();
             DMMap.instance.LoadConfig(0);
+            //mapFrame.GetComponent<Image>().enabled = true;
+            //mapFrame.SetActive(false);
         }
         else
         {
@@ -109,11 +113,13 @@ public class PlayerDataNew : NetworkBehaviour
                     isFullscreen = true;
                     //DMMap.instance.transform.position = new Vector3(0f, 0f, 0f);
                     mapCamera.transform.position = new Vector3(0f, 981f, 0f);
+                    //mapFrame.SetActive(true);
                 }
                 else if (isFullscreen == true)
                 {
                     DMMap.instance.LoadConfig(0);
                     isFullscreen = false;
+                    //mapFrame.SetActive(false);
                 }
                 
             }
