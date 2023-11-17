@@ -24,8 +24,12 @@ public class DMMapUIControls : MonoBehaviour {
     public float scrollWheel;
     public float scrollSensitivity;
 
+    public bool isFullscreen;
+    public GameObject mapFrame;
+
     public void Awake() {
         // EventSystem.current.sendNavigationEvents = false;
+        mapFrame.SetActive(false);
     }
 
 
@@ -154,5 +158,24 @@ public class DMMapUIControls : MonoBehaviour {
         scrollWheel = Input.GetAxis("Mouse ScrollWheel") * scrollSensitivity;
         //Debug.Log("scroll = " + scrollWheel);
         mapCamera.transform.Translate(mapCamera.transform.up * scrollWheel * Time.deltaTime);
+
+        if (Input.GetKeyUp(KeyCode.M))
+        {
+            if (isFullscreen == false)
+            {
+                
+                isFullscreen = true;
+                mapFrame.SetActive(true);
+
+            }
+            else if (isFullscreen == true)
+            {
+                
+                isFullscreen = false;
+                mapFrame.SetActive(false);
+
+            }
+
+        }
     }
 }

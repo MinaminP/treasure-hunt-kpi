@@ -8919,8 +8919,12 @@ MonoBehaviour:
   random: {fileID: 0}
   isFullscreen: 0
   Destroyed: 0
+  destroyed: 0
   localMatchId: 
   dmii: {fileID: 0}
+  mapCamera: {fileID: 0}
+  mapFrame: {fileID: 0}
+  canInteract: 0
 --- !u!114 &2094918470585560061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9018,7 +9022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd23ed22d45f4b0f8f074cd196dae2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 6af7abe2c9b2245bdbfcf5d8c14bf5e7, type: 3}
+  icon: {fileID: 21300000, guid: f32fa81c00da70a49a8ef9d7bcb7f734, type: 3}
   tint:
     serializedVersion: 2
     rgba: 4278255379

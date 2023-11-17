@@ -133,7 +133,7 @@ namespace DMM {
                 DMMap.instance.overlayImage.rectTransform.pivot = uiPosition.pivot;
                 DMMap.instance.overlayImage.rectTransform.position = uiPosition.position;
                 DMMap.instance.overlayImage.rectTransform.rotation = uiPosition.rotation;
-                DMMap.instance.overlayImage.rectTransform.localScale = uiPosition.localScale;
+                //DMMap.instance.overlayImage.rectTransform.localScale = uiPosition.localScale;
                 DMMap.instance.overlayImage.rectTransform.sizeDelta = uiPosition.sizeDelta;
             }
 
