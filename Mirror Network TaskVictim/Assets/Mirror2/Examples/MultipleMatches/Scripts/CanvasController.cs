@@ -302,6 +302,14 @@ namespace Mirror.Examples.MultipleMatch
             ShowLobbyView();
         }
 
+        [ClientCallback]
+        public void OnMatchEnded2()
+        {
+            localPlayerMatch = Guid.Empty;
+            localJoinedMatch = Guid.Empty;
+            //ShowLobbyView();
+        }
+
         #endregion
 
         #region Server & Client Callbacks
@@ -841,19 +849,32 @@ namespace Mirror.Examples.MultipleMatch
         }
 
         [ClientCallback]
-        void ShowLobbyView()
+        public void ShowLobbyView()
         {
             lobbyView.SetActive(true);
             roomView.SetActive(false);
             background.SetActive(true);
             canvasInGame.SetActive(false);
-
             foreach (Transform child in matchList.transform)
                 if (child.gameObject.GetComponent<MatchGUI>().GetMatchId() == selectedMatch)
                 {
                     Toggle toggle = child.gameObject.GetComponent<Toggle>();
                     toggle.isOn = true;
                 }
+        }
+
+        public void ShowLobbyManual()
+        {
+            lobbyView.SetActive(true);
+            roomView.SetActive(false);
+            background.SetActive(true);
+            canvasInGame.SetActive(false);
+            foreach (Transform child in matchList.transform)
+                if (child.gameObject.GetComponent<MatchGUI>().GetMatchId() == selectedMatch)
+                {
+                    Toggle toggle = child.gameObject.GetComponent<Toggle>();
+                    toggle.isOn = true;
+                }S
         }
 
         [ClientCallback]

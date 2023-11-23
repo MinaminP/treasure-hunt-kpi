@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 using System.Linq;
+using Mirror.Examples.MultipleMatch;
 
 public class ScoreboardController : NetworkBehaviour
 {
@@ -21,6 +22,8 @@ public class ScoreboardController : NetworkBehaviour
 
     public GameObject redWinObj;
     public GameObject blueWinObj;
+
+    public CanvasController canvasController;
 
     public bool isRedWin = false;
     public bool isBlueWin = false;
@@ -57,6 +60,7 @@ public class ScoreboardController : NetworkBehaviour
                 playerss[i].GetComponent<PlayerDataNew>().scoreboardController = this;
             }
         }
+        canvasController = FindObjectOfType<CanvasController>();
     }
 
     private void Update()
@@ -347,6 +351,7 @@ public class ScoreboardController : NetworkBehaviour
     public void exitButton()
     {
         //playerData.CmdSendName(nameField.text);
+        canvasController.ShowLobbyManual();
         pldt.RequestExitGame();
     }
 
