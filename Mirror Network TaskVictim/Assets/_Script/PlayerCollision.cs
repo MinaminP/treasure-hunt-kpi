@@ -3,56 +3,107 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PlayerCollision : MonoBehaviour
+public class PlayerCollision : NetworkBehaviour
 {
-    public float forceMagnitude;
+    public RandomSpawnTreasure random;
+    public PlayerDataNew playerData;
+
+    private void Start()
+    {
+        random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
+        playerData = GetComponent<PlayerDataNew>();
+    }
+
     // Start is called before the first frame update
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        /*if (hit.collider.tag == "Player")
-        {
-            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
-            forceDirection.y = 0;
-            forceDirection.Normalize();
-
-            CharacterController controller = hit.gameObject.GetComponent<CharacterController>();
-
-            controller.Move(forceDirection * forceMagnitude);
-        }
-
-        /*Rigidbody rigidbody = hit.collider.attachedRigidbody;
-        if (rigidbody != null) 
-        {
-            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
-            forceDirection.y = 0;
-            forceDirection.Normalize();
-
-            hit.controller.Move(forceDirection * forceMagnitude);
-            //rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
-        }*/
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        /*if (other.tag == "Player")
+        interact interact = other.GetComponent<interact>();
+        if (other.CompareTag("Treasure"))
         {
-            Debug.Log("Collided");
-            Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
-            CharacterController controller = other.gameObject.GetComponent<CharacterController>();
-            controller.Move(direction.normalized  * forceMagnitude);
-            //collision.rigidbody.AddForce(direction * strength, ForceMode.Impulse);
-        }*/
+            if (isLocalPlayer)
+            {
+                if (interact.isActive)
+                {
+                    random.notifText.gameObject.SetActive(true);
+                    if (playerData.PlayerTeamName == "Red")
+                    {
+                        if (interact.isRedFirst)
+                        {
+                            random.notifText.text = "Press \"E\" to collect the treasure";
+                        }
+                        else if (interact.isBlueFirst)
+                        {
+                            random.notifText.text = "Gather all your team to collect the treasure";
+                        }
+                    }
+
+                    if (playerData.PlayerTeamName == "Blue")
+                    {
+                        if (interact.isBlueFirst)
+                        {
+                            random.notifText.text = "Press \"E\" to collect the treasure";
+                        }
+                        else if (interact.isRedFirst)
+                        {
+                            random.notifText.text = "Gather all your team to collect the treasure";
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        interact interact = other.GetComponent<interact>();
+        if (other.CompareTag("Treasure"))
         {
-            Debug.Log("Collided");
-            Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
-            CharacterController controller = other.gameObject.GetComponent<CharacterController>();
-            controller.Move(direction.normalized * forceMagnitude);
-            //collision.rigidbody.AddForce(direction * strength, ForceMode.Impulse);
+            if (isLocalPlayer)
+            {
+                if (interact.isActive)
+                {
+                    random.notifText.gameObject.SetActive(true);
+                    if (playerData.PlayerTeamName == "Red")
+                    {
+                        if (interact.isRedFirst)
+                        {
+                            random.notifText.text = "Press \"E\" to collect the treasure";
+                        }
+                        else if (interact.isBlueFirst)
+                        {
+                            random.notifText.text = "Gather all your team to collect the treasure";
+                        }
+                    }
+
+                    if (playerData.PlayerTeamName == "Blue")
+                    {
+                        if (interact.isBlueFirst)
+                        {
+                            random.notifText.text = "Press \"E\" to collect the treasure";
+                        }
+                        else if (interact.isRedFirst)
+                        {
+                            random.notifText.text = "Gather all your team to collect the treasure";
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Treasure"))
+        {
+            if(isLocalPlayer)
+            {
+                random.notifText.gameObject.SetActive(false);
+            }
         }
     }
 }

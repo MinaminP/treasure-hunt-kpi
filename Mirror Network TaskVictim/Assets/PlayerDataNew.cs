@@ -61,7 +61,7 @@ public class PlayerDataNew : NetworkBehaviour
         {
             //float randomNumber = Random.Range(0, 1000000);
             //string tempName = canvasController.temporaryLocalName;
-            GameObject.Find("Canvas (2)").GetComponent<ChangeNameNew>().playerData = this;
+            GameObject.Find("InGameCanvas").GetComponent<ChangeNameNew>().playerData = this;
             //CmdSendName("Player " + randomNumber);
             //CmdSendName(tempName);
             //UpdatePlayerName(PlayerName, "Player " + randomNumber);
@@ -100,7 +100,32 @@ public class PlayerDataNew : NetworkBehaviour
                 scoreboardController.GetComponent<Animator>().Play("end");
             }
             //scoreboardController.isEnd = true;
-            
+        }
+
+        /*if(isLocalPlayer) 
+        {
+            if (PlayerTeamName == "Red")
+            {
+                if (random.redNotif)
+                {
+                    random.notifText.text = "Press \"E\" to collect the treasure";
+                }
+                else
+                {
+                    random.notifText.text = "Gather all your team to collect the treasure";
+                }
+            }
+            else if (PlayerTeamName == "Blue")
+            {
+                if (random.blueNotif)
+                {
+                    random.notifText.text = "Press \"E\" to collect the treasure";
+                }
+                else
+                {
+                    random.notifText.text = "Gather all your team to collect the treasure";
+                }
+            }
         }
 
         /*if (isLocalPlayer)
@@ -140,7 +165,6 @@ public class PlayerDataNew : NetworkBehaviour
             {
                 random.maxRed--;
             }
-            
         }
         else if (PlayerTeamName == "Blue")
         {

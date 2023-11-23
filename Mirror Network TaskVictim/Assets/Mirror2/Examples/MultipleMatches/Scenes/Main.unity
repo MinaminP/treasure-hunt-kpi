@@ -1212,10 +1212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b15c78bb8ab8da42a94aa0bc3081814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerListItemPrefab: {fileID: 0}
-  PlayerListContent: {fileID: 0}
-  siCanvas: {fileID: 0}
-  playrs: []
   dontDestroyOnLoad: 0
   runInBackground: 1
   autoStartServerBuild: 1
@@ -1877,6 +1873,19 @@ MonoBehaviour:
   leaveButton: {fileID: 2105646338}
   startButton: {fileID: 1613178154}
   owner: 0
+  justJoined: 0
+  playerRed: 0
+  playerBlue: 0
+  updatedPlayerRed: 0
+  updatedPlayerBlue: 0
+  redTeamButton: {fileID: 0}
+  blueTeamButton: {fileID: 0}
+  timerContainer: {fileID: 0}
+  timerDefine5: {fileID: 0}
+  timerDefine10: {fileID: 0}
+  timerDefine15: {fileID: 0}
+  isAlreadyTeamed: 0
+  readyButton: {fileID: 0}
 --- !u!1 &1295888617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,7 +2591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -2879,7 +2887,15 @@ MonoBehaviour:
   roomView: {fileID: 1258848446}
   roomGUI: {fileID: 1258848448}
   toggleGroup: {fileID: 1386671672}
-  sphere: {fileID: 0}
+  randomSpawnerPrefab: {fileID: 0}
+  timerPrefab: {fileID: 0}
+  scoreBoardPrefab: {fileID: 0}
+  canvasInGame: {fileID: 0}
+  background: {fileID: 0}
+  redCount: 0
+  blueCount: 0
+  temporaryLocalName: 
+  nameInputField: {fileID: 0}
 --- !u!1 &2105646338
 GameObject:
   m_ObjectHideFlags: 0
