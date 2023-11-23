@@ -27,6 +27,8 @@ public class ScoreboardController : NetworkBehaviour
 
     public bool isRedWin = false;
     public bool isBlueWin = false;
+
+    public GameObject exitNotif;
     //[SyncVar(hook = nameof(OnObjectNameChanged))]
     //public string ObjectName = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
 
@@ -353,6 +355,11 @@ public class ScoreboardController : NetworkBehaviour
         //playerData.CmdSendName(nameField.text);
         canvasController.ShowLobbyManual();
         pldt.RequestExitGame();
+    }
+
+    public void preExit()
+    {
+        exitNotif.SetActive(true);
     }
 
     public void deactivateScorePanel()
