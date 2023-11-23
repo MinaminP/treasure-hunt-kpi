@@ -141,6 +141,7 @@ public class interact : NetworkBehaviour
     [ClientRpc]
     public void SetNotifImage()
     {
+        random.notifText.gameObject.SetActive(false);
         StartCoroutine(ShowNotifImage());
     }
 
@@ -263,7 +264,6 @@ public class interact : NetworkBehaviour
             {
                 isRedFirst = false;
             }
-
         }
         else if (red < random.maxRed)
         {

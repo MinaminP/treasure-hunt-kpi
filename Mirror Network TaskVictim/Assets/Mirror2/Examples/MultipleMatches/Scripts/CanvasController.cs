@@ -477,17 +477,11 @@ namespace Mirror.Examples.MultipleMatch
                 case ServerMatchOperation.SelectTeamBlue:
                     {
                         OnServerPlayerSwitchBlue(conn, msg.matchId);
-                        //blueCount++;
-                        //roomGUI.addBlues(blueCount);
-                        //roomGUI.addReds(redCount);
                         break;
                     }
                 case ServerMatchOperation.SelectTeamRed:
                     {
                         OnServerPlayerSwitchRed(conn, msg.matchId);
-                        //redCount++;
-                        //roomGUI.addReds(redCount);
-                        //roomGUI.addBlues(blueCount);
                         break;
                     }
                 case ServerMatchOperation.SetName:
@@ -851,6 +845,8 @@ namespace Mirror.Examples.MultipleMatch
         {
             lobbyView.SetActive(true);
             roomView.SetActive(false);
+            background.SetActive(true);
+            canvasInGame.SetActive(false);
 
             foreach (Transform child in matchList.transform)
                 if (child.gameObject.GetComponent<MatchGUI>().GetMatchId() == selectedMatch)
