@@ -68,7 +68,6 @@ namespace Mirror.Examples.MultipleMatch
         public GameObject roomView;
         public RoomGUI roomGUI;
         public ToggleGroup toggleGroup;
-        public GameObject titleText;
 
         public GameObject randomSpawnerPrefab;
         public GameObject timerPrefab;
@@ -149,7 +148,6 @@ namespace Mirror.Examples.MultipleMatch
             openMatches.Clear();
             matchConnections.Clear();
             waitingConnections.Clear();
-            titleText.SetActive(true);
             background.SetActive(true);
             localPlayerMatch = Guid.Empty;
             localJoinedMatch = Guid.Empty;
@@ -823,7 +821,6 @@ namespace Mirror.Examples.MultipleMatch
                     {
                         lobbyView.SetActive(false);
                         roomView.SetActive(false);
-                        titleText.SetActive(false);
                         background.SetActive(false);
                         canvasInGame.SetActive(true);
                         break;

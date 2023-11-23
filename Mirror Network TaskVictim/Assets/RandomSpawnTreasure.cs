@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TMPro;
 
 public class RandomSpawnTreasure : NetworkBehaviour
 {
@@ -33,6 +34,12 @@ public class RandomSpawnTreasure : NetworkBehaviour
 
     //[SyncVar(hook = nameof(OnMaxRedChanged))]
     public int maxRed = 0;
+
+    public bool blueNotif;
+    public bool redNotif;
+
+    public TextMeshProUGUI notifText;
+    public GameObject notifImage;
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +85,7 @@ public class RandomSpawnTreasure : NetworkBehaviour
             random = Random.Range(1, 11);
         }*/
         //random = 2;
+
         if(random == 1)
         {
             treasure1.GetComponent<interact>().isActive = true;

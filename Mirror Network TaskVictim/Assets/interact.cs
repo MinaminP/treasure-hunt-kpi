@@ -38,6 +38,7 @@ public class interact : NetworkBehaviour
     public ScoreboardController scoreboardController;
     public DMMapIcon DMI;
 
+    Collider colliderTreasure;
     // Start is called before the first frame update
     public void Start()
     {
@@ -47,17 +48,21 @@ public class interact : NetworkBehaviour
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         isInArea = false;
 
+        colliderTreasure = GetComponent<Collider>();
+
+        scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
+    }
+    private void OnEnable()
+    {
         pickupAreaWhite.SetActive(true);
         pickupAreaRed.SetActive(false);
         pickupAreaBlue.SetActive(false);
-
-        scoreboardController = GameObject.FindWithTag("scoreboard").GetComponent<ScoreboardController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isInArea == true)
+        /*if (isInArea == true)
         {
             if (Input.GetKeyUp(KeyCode.E))
             {
@@ -85,7 +90,7 @@ public class interact : NetworkBehaviour
                     }
                 }
             }
-        }
+        }*/
 
         TreasureRadiusChecker();
 
@@ -101,6 +106,14 @@ public class interact : NetworkBehaviour
             DMI.enabled = true;
             theObject.SetActive(true);
         }
+    }
+
+    IEnumerator ShowNotifImage()
+    {
+        //random.notifText.gameObject.SetActive(false);
+        random.notifImage.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        random.notifImage.SetActive(false);
     }
 
     [Command(requiresAuthority = false)]
@@ -121,7 +134,14 @@ public class interact : NetworkBehaviour
         //score += 1f;
         //NetworkServer.Destroy(gameObject);
         isActive = false;
+        SetNotifImage();
         //gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
+    public void SetNotifImage()
+    {
+        StartCoroutine(ShowNotifImage());
     }
 
     public void munculkan()
@@ -136,7 +156,7 @@ public class interact : NetworkBehaviour
             isInArea = true;
             if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Blue")
             {
-                blue++;
+                blue++; 
             }
 
             if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Red")
@@ -158,18 +178,48 @@ public class interact : NetworkBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && other.IsDestroyed())
+        if (other.CompareTag("Player"))
         {
+            if (isActive)
+            {
+                if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Red")
+                {
+                    if (isRedFirst)
+                    {
+                        //random.notifText.text = "Press \"E\" to collect the treasure";
+                        if (Input.GetKeyUp(KeyCode.E))
+                        {
+                            hancurkan();
+                            random.notifText.gameObject.SetActive(false);
+                            canvas.changeScoreButton("Red");
+                            scoreboardController.UpdateTeamScore("Red", 1);
+                            isBlueFirst = false;
+                            isRedFirst = false;
+                            //random.notifText.text = "Gather all your team to collect the treasure";
+                            random.RandomSpawn();
+                        }
+                    }
+                }
 
-            /*if (red == random.maxRed)
-            {
-                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 0, 0, 50);
+                if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Blue")
+                {
+                    if (isBlueFirst)
+                    {
+                        //random.notifText.text = "Press \"E\" to collect the treasure";
+                        if (Input.GetKeyUp(KeyCode.E))
+                        {
+                            hancurkan();
+                            random.notifText.gameObject.SetActive(false);
+                            canvas.changeScoreButton("Blue");
+                            scoreboardController.UpdateTeamScore("Blue", 1);
+                            isBlueFirst = false;
+                            isRedFirst = false;
+                            //random.notifText.text = "Gather all your team to collect the treasure";
+                            random.RandomSpawn();
+                        }
+                    }
+                }
             }
-            else if (blue == random.maxBlue)
-            {
-                pickupArea.GetComponent<Renderer>().material.color = new Color32(0, 0, 255, 50);
-            }*/
-            //TreasureRadiusChecker();
         }
     }
 
@@ -178,6 +228,7 @@ public class interact : NetworkBehaviour
         if (other.CompareTag("Player"))
         {
             isInArea = false;
+            random.notifText.text = "Gather all your team to collect the treasure";
             if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Blue")
             {
                 blue--;
@@ -195,12 +246,6 @@ public class interact : NetworkBehaviour
                     red = 0;
                 }
             }
-            /*if(blue == random.maxBlue || red == random.maxRed)
-            {
-                pickupArea.GetComponent<Renderer>().material.color = new Color32(255, 255, 255, 30);
-            }*/
-
-            //TreasureRadiusChecker();
         }
     }
 
@@ -211,6 +256,8 @@ public class interact : NetworkBehaviour
             if (isBlueFirst == false)
             {
                 isRedFirst = true;
+                random.redNotif = true;
+                random.blueNotif = false;
             }
             else if (isBlueFirst == true)
             {
@@ -228,6 +275,8 @@ public class interact : NetworkBehaviour
             if (isRedFirst == false)
             {
                 isBlueFirst = true;
+                random.blueNotif = true;
+                random.redNotif = false;
             }
             else if (isRedFirst == true)
             {
@@ -255,7 +304,6 @@ public class interact : NetworkBehaviour
             pickupAreaWhite.SetActive(true);
             pickupAreaRed.SetActive(false);
             pickupAreaBlue.SetActive(false);
-            //pickupArea.GetComponent<ParticleSystem>().main.startColor = new Color32(255, 255, 255, 30);
         }
     }
 

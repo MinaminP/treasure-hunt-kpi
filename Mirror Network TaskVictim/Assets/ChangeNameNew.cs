@@ -7,10 +7,16 @@ public class ChangeNameNew : MonoBehaviour
 {
     public InputField nameField;
     public PlayerDataNew playerData;
+    public GameObject instructionPanel;
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        instructionPanel.SetActive(true);
     }
 
     public void changeNameButton()
