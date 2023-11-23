@@ -14,6 +14,16 @@ public class ScoreboardController : NetworkBehaviour
 
     public TextMeshProUGUI RedScoreText;
     public TextMeshProUGUI BlueScoreText;
+
+    public PlayerDataNew pldt;
+    public GameObject redPanel;
+    public GameObject bluePanel;
+
+    public GameObject redWinObj;
+    public GameObject blueWinObj;
+
+    public bool isRedWin = false;
+    public bool isBlueWin = false;
     //[SyncVar(hook = nameof(OnObjectNameChanged))]
     //public string ObjectName = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
 
@@ -57,8 +67,8 @@ public class ScoreboardController : NetworkBehaviour
             Debug.Log("Tab Pressed");
             //scoreBoardUI.SetActive(true);
         }
-        RedScoreText.text = "Red : " + RedScore;
-        BlueScoreText.text = "Blue : " + BlueScore;
+        RedScoreText.text = "" +RedScore;
+        BlueScoreText.text = "" +BlueScore;
 
         if (RedScore == BlueScore)
         {
@@ -154,6 +164,24 @@ public class ScoreboardController : NetworkBehaviour
      
             Debug.Log(score.teamName + "Just passed target score");
             topTeamScoreText.text = score.teamName + " Win";
+
+            if (score.teamName == "Red")
+            {
+                //redWinObj.SetActive(true);
+                //blueWinObj.SetActive(false);
+                isRedWin = true;
+                isBlueWin = false;
+                LeanTween.scale(redWinObj, new Vector3(1f, 1f, 1f), 0.2f).setEaseInSine();
+            }
+            else if (score.teamName == "Blue")
+            {
+                //blueWinObj.SetActive(true);
+                //redWinObj.SetActive(false);
+                isBlueWin = true;
+                isRedWin = false;
+                LeanTween.scale(blueWinObj, new Vector3(1f, 1f, 1f), 0.2f).setEaseInSine();
+            }
+        
 
             
 
@@ -314,6 +342,18 @@ public class ScoreboardController : NetworkBehaviour
 
         //Debug.Log("Total score : " + totalScore);
 
+    }
+
+    public void exitButton()
+    {
+        //playerData.CmdSendName(nameField.text);
+        pldt.RequestExitGame();
+    }
+
+    public void deactivateScorePanel()
+    {
+        redPanel.SetActive(false);
+        bluePanel.SetActive(false);
     }
 
     public void OnEndChanged(bool oldVal, bool newVal)

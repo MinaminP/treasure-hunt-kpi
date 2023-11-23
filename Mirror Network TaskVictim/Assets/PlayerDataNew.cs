@@ -12,6 +12,7 @@ using DMM;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+
 public class PlayerDataNew : NetworkBehaviour
 {
     [SyncVar(hook = "UpdatePlayerName")] public string PlayerName;
@@ -37,6 +38,8 @@ public class PlayerDataNew : NetworkBehaviour
     public GameObject mapFrame;
 
     public bool canInteract = false;
+    public bool isEnded = false;
+    //public CanvasController
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +48,7 @@ public class PlayerDataNew : NetworkBehaviour
 
         //sccontroll = GameObject.FindWithTag("scoreboard").GetComponent<NetworkMatch>().matchId = gameObject.GetComponent<NetworkMatch>().matchId;
         //sccontroll = GameObject.
-        //canvasController = GameObject.FindWithTag("cControll").GetComponent<CanvasController>();
+        canvasController = FindObjectOfType<CanvasController>();
         timerCounter = GameObject.FindWithTag("time").GetComponent<countdownNew>();
 
         movement = GetComponent<PlayerMovement>();
@@ -62,6 +65,7 @@ public class PlayerDataNew : NetworkBehaviour
             //float randomNumber = Random.Range(0, 1000000);
             //string tempName = canvasController.temporaryLocalName;
             GameObject.Find("InGameCanvas").GetComponent<ChangeNameNew>().playerData = this;
+            scoreboardController.pldt = this;
             //CmdSendName("Player " + randomNumber);
             //CmdSendName(tempName);
             //UpdatePlayerName(PlayerName, "Player " + randomNumber);
@@ -97,7 +101,22 @@ public class PlayerDataNew : NetworkBehaviour
             {
                 //CmdShowWin();
                 //scoreboardController.UpdateTopTeamScore();
-                scoreboardController.GetComponent<Animator>().Play("end");
+                
+                //scoreboardController.GetComponent<Animator>().Play("winCondition");
+                if (scoreboardController.isRedWin == true)
+                {
+                    //LeanTween.scale(scoreboardController.redWinObj, new Vector3(1f, 1f, 1f), 0.2f).setEaseInSine();
+                }else if (scoreboardController.isBlueWin == true)
+                {
+                    //LeanTween.scale(scoreboardController.blueWinObj, new Vector3(1f, 1f, 1f), 0.2f).setEaseInSine();
+                }
+
+                if (isEnded == false)
+                {
+                    CmdShowWin();
+                    isEnded = true;
+                }
+                //scoreboardController.deactivateScorePanel();
             }
             //scoreboardController.isEnd = true;
         }
@@ -160,7 +179,7 @@ public class PlayerDataNew : NetworkBehaviour
         if (PlayerTeamName == "Red")
         {
             //ball.red--;
-            random.remred();
+            random.remred(); //must be activate
             if(random.maxRed !<= 1)
             {
                 random.maxRed--;
@@ -169,8 +188,8 @@ public class PlayerDataNew : NetworkBehaviour
         else if (PlayerTeamName == "Blue")
         {
             //ball.blue--;
-            random.remblue();
-            if(random.maxBlue !<= 1)
+            random.remblue(); //must be activate
+            if (random.maxBlue !<= 1)
             {
                 random.maxBlue--;
             }
@@ -205,7 +224,7 @@ public class PlayerDataNew : NetworkBehaviour
             scoreboardController.UpdateTeamScore(PlayerTeamName, 1);
             scoreboardController.UpdateScore(PlayerName, 1);
         }
-        scoreboardController.UpdateTopTeamScore();
+        //scoreboardController.UpdateTopTeamScore(); hrs aktif
 
         /*if (PlayerTeamName == "Red")
         {
@@ -263,6 +282,66 @@ public class PlayerDataNew : NetworkBehaviour
         //scoreboard.realUpdate();
 
     }
+
+    [Client]
+    public void RequestExitGame()
+    {
+        //exitButton.gameObject.SetActive(false);
+        //playAgainButton.gameObject.SetActive(false);
+        CmdRequestExitGame();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdRequestExitGame(NetworkConnectionToClient sender = null)
+    {
+        StartCoroutine(ServerEndMatch(sender, false));
+    }
+
+    [ServerCallback]
+    public void OnPlayerDisconnected(NetworkConnectionToClient conn)
+    {
+        // Check that the disconnecting client is a player in this match
+        if (this == conn.identity)
+            StartCoroutine(ServerEndMatch(conn, true));
+    }
+
+    [ServerCallback]
+    public IEnumerator ServerEndMatch(NetworkConnectionToClient conn, bool disconnected)
+    {
+        RpcExitGame();
+
+        canvasController.OnPlayerDisconnected -= OnPlayerDisconnected;
+
+        // Wait for the ClientRpc to get out ahead of object destruction
+        yield return new WaitForSeconds(0.1f);
+
+        // Mirror will clean up the disconnecting client so we only need to clean up the other remaining client.
+        // If both players are just returning to the Lobby, we need to remove both connection Players
+
+        if (!disconnected)
+        {
+            NetworkServer.RemovePlayerForConnection(this.connectionToClient, true);
+            //CanvasController.waitingConnections.Add(this.connectionToClient);
+
+        }
+        
+
+        // Skip a frame to allow the Removal(s) to complete
+        yield return null;
+
+        // Send latest match list
+        //canvasController.SendMatchList2();
+
+        NetworkServer.Destroy(gameObject);
+    }
+
+
+    [ClientRpc]
+    public void RpcExitGame()
+    {
+        canvasController.OnMatchEnded();
+    }
+
     public void UpdatePlayerName(string oldName, string newName)
     {
         Debug.Log("Player changed name from " + oldName + " to " + newName);
