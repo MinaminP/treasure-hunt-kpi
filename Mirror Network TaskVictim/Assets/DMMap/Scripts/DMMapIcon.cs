@@ -166,7 +166,7 @@ namespace DMM {
                 if (mapPosition.magnitude > threshold) {
                     iconGO.GetComponent<Image>().sprite = directionIcon;
                     mapPosition = Vector3.ClampMagnitude(mapPosition, threshold);
-                    this.iconGO.transform.localPosition = mapPosition;
+                    this.iconGO.transform.localPosition = mapPosition/2f;
                     float angle = Mathf.Atan2(mapPosition.y, mapPosition.x) + (Mathf.Deg2Rad*rotationOffset);
                     iconGO.GetComponent<Image>().transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg*angle, Vector3.forward);
                 } else {

@@ -46,7 +46,7 @@ public class countdownNew : NetworkBehaviour
                 }
             }else if (isCounting == false)
             {
-
+                gameObject.SetActive(false);
             }
         }
         

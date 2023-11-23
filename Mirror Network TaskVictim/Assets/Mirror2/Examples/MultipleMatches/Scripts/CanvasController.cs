@@ -751,6 +751,16 @@ namespace Mirror.Examples.MultipleMatch
                     waiter.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.List, matchInfos = openMatches.Values.ToArray() });
         }
 
+        [ServerCallback]
+        public void SendMatchList2(NetworkConnectionToClient conn = null)
+        {
+            if (conn != null)
+                conn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.List, matchInfos = openMatches.Values.ToArray() });
+            else
+                foreach (NetworkConnectionToClient waiter in waitingConnections)
+                    waiter.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.List, matchInfos = openMatches.Values.ToArray() });
+        }
+
         #endregion
 
         #region Client Match Message Handler
