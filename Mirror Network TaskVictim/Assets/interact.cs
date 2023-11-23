@@ -141,6 +141,7 @@ public class interact : NetworkBehaviour
     [ClientRpc]
     public void SetNotifImage()
     {
+        random.notifText.gameObject.SetActive(false);
         StartCoroutine(ShowNotifImage());
     }
 
@@ -190,7 +191,7 @@ public class interact : NetworkBehaviour
                         if (Input.GetKeyUp(KeyCode.E))
                         {
                             hancurkan();
-                            random.notifText.gameObject.SetActive(false);
+                            //random.notifText.gameObject.SetActive(false);
                             canvas.changeScoreButton("Red");
                             scoreboardController.UpdateTeamScore("Red", 1);
                             isBlueFirst = false;
@@ -209,7 +210,7 @@ public class interact : NetworkBehaviour
                         if (Input.GetKeyUp(KeyCode.E))
                         {
                             hancurkan();
-                            random.notifText.gameObject.SetActive(false);
+                            //random.notifText.gameObject.SetActive(false);
                             canvas.changeScoreButton("Blue");
                             scoreboardController.UpdateTeamScore("Blue", 1);
                             isBlueFirst = false;

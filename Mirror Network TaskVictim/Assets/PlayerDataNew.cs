@@ -288,10 +288,12 @@ public class PlayerDataNew : NetworkBehaviour
     {
         //exitButton.gameObject.SetActive(false);
         //playAgainButton.gameObject.SetActive(false);
+        canvasController.ShowLobbyManual();
         CmdRequestExitGame();
+        
     }
 
-    [Command(requiresAuthority = false)]
+    [Command]
     public void CmdRequestExitGame(NetworkConnectionToClient sender = null)
     {
         StartCoroutine(ServerEndMatch(sender, false));
@@ -309,7 +311,6 @@ public class PlayerDataNew : NetworkBehaviour
     public IEnumerator ServerEndMatch(NetworkConnectionToClient conn, bool disconnected)
     {
         RpcExitGame();
-
         canvasController.OnPlayerDisconnected -= OnPlayerDisconnected;
 
         // Wait for the ClientRpc to get out ahead of object destruction
@@ -339,7 +340,7 @@ public class PlayerDataNew : NetworkBehaviour
     [ClientRpc]
     public void RpcExitGame()
     {
-        canvasController.OnMatchEnded();
+        canvasController.OnMatchEnded2();
     }
 
     public void UpdatePlayerName(string oldName, string newName)
