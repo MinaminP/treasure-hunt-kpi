@@ -67,7 +67,6 @@ public class PlayerCollision : NetworkBehaviour
             {
                 if (interact.isActive)
                 {
-                    random.notifText.gameObject.SetActive(true);
                     if (playerData.PlayerTeamName == "Red")
                     {
                         if (interact.isRedFirst)

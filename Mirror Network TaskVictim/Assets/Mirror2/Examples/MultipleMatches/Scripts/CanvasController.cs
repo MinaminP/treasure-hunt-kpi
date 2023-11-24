@@ -496,17 +496,11 @@ namespace Mirror.Examples.MultipleMatch
                 case ServerMatchOperation.SelectTeamBlue:
                     {
                         OnServerPlayerSwitchBlue(conn, msg.matchId);
-                        //blueCount++;
-                        //roomGUI.addBlues(blueCount);
-                        //roomGUI.addReds(redCount);
                         break;
                     }
                 case ServerMatchOperation.SelectTeamRed:
                     {
                         OnServerPlayerSwitchRed(conn, msg.matchId);
-                        //redCount++;
-                        //roomGUI.addReds(redCount);
-                        //roomGUI.addBlues(blueCount);
                         break;
                     }
                 case ServerMatchOperation.SetName:
@@ -912,7 +906,7 @@ namespace Mirror.Examples.MultipleMatch
                 {
                     Toggle toggle = child.gameObject.GetComponent<Toggle>();
                     toggle.isOn = true;
-                }
+                }S
         }
 
         [ClientCallback]

@@ -264,7 +264,6 @@ public class interact : NetworkBehaviour
             {
                 isRedFirst = false;
             }
-
         }
         else if (red < random.maxRed)
         {
