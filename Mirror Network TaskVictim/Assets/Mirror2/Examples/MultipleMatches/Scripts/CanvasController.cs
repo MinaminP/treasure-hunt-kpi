@@ -906,7 +906,7 @@ namespace Mirror.Examples.MultipleMatch
                 {
                     Toggle toggle = child.gameObject.GetComponent<Toggle>();
                     toggle.isOn = true;
-                }S
+                }
         }
 
         [ClientCallback]
