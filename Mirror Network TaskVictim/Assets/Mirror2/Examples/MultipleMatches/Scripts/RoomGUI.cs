@@ -31,6 +31,11 @@ namespace Mirror.Examples.MultipleMatch
         public bool isAlreadyTeamed = false;
         public Button readyButton;
 
+        void Start()
+        {
+            changetimer(300f);
+        }
+
         public void changetimer(float timer)
         {
             LocalPlayerData.gametimer = timer;
@@ -177,13 +182,11 @@ namespace Mirror.Examples.MultipleMatch
             LocalPlayerData.playerTeam = team;
             if(team == "Red")
             {
-               
                 redTeamButton.interactable = false;
                 blueTeamButton.interactable = true;
             }
             if (team == "Blue")
             {
-                
                 blueTeamButton.interactable = false;
                 redTeamButton.interactable= true;
             }

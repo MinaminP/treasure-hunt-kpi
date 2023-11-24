@@ -27,6 +27,7 @@ namespace Mirror.Examples.MultipleMatch
         public void OnToggleClicked()
         {
             canvasController.SelectMatch(toggleButton.isOn ? matchId : Guid.Empty);
+            matchName.color = toggleButton.isOn ? new Color(0f, 1f, 0f) : new Color(1f, 1f, 1f);
             //image.color = toggleButton.isOn ? new Color(0f, 1f, 0f, 0.5f) : new Color(1f, 1f, 1f, 0.2f);
         }
 
