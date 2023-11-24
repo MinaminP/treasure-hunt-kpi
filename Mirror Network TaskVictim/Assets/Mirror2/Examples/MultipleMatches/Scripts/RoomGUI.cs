@@ -38,6 +38,11 @@ namespace Mirror.Examples.MultipleMatch
             changetimer(300f);
         }
 
+        void Start()
+        {
+            changetimer(300f);
+        }
+
         public void changetimer(float timer)
         {
             LocalPlayerData.gametimer = timer;
@@ -188,13 +193,11 @@ namespace Mirror.Examples.MultipleMatch
             LocalPlayerData.playerTeam = team;
             if(team == "Red")
             {
-               
                 redTeamButton.interactable = false;
                 blueTeamButton.interactable = true;
             }
             if (team == "Blue")
             {
-                
                 blueTeamButton.interactable = false;
                 redTeamButton.interactable= true;
             }
