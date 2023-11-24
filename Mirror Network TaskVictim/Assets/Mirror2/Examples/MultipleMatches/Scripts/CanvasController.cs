@@ -282,6 +282,17 @@ namespace Mirror.Examples.MultipleMatch
         }
 
         [ClientCallback]
+        public void RequestTimeDefine()
+        {
+
+            if (localPlayerMatch == Guid.Empty && localJoinedMatch == Guid.Empty) return;
+
+            Guid matchId = localPlayerMatch == Guid.Empty ? localJoinedMatch : localPlayerMatch;
+
+            NetworkClient.Send(new ServerMatchMessage { serverMatchOperation = ServerMatchOperation.SetTimeDefine, matchId = matchId });
+        }
+
+        [ClientCallback]
         public void RequestSetName()
         {
             if (localPlayerMatch == Guid.Empty && localJoinedMatch == Guid.Empty) return;
@@ -497,6 +508,11 @@ namespace Mirror.Examples.MultipleMatch
                         OnServerSetName(conn, msg.matchId);
                         break;
                     }
+                case ServerMatchOperation.SetTimeDefine:
+                    {
+                        OnServerPlayerSetTime(conn, msg.matchId);
+                        break;
+                    }
             }
         }
 
@@ -548,6 +564,22 @@ namespace Mirror.Examples.MultipleMatch
 
             foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
                 playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateCountRed, playerInfos = infos });
+        }
+
+        [ServerCallback]
+        void OnServerPlayerSetTime(NetworkConnectionToClient conn, Guid matchId)
+        {
+            PlayerInfo playerInfo = playerInfos[conn];
+            //playerInfo.playerTeam = "Blue";
+            playerInfos[conn] = playerInfo;
+            //roomGUI.addBlues(blueCount);
+
+            HashSet<NetworkConnectionToClient> connections = matchConnections[matchId];
+            PlayerInfo[] infos = connections.Select(playerConn => playerInfos[playerConn]).ToArray();
+
+            foreach (NetworkConnectionToClient playerConn in matchConnections[matchId])
+                playerConn.Send(new ClientMatchMessage { clientMatchOperation = ClientMatchOperation.UpdateRoom, playerInfos = infos });
+
         }
 
         [ServerCallback]

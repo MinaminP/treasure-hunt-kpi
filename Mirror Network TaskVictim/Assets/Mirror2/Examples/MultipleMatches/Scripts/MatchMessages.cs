@@ -68,7 +68,8 @@ namespace Mirror.Examples.MultipleMatch
         Ready,
         SelectTeamBlue,
         SelectTeamRed,
-        SetName
+        SetName,
+        SetTimeDefine
     }
 
     /// <summary>

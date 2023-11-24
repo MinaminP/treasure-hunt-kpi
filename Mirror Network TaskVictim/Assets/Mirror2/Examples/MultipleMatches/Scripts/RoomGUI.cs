@@ -30,6 +30,13 @@ namespace Mirror.Examples.MultipleMatch
 
         public bool isAlreadyTeamed = false;
         public Button readyButton;
+        public bool isAlreadyTimed = false;
+
+
+        private void Start()
+        {
+            changetimer(300f);
+        }
 
         void Start()
         {
@@ -39,6 +46,8 @@ namespace Mirror.Examples.MultipleMatch
         public void changetimer(float timer)
         {
             LocalPlayerData.gametimer = timer;
+            isAlreadyTimed = true;
+            
         }
 
         [ClientCallback]
@@ -88,7 +97,7 @@ namespace Mirror.Examples.MultipleMatch
                         }
                     }
                 }*/
-                
+
                 /*if (playerRed < playerInfos.Length)
                 {
                     if (LocalPlayerData.playerTeam == "Red")
@@ -112,7 +121,8 @@ namespace Mirror.Examples.MultipleMatch
                         }
                     }
                 }*/
-
+                
+                
 
 
                 if (!playerInfo.ready || playerInfo.playerTeam == " ")
@@ -124,6 +134,7 @@ namespace Mirror.Examples.MultipleMatch
             }
 
             readyButton.interactable = isAlreadyTeamed;
+            
 
             startButton.interactable = everyoneReady && owner && (playerInfos.Length > 1) && 
                 (playerRed == playerInfos.Length / 2 || playerRed == playerInfos.Length / 2 + 1) && (playerBlue == playerInfos.Length / 2 || playerBlue == playerInfos.Length / 2 + 1);
