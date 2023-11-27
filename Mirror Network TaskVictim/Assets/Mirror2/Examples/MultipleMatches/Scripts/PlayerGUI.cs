@@ -9,7 +9,8 @@ namespace Mirror.Examples.MultipleMatch
         public Text playerName;
         public TextMeshProUGUI playerNameTMP;
         public GameObject playerReadyIcon;
-
+        public GameObject RedFlag;
+        public GameObject BlueFlag;
         //public loginController loginController;
 
         //[SyncVar(hook = nameof(SetPlayerName))]public string PlayerUserName;
@@ -37,6 +38,23 @@ namespace Mirror.Examples.MultipleMatch
             } else
             {
                 playerReadyIcon.SetActive(false);
+            }
+            //CmdSetPlayerName(info.playerName);
+            //loginController = GameObject.Find("Canvas (2)").GetComponent<loginController>();
+            //playerName.text = loginController.PlayerUserName;
+            if (info.playerTeam == "Red")
+            {
+                RedFlag.SetActive(true);
+                BlueFlag.SetActive(false);
+            }else if (info.playerTeam == "Blue")
+            {
+                BlueFlag.SetActive(true);
+                RedFlag.SetActive(false);
+            }
+            else
+            {
+                BlueFlag.SetActive(false);
+                RedFlag.SetActive(false);
             }
         }
 

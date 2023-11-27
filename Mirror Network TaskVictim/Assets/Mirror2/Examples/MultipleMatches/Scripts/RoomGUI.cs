@@ -41,8 +41,6 @@ namespace Mirror.Examples.MultipleMatch
         public void changetimer(float timer)
         {
             LocalPlayerData.gametimer = timer;
-            isAlreadyTimed = true;
-            
         }
 
         [ClientCallback]
