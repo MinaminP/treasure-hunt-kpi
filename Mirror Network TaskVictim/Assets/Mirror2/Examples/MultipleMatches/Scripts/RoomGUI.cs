@@ -38,10 +38,6 @@ namespace Mirror.Examples.MultipleMatch
             changetimer(300f);
         }
 
-        void Start()
-        {
-            changetimer(300f);
-        }
 
         public void changetimer(float timer)
         {
