@@ -353,7 +353,7 @@ public class ScoreboardController : NetworkBehaviour
     public void exitButton()
     {
         //playerData.CmdSendName(nameField.text);
-        canvasController.ShowLobbyManual();
+        //canvasController.ShowLobbyManual();
         pldt.RequestExitGame();
     }
 

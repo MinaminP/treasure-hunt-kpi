@@ -286,9 +286,11 @@ public class PlayerDataNew : NetworkBehaviour
     [Client]
     public void RequestExitGame()
     {
+        LocalPlayerData.playerTeam = " ";
         //exitButton.gameObject.SetActive(false);
         //playAgainButton.gameObject.SetActive(false);
         canvasController.ShowLobbyManual();
+        DMMap.instance.LoadConfig(2);
         CmdRequestExitGame();
         
     }

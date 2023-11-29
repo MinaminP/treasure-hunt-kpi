@@ -38,6 +38,14 @@ namespace Mirror.Examples.MultipleMatch
             changetimer(300f);
         }
 
+        private void OnEnable()
+        {
+            isAlreadyTeamed = false;
+            isAlreadyTimed = false;
+            playerBlue = 0;
+            playerRed = 0;
+        }
+
         public void changetimer(float timer)
         {
             LocalPlayerData.gametimer = timer;
