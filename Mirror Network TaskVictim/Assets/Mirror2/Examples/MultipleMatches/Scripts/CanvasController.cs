@@ -148,7 +148,7 @@ namespace Mirror.Examples.MultipleMatch
             openMatches.Clear();
             matchConnections.Clear();
             waitingConnections.Clear();
-            background.SetActive(true);
+            //background.SetActive(true);
             localPlayerMatch = Guid.Empty;
             localJoinedMatch = Guid.Empty;
         }
@@ -318,6 +318,7 @@ namespace Mirror.Examples.MultipleMatch
         {
             localPlayerMatch = Guid.Empty;
             localJoinedMatch = Guid.Empty;
+            InitializeData();
             //ShowLobbyView();
         }
 
