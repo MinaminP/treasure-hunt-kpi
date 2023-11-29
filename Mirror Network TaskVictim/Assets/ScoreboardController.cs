@@ -253,8 +253,6 @@ public class ScoreboardController : NetworkBehaviour
         public string tim;
     }
 
-
-
     public void addPlayer(string playerName, string tim)
     {
         // Cek apakah pemain sudah ada dalam daftar
