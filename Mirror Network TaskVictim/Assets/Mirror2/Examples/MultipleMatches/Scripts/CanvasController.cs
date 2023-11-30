@@ -82,6 +82,9 @@ namespace Mirror.Examples.MultipleMatch
 
         MultipleMatchAdditiveNetwork matchAdditiveNetwork;
 
+        public AudioSource lobbyBGM;
+        public AudioSource lobbyBGM2;
+
         //public static CanvasController instance;
 
         //public GameObject canvasInGame;
@@ -858,6 +861,8 @@ namespace Mirror.Examples.MultipleMatch
                         roomView.SetActive(false);
                         background.SetActive(false);
                         canvasInGame.SetActive(true);
+                        lobbyBGM.Stop();
+                        lobbyBGM2.Stop();
                         break;
                     }
                 case ClientMatchOperation.UpdateCountBlue:
@@ -902,6 +907,7 @@ namespace Mirror.Examples.MultipleMatch
             roomView.SetActive(false);
             background.SetActive(true);
             canvasInGame.SetActive(false);
+            lobbyBGM.Play();
             foreach (Transform child in matchList.transform)
                 if (child.gameObject.GetComponent<MatchGUI>().GetMatchId() == selectedMatch)
                 {

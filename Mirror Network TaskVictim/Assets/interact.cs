@@ -38,6 +38,8 @@ public class interact : NetworkBehaviour
     public ScoreboardController scoreboardController;
     public DMMapIcon DMI;
 
+    AudioSource playerEnterAudio;
+
     Collider colliderTreasure;
     // Start is called before the first frame update
     public void Start()
@@ -46,6 +48,8 @@ public class interact : NetworkBehaviour
         DMI = GetComponent<DMMapIcon>();
         canvas = GameObject.FindWithTag("canvas").GetComponent<ChangeNameNew>();
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
+
+        playerEnterAudio = GetComponent<AudioSource>();
         isInArea = false;
 
         colliderTreasure = GetComponent<Collider>();
@@ -183,6 +187,7 @@ public class interact : NetworkBehaviour
         {
             if (isActive)
             {
+                playerEnterAudio.Play();
                 if (other.GetComponent<PlayerDataNew>().PlayerTeamName == "Red")
                 {
                     if (isRedFirst)

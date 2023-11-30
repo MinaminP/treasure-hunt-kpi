@@ -8,6 +8,7 @@ public class ChangeNameNew : MonoBehaviour
     public InputField nameField;
     public PlayerDataNew playerData;
     public GameObject instructionPanel;
+    public AudioSource popupAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,7 @@ public class ChangeNameNew : MonoBehaviour
     private void OnEnable()
     {
         instructionPanel.SetActive(true);
+        popupAudio.Play();
     }
 
     public void changeNameButton()
