@@ -174,8 +174,6 @@ namespace Mirror.Examples.MultipleMatch
         [ClientCallback]
         public void addBlues()
         {
-            
-            
             if (!justJoined)
             {
                 playerRed--;
@@ -183,7 +181,6 @@ namespace Mirror.Examples.MultipleMatch
                 {
                     playerRed = 0;
                 }
-                
             }
             playerBlue++;
             justJoined = false;
