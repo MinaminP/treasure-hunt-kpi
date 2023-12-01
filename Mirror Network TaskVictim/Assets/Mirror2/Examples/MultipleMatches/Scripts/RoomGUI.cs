@@ -44,6 +44,8 @@ namespace Mirror.Examples.MultipleMatch
             isAlreadyTimed = false;
             playerBlue = 0;
             playerRed = 0;
+            redTeamButton.interactable = true;
+            blueTeamButton.interactable = true;
         }
 
         public void changetimer(float timer)

@@ -99,6 +99,7 @@ public class ScoreboardController : NetworkBehaviour
         //gameObject.name = ObjectName;
     }
 
+    
     public void UpdateTeamScore(string teamName, int scoreChange)
     {
         PlayerTeam playerTeam = playerTeams.Find(x => x.teamName == teamName);
@@ -178,6 +179,7 @@ public class ScoreboardController : NetworkBehaviour
                 isRedWin = true;
                 isBlueWin = false;
                 LeanTween.scale(redWinObj, new Vector3(1f, 1f, 1f), 0.2f).setEaseInSine();
+                gameObject.GetComponent<AudioSource>().Play();
             }
             else if (score.teamName == "Blue")
             {
@@ -186,6 +188,7 @@ public class ScoreboardController : NetworkBehaviour
                 isBlueWin = true;
                 isRedWin = false;
                 LeanTween.scale(blueWinObj, new Vector3(1f, 1f, 1f), 0.2f).setEaseInSine();
+                gameObject.GetComponent<AudioSource>().Play();
             }
         
 

@@ -38,6 +38,8 @@ public class interact : NetworkBehaviour
     public ScoreboardController scoreboardController;
     public DMMapIcon DMI;
 
+    public AudioSource captureSFX;
+
     Collider colliderTreasure;
     // Start is called before the first frame update
     public void Start()
@@ -131,6 +133,7 @@ public class interact : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void hancurkan()
     {
+        captureSFX.Play();
         //score += 1f;
         //NetworkServer.Destroy(gameObject);
         isActive = false;
@@ -193,7 +196,7 @@ public class interact : NetworkBehaviour
                             hancurkan();
                             //random.notifText.gameObject.SetActive(false);
                             canvas.changeScoreButton("Red");
-                            scoreboardController.UpdateTeamScore("Red", 1);
+                            //scoreboardController.UpdateTeamScore("Red", 1);
                             isBlueFirst = false;
                             isRedFirst = false;
                             //random.notifText.text = "Gather all your team to collect the treasure";
@@ -212,7 +215,7 @@ public class interact : NetworkBehaviour
                             hancurkan();
                             //random.notifText.gameObject.SetActive(false);
                             canvas.changeScoreButton("Blue");
-                            scoreboardController.UpdateTeamScore("Blue", 1);
+                            //scoreboardController.UpdateTeamScore("Blue", 1);
                             isBlueFirst = false;
                             isRedFirst = false;
                             //random.notifText.text = "Gather all your team to collect the treasure";

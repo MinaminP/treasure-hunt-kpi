@@ -36,6 +36,7 @@ public class PlayerDataNew : NetworkBehaviour
     public DMMapIcon dmii;
     public GameObject mapCamera;
     public GameObject mapFrame;
+    public AudioSource bgm;
 
     public bool canInteract = false;
     public bool isEnded = false;
@@ -56,6 +57,7 @@ public class PlayerDataNew : NetworkBehaviour
         random = GameObject.FindWithTag("random").GetComponent<RandomSpawnTreasure>();
         timerCounter.hasStarted = true;
         mapCamera = GameObject.Find("DMMapCamera");
+        bgm = GameObject.Find("GamePlayBGM").GetComponent<AudioSource>();
         //mapFrame = GameObject.Find("mapFrame");
         //random.RandomSpawn();
         //startwaktu();
@@ -79,6 +81,8 @@ public class PlayerDataNew : NetworkBehaviour
             //CmdSendTeamName("Red");
             CmdSendInitializeScore();
             DMMap.instance.LoadConfig(0);
+
+            bgm.Play();
             //mapFrame.GetComponent<Image>().enabled = true;
             //mapFrame.SetActive(false);
         }
@@ -114,6 +118,7 @@ public class PlayerDataNew : NetworkBehaviour
                 if (isEnded == false)
                 {
                     CmdShowWin();
+                    bgm.Stop();
                     isEnded = true;
                 }
                 //scoreboardController.deactivateScorePanel();
