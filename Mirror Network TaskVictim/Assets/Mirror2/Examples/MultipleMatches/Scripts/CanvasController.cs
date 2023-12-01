@@ -83,7 +83,6 @@ namespace Mirror.Examples.MultipleMatch
         MultipleMatchAdditiveNetwork matchAdditiveNetwork;
 
         public AudioSource lobbyBGM;
-        public AudioSource lobbyBGM2;
 
         //public static CanvasController instance;
 
@@ -862,7 +861,6 @@ namespace Mirror.Examples.MultipleMatch
                         background.SetActive(false);
                         canvasInGame.SetActive(true);
                         lobbyBGM.Stop();
-                        lobbyBGM2.Stop();
                         break;
                     }
                 case ClientMatchOperation.UpdateCountBlue:

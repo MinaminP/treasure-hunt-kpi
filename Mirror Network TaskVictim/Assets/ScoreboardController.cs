@@ -28,6 +28,8 @@ public class ScoreboardController : NetworkBehaviour
     public bool isRedWin = false;
     public bool isBlueWin = false;
 
+    public AudioSource buttonSfx;
+
     public GameObject exitNotif;
     //[SyncVar(hook = nameof(OnObjectNameChanged))]
     //public string ObjectName = gameObject.GetComponent<NetworkMatch>().matchId.ToString();
@@ -52,6 +54,7 @@ public class ScoreboardController : NetworkBehaviour
     private void Start()
     {
         gameObject.name = "board" + gameObject.GetComponent<NetworkMatch>().matchId.ToString();
+        buttonSfx = GameObject.Find("ButtonSound").GetComponent<AudioSource>();
         //GameObject.Find("player" + gameObject.GetComponent<NetworkMatch>().matchId.ToString()).GetComponent<PlayerDataNew>();
         //GameObject.FindGameObjectsWithTag("Player");
         PlayerDataNew[] playerss = FindObjectsOfType<PlayerDataNew>();
@@ -361,12 +364,18 @@ public class ScoreboardController : NetworkBehaviour
     public void preExit()
     {
         exitNotif.SetActive(true);
+        PlayButtonSFX();
     }
 
     public void deactivateScorePanel()
     {
         redPanel.SetActive(false);
         bluePanel.SetActive(false);
+    }
+
+    public void PlayButtonSFX()
+    {
+        buttonSfx.Play();
     }
 
     public void OnEndChanged(bool oldVal, bool newVal)
